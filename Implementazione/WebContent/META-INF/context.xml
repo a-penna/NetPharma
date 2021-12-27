@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context> 
+  <Resource name="jdbc/NetPharmaDB"
+  	auth="Container"
+  	driverClassName="com.mysql.cj.jdbc.Driver"
+  	type="javax.sql.DataSource"
+  	username="admin"
+  	password="admin"
+  	url="jdbc:mysql://localhost:3306/NETPHARMA?useUnicode=true&amp;
+  		useJDBCCompliantTimezoneShift=true&amp;
+  		useLegacyDatetimeCode=false&amp;autoReconnect=true&amp;
+  		serverTimezone=UTC&amp;useSSL=false&amp;
+  		allowPublicKeyRetrieval=true"/>
+</Context>
