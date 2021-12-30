@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>NetPharma</display-name>
   <welcome-file-list>
-    <welcome-file>home.jsp</welcome-file>
+    <welcome-file>homepage.jsp</welcome-file>
   </welcome-file-list>
   <resource-ref>
     <description>
@@ -32,4 +32,32 @@
     <filter-name>httpHeaderSecurity</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+ <filter> 
+    <filter-name>ClienteFilter</filter-name>
+    <filter-class>filter.ClienteFilter</filter-class>
+ </filter>
+ <filter-mapping> 
+    <filter-name>ClienteFilter</filter-name>
+    <url-pattern>/cliente/*</url-pattern>
+ </filter-mapping> 
+
+ <filter>
+    <filter-name>GestoreOrdiniFilter</filter-name>
+    <filter-class>filter.GestoreOrdiniFilter</filter-class>
+ </filter>
+ <filter-mapping>
+    <filter-name>GestoreOrdiniFilter</filter-name>
+    <url-pattern>/gestoreOrdini/*</url-pattern>
+ </filter-mapping> 
+ 
+  <filter>
+    <filter-name>GestoreCatalogoFilter</filter-name>
+    <filter-class>filter.GestoreCatalogoFilter</filter-class>
+ </filter>
+ <filter-mapping>
+    <filter-name>GestoreCatalogoFilter</filter-name>
+    <url-pattern>/gestoreCatalogo/*</url-pattern>
+ </filter-mapping> 
+  
 </web-app>

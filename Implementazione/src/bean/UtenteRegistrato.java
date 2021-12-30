@@ -89,4 +89,10 @@ public class UtenteRegistrato {
 		this.ruolo = ruolo;
 	}
 
+	@Override
+	public String toString() {
+		return "UtenteRegistrato [genere=" + genere + ", nome=" + nome + ", cognome=" + cognome + ", username="
+				+ username + ", email=" + email + ", password=" + password + ", nascita=" + nascita + ", ruolo=" + ruolo
+				+ "]";
+	} 
 }
