@@ -2,11 +2,10 @@
     pageEncoding="ISO-8859-1"%>
     
 <%	
-// boolean isGestoreOrdini = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreOrdini")!= null;
-// if (isGestoreOrdini != true) {
-	// response.sendRedirect(""); //Aggiungere redirect a login
-	
-// }
+boolean loggedIn = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null;
+
+if(loggedIn) {
+
 %>
 
 <!DOCTYPE html>
@@ -20,10 +19,15 @@
 </head>
 
 <body>
- <!-- Inserire controllo di accesso -->
+
 <a href="<%=request.getContextPath()%>/gestoreOrdini/ListaOrdini.jsp">Lista Ordini</a>
 
 
 
 </body>
+<% }
+else {
+	response.sendRedirect("/NetPharma/login.jsp");
+}
+%>
 </html>
