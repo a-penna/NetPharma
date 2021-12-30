@@ -20,11 +20,11 @@ public class RuoliDAO {
 	}
 	
 	private Ruoli.Ruolo enumRole(String role) {
-		if (role == "CL") 
+		if (role.equals("CL")) 
 			return Ruoli.Ruolo.CL;
-		else if (role == "GO") 
+		else if (role.equals("GO")) 
 			return Ruoli.Ruolo.GO;
-		if (role == "GC") 
+		else if (role.equals("GC")) 
 			return Ruoli.Ruolo.GC;
 		return null;
 	}
@@ -47,6 +47,7 @@ public class RuoliDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
+				System.out.println(rs.getString("ruolo"));
 				bean.addRuolo(enumRole(rs.getString("ruolo")));
 			}
 			
