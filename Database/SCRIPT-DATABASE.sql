@@ -117,3 +117,8 @@ CREATE TABLE CARRELLO
 insert into account(username, password) values("Mrossi", MD5("pw"));
 insert into ruoli(account, ruolo) values(1, "CL");
 insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("M","Mario", "Rossi","m@rossi.com","1999-07-25",1);
+insert into dati_spedizione(ID,NOME_RICEVENTE,COGNOME_RICEVENTE,EMAIL,CELLULARE,NCIVICO,VIA,CITY,PAESE,PROVINCIA,CAP,CLIENTE) values (12,"Mario","Rossi","m@rossi.com",333333,404,"Via Roma","Sant'Antonio Abate","Sant'Antonio Abate","NA","80057","m@rossi.com");
+insert into ordine(DATA_ORDINE,DATA_ARRIVO,ID,PREZZO,STATO,CLIENTE,DATI_SPEDIZIONE) values ('2022-01-01','2022-01-06',1,20,"OK","m@rossi.com",12);
+insert into account(username,password) values ("SVerdi",MD5("pw1"));
+insert into ruoli(account, ruolo) values(2,"GO");
+insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("F","Sara","Verdi","s@verdi.com","1989-01-22",2);
