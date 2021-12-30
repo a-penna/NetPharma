@@ -70,7 +70,7 @@ public class LoginControl extends HttpServlet {
 					RuoliDAO ruoliModel = new RuoliDAO(ds);
 					Ruoli r = ruoliModel.doRetrieveByAccount(bean.getId());
 					Collection<Ruoli.Ruolo> roles = r.getRuoli();
-					System.out.println(r);
+				
 					if (roles.contains(Ruoli.Ruolo.CL)) {
 						request.getSession().setAttribute("clienteRoles", "true");	
 					}

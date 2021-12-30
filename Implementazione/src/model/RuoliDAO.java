@@ -47,7 +47,6 @@ public class RuoliDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-				System.out.println(rs.getString("ruolo"));
 				bean.addRuolo(enumRole(rs.getString("ruolo")));
 			}
 			
