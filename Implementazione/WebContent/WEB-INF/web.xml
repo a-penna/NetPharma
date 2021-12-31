@@ -60,4 +60,8 @@
     <url-pattern>/gestoreCatalogo/*</url-pattern>
  </filter-mapping> 
   
+   <error-page>
+	<location>/error/genericError.jsp</location>
+  </error-page>
+  
 </web-app>

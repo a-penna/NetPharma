@@ -7,7 +7,7 @@
     Collection<?> ordini = (Collection<?>) request.getAttribute("ordini");
 
     if (ordini == null) {
-        response.sendRedirect(response.encodeRedirectURL("/ListaOrdini"));
+        response.sendRedirect(response.encodeRedirectURL("/NetPharma/ListaOrdini"));
         return;
     }
 %>    
@@ -23,18 +23,28 @@
 <title>Lista Ordini</title>
 </head>
 <body>
-
+<table>
+<tbody>
+<tr>
+<th scope="row">Cliente</th>
+<th scope="row">Prezzo</th>
+<th scope="row">Data_Ordine</th>
+</tr>
 
 <%
 Iterator<?> it = ordini.iterator();
 while(it.hasNext()) {
 	Ordine ordine = (Ordine)it.next();
 %>
-
-<p><%=ordine.getCliente()%> </p>
-<p><%=ordine.getPrezzo()%> </p>
+<tr>
+<td><%=ordine.getCliente()%> </td>
+<td><%=ordine.getPrezzo()%> </td>
+<td><%=ordine.getData_ordine() %></td>
+</tr>
 <%
 }
 %>
+</tbody>
+</table>
 </body>
 </html>
