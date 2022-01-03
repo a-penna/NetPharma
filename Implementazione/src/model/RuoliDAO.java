@@ -19,16 +19,6 @@ public class RuoliDAO {
 		this.ds = ds;
 	}
 	
-	private Ruoli.Ruolo enumRole(String role) {
-		if (role.equals("CL")) 
-			return Ruoli.Ruolo.CL;
-		else if (role.equals("GO")) 
-			return Ruoli.Ruolo.GO;
-		else if (role.equals("GC")) 
-			return Ruoli.Ruolo.GC;
-		return null;
-	}
-	
 	public Ruoli doRetrieveByAccount(int account) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -47,7 +37,7 @@ public class RuoliDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-				bean.addRuolo(enumRole(rs.getString("ruolo")));
+				bean.addRuolo(Ruoli.stringToRole(rs.getString("ruolo")));
 			}
 			
 			rs.close();

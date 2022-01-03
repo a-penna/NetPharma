@@ -59,10 +59,10 @@
 
 <body class="bg-login-admin text-black pt-3">
 	<h4>Login</h4>
-		<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Login")%>" onsubmit="event.preventDefault(); validate(this)"> 
+		<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Login")%>"> 
 			<fieldset>
 		    	<div class="form-group">
-		             <label for="username">Username&colon;</label>
+		             <label for="username">USERNAME&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
 				          <span class="input-group-text" id="inputGroupPrepend1">
@@ -83,9 +83,9 @@
 	                        <div class="valid-feedback">Corretto&excl;</div>
 	                        <div class="invalid-feedback">Username errato&excl;</div> 
 				      </div>
-			         </div>
-			         <div class="form-group">
-			         <label for="password">Password&colon;</label>
+				</div>
+			    <div class="form-group">
+			         <label for="password">PASSWORD&colon;</label>
 				      <div class="input-group">
 				        <div class="input-group-prepend">
 				          <span class="input-group-text" id="inputGroupPrepend2">
@@ -105,13 +105,12 @@
 							%>
 	                        <div class="valid-feedback">Corretto&excl;</div>
 	                        <div class="invalid-feedback">Password errata&excl;</div> 
-	                     </div>
-		             </div>
-		             <input type="submit" class="btn" value="Login"/>
+	                  </div>
+		        </div>
+		          	<input type="submit" class="btn btn-dark" value="LOGIN"/>
 		    	</fieldset>
 		    </form> 
-		</div>
-	 </div>
-  </div>
+		    <h5>Non hai un account &quest;</h5>
+		   	<a class="btn btn-dark" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
 </body>
 </html>

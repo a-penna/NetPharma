@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import bean.UtenteRegistrato;
 import utils.Utility;
 
-public class UtenteRegistratoDAO implements Model<UtenteRegistrato>{
+public class UtenteRegistratoDAO{
 
 	private DataSource ds = null;
 	
@@ -54,28 +54,35 @@ public class UtenteRegistratoDAO implements Model<UtenteRegistrato>{
 		return bean;
 	}
 
-	@Override
-	public Collection<UtenteRegistrato> doRetrieveAll(String order) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void doSave(UtenteRegistrato bean) throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean checkEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		
-	}
-
-	@Override
-	public void doUpdate(UtenteRegistrato bean) throws SQLException {
-		// TODO Auto-generated method stub
+		String selectSQL = "SELECT * FROM Utente_registrato "
+						 + "WHERE email = ?";
 		
-	}
-
-	@Override
-	public void doDelete(UtenteRegistrato bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-	
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+			
+			rs.close();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return false;
+	}	
 }

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
 
 public class Utility {
 
@@ -18,7 +19,6 @@ public class Utility {
 		 } catch(ParseException e) {}
 		 return null;
 	}
-	
 	
 	public static java.sql.Date toSqlDate(Date data) {
 		Calendar calendar = new GregorianCalendar();
@@ -94,39 +94,73 @@ public class Utility {
 		return true;
 	}
 	
-	
-	public static boolean checkNomeCompleto(String s) {
+	public static boolean checkUsername(String s) {
 		if(s.length() == 0)
 			return false;
 		
 		int i = 0;
 		for (; i < s.length(); i++) {
-			if (!Character.isLetter(s.charAt(i)) && !Character.isWhitespace(s.charAt(i)))
+			if (!Character.isLetter(s.charAt(i)) && !Character.isDigit(s.charAt(i)))
 				return false;
 		}
 		return true;
 	}
 	
 	
-	public static int checkEta(String e) {
-		if (e.equals(""))
-			return -1;
+	public static boolean checkEta(String n) {
+		if(n.length() == 0)
+			return false;
 		
-		int i = 0;
-		for (; i < e.length(); i++) {
-			if (!Character.isDigit(e.charAt(i)))
-				return -1;
-		}
-		
-		int eta = Integer.parseInt(e);
-		if (eta < 18 || eta > 130) 
-			return -1;
-		
-		return eta;
+		Date nascita = Utility.formatStringToDate(n);
+		return !nascita.after(new Date());
 	}
 	
+	public static boolean checkEmail(String e) {
+		if(e.length() == 0)
+			return false;
+		String[] email = e.split("@");
+		return email.length == 2 && !email[0].equals("");
+	}
 	
-	public static boolean checkCf(String cf) {
+	private static boolean isSpecial(String c) {
+		return c.equals("@") || c.equals("!") || c.equals("#") 
+			|| c.equals("$") || c.equals("%") || c.equals("-") 
+			|| c.equals("/") || c.equals("=") || c.equals("^") || c.equals("_") 
+			|| c.equals("{") || c.equals("}") || c.equals("~") || c.equals("+");
+	}
+	
+	public static boolean checkPassword(String pass) { //da modificare in futuro con regex
+		if(pass.length() < 8) 
+			return false;
+		
+		boolean lower = false;
+		boolean upper = false;
+		boolean num = false;
+		boolean special = false;
+		
+		for (int i = 0; i < pass.length(); i++) {
+			if (Pattern.matches("[0-9]", pass.substring(i, i+1))) {
+				if (!num)
+					num = true;
+			} else if (Pattern.matches("[a-z]", pass.substring(i, i+1))) {
+				if (!lower)
+					lower = true;
+			} else if (Pattern.matches("[A-Z]", pass.substring(i, i+1))) { 
+				if (!upper)
+					upper = true;
+			} else if (isSpecial(pass.substring(i, i+1))) {
+				if(!special) {
+					special = true;
+				}
+			} else {
+				return false;
+			}
+		}
+		
+		return lower && upper && num && special;
+	}
+	
+	public static boolean checkCf(String cf) { //modificare in futuro con regex
 		int i = 0;
 		for (; (i < cf.length()) && (i < 6); i++ ) {
 			if (Character.isDigit(cf.charAt(i)))
@@ -167,18 +201,6 @@ public class Utility {
 		//6 lettere 2 numeri 1 lettera 2 numeri 1 lettera 3 numeri 1 lettera ignore case
 
 	}
-	
-	
-	public static boolean checkCAP(String s) {
-		if (s.length() != 5) 
-			return false;
-		
-		int i = 0;
-		for (; i < s.length(); i++) {
-			if (!Character.isDigit(s.charAt(i)))
-				return false;
-		}
-		return true;
-	}
+
 }
 

@@ -6,24 +6,20 @@ public class UtenteRegistrato {
 	private String genere;
 	private String nome;
 	private String cognome;
-	private String username;
 	private String email;
-	private String password;
 	private Date nascita;
-	private String ruolo;
+	private int account;
 	
 	public UtenteRegistrato() { }
 	
-	public UtenteRegistrato(String genere, String nome, String cognome, String username, String email, String password,
-			Date nascita, String ruolo) {
+	public UtenteRegistrato(String genere, String nome, String cognome, String email,
+			Date nascita, int account) {
 		this.genere = genere;
 		this.nome = nome;
 		this.cognome = cognome;
-		this.username = username;
 		this.email = email;
-		this.password = password;
 		this.nascita = nascita;
-		this.ruolo = ruolo;
+		this.account = account;
 	}
 	
 	public String getGenere() {
@@ -50,27 +46,12 @@ public class UtenteRegistrato {
 		this.cognome = cognome;
 	}
 	
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
 	public String getEmail() {
 		return email;
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 	public Date getNascita() {
@@ -81,18 +62,18 @@ public class UtenteRegistrato {
 		this.nascita = nascita;
 	}
 	
-	public String getRuolo() {
-		return ruolo;
+	public int getAccount() {
+		return account;
 	}
 	
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
+	public void setAccount(int account) {
+		this.account = account;
 	}
 
 	@Override
 	public String toString() {
-		return "UtenteRegistrato [genere=" + genere + ", nome=" + nome + ", cognome=" + cognome + ", username="
-				+ username + ", email=" + email + ", password=" + password + ", nascita=" + nascita + ", ruolo=" + ruolo
+		return "UtenteRegistrato [genere=" + genere + ", nome=" + nome + ", cognome=" + cognome + 
+				", email=" + email + ", nascita=" + nascita + ", account=" + account
 				+ "]";
 	} 
 }
