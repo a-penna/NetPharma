@@ -13,10 +13,10 @@ public class Prodotto {
 	private int disponibilita;
 	private BigDecimal prezzo;
 	private String categoria;
-	private Byte[] foto;
+	private byte[] foto;
 	
 	public Prodotto(int id, String nome, String marchio, String produttore, String formato, String descrizione,
-			int disponibilita, BigDecimal prezzo, String categoria, Byte[] foto) {
+			int disponibilita, BigDecimal prezzo, String categoria, byte[] foto) {
 		this.id = id;
 		this.nome = nome;
 		this.marchio = marchio;
@@ -101,11 +101,11 @@ public class Prodotto {
 		this.categoria = categoria;
 	}
 
-	public Byte[] getFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(Byte[] foto) {
+	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
 
