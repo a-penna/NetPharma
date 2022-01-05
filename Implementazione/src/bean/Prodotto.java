@@ -116,4 +116,5 @@ public class Prodotto {
 				+ ", prezzo=" + prezzo + ", categoria=" + categoria + ", foto=" + Arrays.toString(foto) + "]";
 	}
 	
+	//test
 }
