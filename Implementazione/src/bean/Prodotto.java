@@ -15,6 +15,8 @@ public class Prodotto {
 	private String categoria;
 	private byte[] foto;
 	
+	public Prodotto() { }
+	
 	public Prodotto(int id, String nome, String marchio, String produttore, String formato, String descrizione,
 			int disponibilita, BigDecimal prezzo, String categoria, byte[] foto) {
 		this.id = id;

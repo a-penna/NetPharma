@@ -83,6 +83,8 @@ public class LoginControl extends HttpServlet {
 						request.getSession().setAttribute("gestoreCatalogoRoles", "true");	
 					}
 					
+					request.getSession().setAttribute("user", username);	
+					
 					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
 					return;
 				} else { 
@@ -98,7 +100,7 @@ public class LoginControl extends HttpServlet {
 					
 			} catch(SQLException e) {
 				Utility.printSQLException(e);
-				//response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 				return;
 			}
 	}	
