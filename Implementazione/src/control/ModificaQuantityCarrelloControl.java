@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bean.Carrello;
+import bean.Prodotto;
 import model.CarrelloDAO;
 import utils.Utility;
 
@@ -23,29 +25,51 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		CarrelloDAO model = new CarrelloDAO(ds);
-
-		JSONObject json = new JSONObject();
+		
 		int prodottoID = Integer.parseInt(request.getParameter("prodotto"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
+
+		JSONObject json = new JSONObject();
+		Carrello c = null;
+		boolean updated = false;
 		
-		String username = (String)request.getSession(false).getAttribute("user");  
-		try {
-			if(model.updateQuantity(username, prodottoID, quantity)) {
-				json.append("update", "true");
-				json.append("price", prezzo.multiply(new BigDecimal(quantity)).toString());
+		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!="true") { 
+			c = (Carrello) request.getSession(false).getAttribute("carrello");
+			Prodotto p = new Prodotto();
+			p.setId(prodottoID);
+			c.setItem(p, quantity);
+			updated = true;
+		} else {
+			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+			CarrelloDAO model = new CarrelloDAO(ds);
+			
+			String username = (String)request.getSession(false).getAttribute("user");  
+			try {
+				if(model.updateQuantity(username, prodottoID, quantity)) {
+					c = model.doRetrieveByUsername(username);
+					updated = true;
+				}
+			} catch (SQLException e1) {
+				Utility.printSQLException(e1);
+				return;
 			}
-			else  
-				json.append("update", "false");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		catch (SQLException e1) {
-			Utility.printSQLException(e1);
 		}
 
+		try {
+			if (updated) {
+				json.append ("update", "true");
+				json.append("price", prezzo.multiply(new BigDecimal(quantity)).toString());
+				json.append("prezzoTotale", c.getTotale());
+				json.append("nProdotti", c.getNProdotti());
+			} else {  
+				json.append("update", "false");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return;
+		}
+		
 		response.getWriter().print(json); 
 	}
 

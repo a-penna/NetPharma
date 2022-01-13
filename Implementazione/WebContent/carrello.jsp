@@ -37,7 +37,9 @@
 				})
 				.done(function(msg) {
 					if(msg.update == "true") {
-						$("#prezzo"+prodotto).html(msg.price + "&euro;");						
+						$("#prezzo"+prodotto).html(msg.price + "&euro;");
+						$("#prezzoTotale").html("<b>Totale</b> " + msg.prezzoTotale + "&euro;");
+						$("#nProdotti").html(msg.nProdotti + " Prodotti");
 					}
 				})
 				.fail(function(xhr, textStatus) {
@@ -95,15 +97,20 @@
 				<button class="btn btn-block btn-dark" onclick="remove('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')">&dash;</button>
 				<input type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')" value="<%=quantity%>" min="1">
 				<button class="btn btn-block btn-dark" onclick="add('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')">&plus;</button>
-				<!--<a href="">Remove</a>-->
+				<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
 			</td>
 			<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>
 		</tr>
         <%   	
     }     
  %> 
- 
  	</table>
+ 	
+ 	<h4>RIEPILOGO ORDINE</h4>
+ 	<p id="nProdotti"><%=cart.getNProdotti()%> Prodotti</p>
+ 	<p id="prezzoTotale"><b>Totale</b> <%=cart.getTotale()%>&euro;</p>
+ 	<a href="" class="btn btn-dark">VAI ALLA CASSA</a>
+			
  	
 </body>
 </html>

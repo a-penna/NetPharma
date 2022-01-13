@@ -73,6 +73,8 @@ public class CarrelloDAO {
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			
 			preparedStatement = connection.prepareStatement(updateSQL);
 			preparedStatement.setInt(1, quantity);
 			preparedStatement.setInt(2, prodottoId);
@@ -82,6 +84,8 @@ public class CarrelloDAO {
 			
 			if (result != 1) 
 				return false;
+			
+			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -93,6 +97,75 @@ public class CarrelloDAO {
 			}
 		}
 
+		return true;
+	}
+	
+	public boolean removeProdotto(String username, int prodotto) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String deleteSQL = "DELETE FROM Carrello "
+						+ "WHERE prodotto=? AND cliente=?";
+		
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, prodotto);
+			preparedStatement.setString(2, username);
+			
+			int result = preparedStatement.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+			
+			connection.commit();
+		} 
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean insertProdotto(String username, int prodotto, int quantity) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String insertSQL = "INSERT INTO Carrello(cliente, prodotto, quantita) VALUES(?, ?, ?)";
+		
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, username);
+			preparedStatement.setInt(2, prodotto);
+			preparedStatement.setInt(3, quantity);
+			
+			if (preparedStatement.executeUpdate() != 1) {
+				return false;
+			}
+			
+			connection.commit();
+		} 
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 		return true;
 	}
 }

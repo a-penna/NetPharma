@@ -1,5 +1,6 @@
 package bean;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Carrello {
@@ -20,6 +21,15 @@ public class Carrello {
 		prodotti.add(new ContenutoCarrello(p, 1));
 	}
 	
+	public void removeItem(Prodotto p) {
+		for (int i = 0; i < prodotti.size(); i++) {
+			if (prodotti.get(i).getProdotto().getId() == p.getId()) {
+				prodotti.remove(i);
+				return;
+			}
+		}
+	}
+	
 	public void setItem(Prodotto p, int quantity) {
 		for (ContenutoCarrello c : prodotti) {
 			if (c.getProdotto().getId() == p.getId()) {
@@ -33,6 +43,22 @@ public class Carrello {
 	
 	public ArrayList<ContenutoCarrello> getItems() {
 		return prodotti;
+	}
+	
+	public BigDecimal getTotale() {
+		BigDecimal totale = BigDecimal.ZERO;
+		for(ContenutoCarrello c : prodotti) 
+			totale = totale.add(c.getProdotto().getPrezzo().multiply(new BigDecimal(c.getQuantity())));
+		
+		return totale;
+	}
+	
+	public int getNProdotti() {
+		int nProdotti = 0;
+		for(ContenutoCarrello c : prodotti) 
+			nProdotti += c.getQuantity();
+		
+		return nProdotti;
 	}
 
 	public void clearCart() {

@@ -110,13 +110,13 @@ public class AccountDAO {
 			preparedStatement1.setString(1, account.getUsername());
 			preparedStatement1.setString(2, account.getPassword());
          	if (preparedStatement1.executeUpdate() != 1) {
-					try {
-						connection.rollback();
-					} catch(SQLException e) {
-						Utility.printSQLException(e);
-					}
-					return false;
+				try {
+					connection.rollback();
+				} catch(SQLException e) {
+					Utility.printSQLException(e);
 				}
+				return false;
+			}
             
             insertSQL = "INSERT INTO Utente_registrato(genere,nome,cognome,email,nascita,account) "
             		  + "VALUES (?,?,?,?,?,(SELECT id FROM account WHERE username=?))";

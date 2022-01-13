@@ -19,9 +19,9 @@ import model.*;
 		private static final long serialVersionUID = 1L;
 	       
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String nome = request.getParameter("nome");
+			String id = request.getParameter("id");
 			
-			if (nome == null) {
+			if (id == null) {
 			 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottoControl"));
 			 	return;
 			}
@@ -30,11 +30,12 @@ import model.*;
 			ProdottoDAO prodottoDAO = new ProdottoDAO(ds);
 
 			try {
-				Prodotto prodotto = prodottoDAO.doRetrieveByKey(nome);
+				Prodotto prodotto = prodottoDAO.doRetrieveByKey(id);
 				
 				request.setAttribute("prodotto", prodotto); 
 			} catch (SQLException e) {
 				Utility.printSQLException(e);
+				return;
 			}
 			
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/prodotto.jsp"));

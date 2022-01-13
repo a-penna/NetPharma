@@ -37,6 +37,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
 				bean.setProduttore(rs.getString("produttore"));
@@ -58,7 +59,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 				}
 			}
 		}
-
+		
 		return bean;
 	}
 
