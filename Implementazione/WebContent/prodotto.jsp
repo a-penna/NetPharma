@@ -55,7 +55,7 @@
 	<form method="get" action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello")%>"> 
 		<label for="quantity">Quantit&agrave;&colon;</label>
 			 <input type="hidden" name="prodotto"  value="<%=prodotto.getId()%>">
-			 <input type="number" id="quantity" value="0" name="quantity">
+			 <input type="number" id="quantity" value="1" min="1" name="quantity">
 		<input type="submit" class="btn btn-dark" value="AGGIUNGI AL CARRELLO"/>
 	</form> 
 

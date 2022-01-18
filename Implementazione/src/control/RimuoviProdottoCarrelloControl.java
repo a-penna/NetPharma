@@ -20,24 +20,26 @@ public class RimuoviProdottoCarrelloControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int prodottoID = Integer.parseInt(request.getParameter("prodotto"));
-
+		int prodottoID;
+		try {
+			prodottoID = Integer.parseInt(request.getParameter("prodotto"));
+		} catch (NumberFormatException e) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+			return;
+		}
+			
 		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!="true") { 
 			Carrello cart = (Carrello) request.getSession(false).getAttribute("carrello");
 			Prodotto p = new Prodotto();
 			p.setId(prodottoID);
 			cart.removeItem(p);
-		} else {
+		} else if (request.getSession(false) != null) {
 			String username = (String)request.getSession(false).getAttribute("user");
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			CarrelloDAO model = new CarrelloDAO(ds);
 			try {
-				boolean deleted = model.removeProdotto(username, prodottoID);
-				if (!deleted) {
-					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
-					return;
-				}
+				model.removeProdotto(username, prodottoID);
 			} catch (SQLException e) {
 				Utility.printSQLException(e);
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));

@@ -30,7 +30,6 @@ public class VisualizzaCarrelloControl extends HttpServlet {
 			}
 			request.setAttribute("carrello", cart);
 		} else {	
-			System.out.println("Secondo");
 			String username = (String)request.getSession(false).getAttribute("user");
 			
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");

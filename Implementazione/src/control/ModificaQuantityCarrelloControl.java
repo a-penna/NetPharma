@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import bean.Carrello;
 import bean.Prodotto;
 import model.CarrelloDAO;
+import model.ProdottoDAO;
 import utils.Utility;
 
 @WebServlet("/ModificaQuantityCarrello")
@@ -25,23 +26,40 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
+		int quantity;
+		int prodottoID;
 		
-		int prodottoID = Integer.parseInt(request.getParameter("prodotto"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
-
+		try {
+			prodottoID = Integer.parseInt(request.getParameter("prodotto"));
+			quantity = Integer.parseInt(request.getParameter("quantity"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		if (quantity <= 0) return;
+		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoDAO prodottoModel = new ProdottoDAO(ds);
+		Prodotto p = null;
+		try {
+			p = prodottoModel.doRetrieveByKey(prodottoID + "");
+		} catch (SQLException e) {
+			Utility.printSQLException(e);
+			return;
+		}
+		
+		if (p == null) return;
+		
 		JSONObject json = new JSONObject();
 		Carrello c = null;
 		boolean updated = false;
 		
 		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!="true") { 
 			c = (Carrello) request.getSession(false).getAttribute("carrello");
-			Prodotto p = new Prodotto();
-			p.setId(prodottoID);
 			c.setItem(p, quantity);
 			updated = true;
-		} else {
-			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		} else if (request.getSession(false) != null){
 			CarrelloDAO model = new CarrelloDAO(ds);
 			
 			String username = (String)request.getSession(false).getAttribute("user");  
@@ -50,8 +68,8 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 					c = model.doRetrieveByUsername(username);
 					updated = true;
 				}
-			} catch (SQLException e1) {
-				Utility.printSQLException(e1);
+			} catch (SQLException e) {
+				Utility.printSQLException(e);
 				return;
 			}
 		}
@@ -59,12 +77,10 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 		try {
 			if (updated) {
 				json.append ("update", "true");
-				json.append("price", prezzo.multiply(new BigDecimal(quantity)).toString());
+				json.append("price", p.getPrezzo().multiply(new BigDecimal(quantity)).toString());
 				json.append("prezzoTotale", c.getTotale());
 				json.append("nProdotti", c.getNProdotti());
-			} else {  
-				json.append("update", "false");
-			}
+			} 
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return;

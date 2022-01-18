@@ -29,10 +29,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 	<script>
-		function updateQuantity(prodotto, prezzo) {
+		function updateQuantity(prodotto) {
 				var quantity = document.getElementsByName("quantity"+prodotto)[0];
 				$.ajax({
-					url:"ModificaQuantityCarrello?prodotto=" + prodotto + "&quantity=" + quantity.value + "&prezzo=" + prezzo,
+					url:"ModificaQuantityCarrello?prodotto=" + prodotto + "&quantity=" + quantity.value,
 					method:"GET",
 				})
 				.done(function(msg) {
@@ -40,6 +40,8 @@
 						$("#prezzo"+prodotto).html(msg.price + "&euro;");
 						$("#prezzoTotale").html("<b>Totale</b> " + msg.prezzoTotale + "&euro;");
 						$("#nProdotti").html(msg.nProdotti + " Prodotti");
+					} else {
+						alert("Errore");
 					}
 				})
 				.fail(function(xhr, textStatus) {
@@ -47,16 +49,18 @@
 				});	
 		}
 		
-		function add(prodotto, prezzo) {
+		function add(prodotto) {
 			var quantity = document.getElementsByName("quantity"+prodotto)[0];
 			quantity.value = parseInt(quantity.value) + 1;
-			updateQuantity(prodotto, prezzo)
+			updateQuantity(prodotto)
 		}
 		
-		function remove(prodotto, prezzo) {
+		function remove(prodotto) {
 			var quantity = document.getElementsByName("quantity"+prodotto)[0];
-			quantity.value = parseInt(quantity.value) - 1;
-			updateQuantity(prodotto, prezzo);
+			if (quantity.value > 1) {
+				quantity.value = parseInt(quantity.value) - 1;
+				updateQuantity(prodotto);
+			}
 		}
 	</script>
 	<style>
@@ -94,9 +98,9 @@
 			<td><img src="<%=request.getContextPath()%>/PhotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
 			<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
 			<td>
-				<button class="btn btn-block btn-dark" onclick="remove('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')">&dash;</button>
-				<input type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')" value="<%=quantity%>" min="1">
-				<button class="btn btn-block btn-dark" onclick="add('<%=prodotto.getId()%>', '<%=prodotto.getPrezzo()%>')">&plus;</button>
+				<button class="btn btn-block btn-dark" onclick="remove('<%=prodotto.getId()%>')">&dash;</button>
+				<input type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>')" value="<%=quantity%>">
+				<button class="btn btn-block btn-dark" onclick="add('<%=prodotto.getId()%>')">&plus;</button>
 				<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
 			</td>
 			<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>

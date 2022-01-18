@@ -21,15 +21,28 @@ public class AggiungiProdottoCarrelloControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String prodottoID = request.getParameter("prodotto");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+		int prodottoID; 
+		int quantity;
+		try {
+			quantity = Integer.parseInt(request.getParameter("quantity"));
+			prodottoID = Integer.parseInt(request.getParameter("prodotto"));
+		} catch (NumberFormatException e) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+			return;
+		}
+		if (quantity <= 0) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+			return;
+		}
+		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		
 		if (request.getSession().getAttribute("clienteRoles")!="true") { 
 			ProdottoDAO prodottoModel = new ProdottoDAO(ds);
 			Prodotto p = null;
 			try {
-				p = prodottoModel.doRetrieveByKey(prodottoID);
+				p = prodottoModel.doRetrieveByKey(prodottoID + "");
 			} catch (SQLException e) {
 				Utility.printSQLException(e);
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
@@ -39,15 +52,15 @@ public class AggiungiProdottoCarrelloControl extends HttpServlet {
 			Carrello cart = (Carrello) request.getSession(false).getAttribute("carrello");
 			if (cart == null) {
 				cart = new Carrello();
-				request.getSession(false).setAttribute("carrello", cart);
 			}
 			cart.setItem(p, quantity);
+			request.getSession(false).setAttribute("carrello", cart);
 		} else {
 			String username = (String)request.getSession(false).getAttribute("user");
 
 			CarrelloDAO model = new CarrelloDAO(ds);
 			try {
-				boolean added = model.insertProdotto(username, Integer.parseInt(prodottoID), quantity);
+				boolean added = model.insertProdotto(username, prodottoID, quantity);
 				if (!added) {
 					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 					return;
