@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Collection;
@@ -33,7 +33,24 @@ private DataSource ds;
 	}
 	
 	
-	
+	public DatiSpedizione doRetriveIdByEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT id FROM DatiSpedizione WHERE email=?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				DatiSpedizione dati = (DatiSpedizione) rs.getObject(0);
+				return dati;
+			}
+		}  catch(SQLException e) {
+			Utility.printSQLException(e);
+		}
+		return null;
+	}
 
 	public void doSave(DatiSpedizione dati) throws SQLException{
 		Connection connection = null;

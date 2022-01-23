@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import javax.sql.DataSource;
 
 import bean.Ordine;
+import utils.Utility;
 
 
 public class OrdineDAO implements Model<Ordine>{
@@ -66,7 +67,6 @@ public class OrdineDAO implements Model<Ordine>{
 
 	@Override
 	public void doSave(Ordine bean) throws SQLException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -85,4 +85,44 @@ public class OrdineDAO implements Model<Ordine>{
 		
 	}
 	
+	public Boolean doSaveCheck(Ordine bean, int id) {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+
+		String insertSQL = "INSERT INTO Ordine(data_ordine,data_arrivo,id,prezzo,stato,cliente,dati_spedizione) VALUES (?,?,?,?,?,?,?)";
+		
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+
+			preparedStatement.setDate(1, bean.getData_ordine());
+			preparedStatement.setDate(2, bean.getData_arrivo());
+			preparedStatement.setInt(3,bean.getId() );
+			preparedStatement.setFloat(4,bean.getPrezzo());
+			preparedStatement.setString(5, bean.getStato());
+			preparedStatement.setString(6,bean.getCliente());
+			preparedStatement.setInt(7, id);
+	
+			preparedStatement.executeUpdate();
+			
+
+			
+			
+				
+			
+
+			connection.commit();
+		} 
+			 catch(SQLException e) {
+				Utility.printSQLException(e);
+				return false;
+					}
+		
+		
+		return true;
+	}
 }
