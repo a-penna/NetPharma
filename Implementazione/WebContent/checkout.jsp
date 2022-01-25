@@ -22,7 +22,7 @@
 
 <body class="bg-light">
 <h3>Indirizzo di spedizione : </h3>
-<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Acquisto")%>">
+<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 			<fieldset>
 		    	<div class="form-group">
 		             <label for="email">E-Mail&colon;</label>

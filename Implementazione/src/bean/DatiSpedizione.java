@@ -92,10 +92,10 @@ public class DatiSpedizione {
 	public void setVia(String via) {
 		this.via = via;
 	}
-	public DatiSpedizione(int id, String nomeRicevente, String cognomeRicevente, String email, String cellulare,
+	public DatiSpedizione(String nomeRicevente, String cognomeRicevente, String email, String cellulare,
 			int ncivico, String citta, String paese, String provincia, String cAP, String cliente,String via) {
 		super();
-		this.id = id;
+		
 		this.nomeRicevente = nomeRicevente;
 		this.cognomeRicevente = cognomeRicevente;
 		this.email = email;
