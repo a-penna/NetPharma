@@ -78,7 +78,49 @@
 	</style>
 </head>
 <body>
-	<h4>IL TUO CARRELLO</h4>
+<header class="py-4"></header>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"></a>
+  <img src="./imgs/logo.jpg" alt="NetPharma" width="50" height="50" class="rounded-circle alt="NetPharma" ></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">HomePage <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categorie
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Mamma&Bambino</a>
+          <a class="dropdown-item" href="#">Cosmetici</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Prevenzione Antivirale</a>
+        </div>
+      </li>
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+		<li class="nav-item active">
+        <a class="nav-link" href="#">Aiuto<span class="sr-only">(current)</span></a>
+        </li>      
+    </ul>
+      <li class="nav-item ">
+	        <a class="nav-link " href="#">Carrello</a>
+      </li>
+        <div class="my-2 my-lg-0">
+	      	<a href="#" class="btn btn-light">Accedi</a>
+      	  </div>
+  </div>
+</nav>
+<div class="container my-3">
+	<br>
+	<h4>Il tuo Carrello</h4>
 	
 	<table>
 <%
@@ -109,12 +151,51 @@
     }     
  %> 
  	</table>
+ 	<br>
+ 	<p id="nProdotti"> Prodotti (<%=cart.getNProdotti()%> Articoli)</p>
+ 	<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descrizione</th>
+      <th scope="col">Quantita'</th>
+      <th scope="col">Prezzo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Foto</th>
+      <td>Nome prodotto 1</td>
+      <td>Descrizione prodotto 1</td>
+      <td>Form quantita' prodotto 1</td>
+      <td>Prezzo prodotto 1</td>
+    </tr>
+    <tr>
+      <th scope="row">Foto</th>
+      <td>Nome prodotto 2</td>
+      <td>Descrizione prodotto 2</td>
+      <td>Form quantita' prodotto 2</td>
+      <td>Prezzo prodotto 2</td>
+    </tr>    
+    <tr>
+      <th scope="row">Foto</th>
+      <td>Nome prodotto 3</td>
+      <td>Descrizione prodotto 3</td>
+      <td>Form quantita' prodotto 3</td>
+      <td>Prezzo prodotto 3</td>
+    </tr>
+  </tbody>
+</table>
  	
- 	<h4>RIEPILOGO ORDINE</h4>
- 	<p id="nProdotti"><%=cart.getNProdotti()%> Prodotti</p>
- 	<p id="prezzoTotale"><b>Totale</b> <%=cart.getTotale()%>&euro;</p>
- 	<a href="" class="btn btn-dark">VAI ALLA CASSA</a>
-			
- 	
+ 	<div class="card text-black bg-light mb-3" style="max-width: 18rem;">
+  		<div class="card-header text-center">Riepilogo Ordine</div>
+  			<div class="card-body">
+   				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
+    				<a href="#" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
+			</div>
+		</div>		
+	</div> 	
+
 </body>
 </html>
