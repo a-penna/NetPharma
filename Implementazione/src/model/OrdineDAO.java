@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,6 +123,30 @@ public class OrdineDAO implements Model<Ordine>{
 				return false;
 					}
 		
+		
+		return true;
+	}
+	
+	public Boolean doUpdateStatus(Ordine bean) {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Date data = new Date(System.currentTimeMillis()+172800000); //Data attuale + 2 giorni
+		
+		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ?";
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setDate(0, data);
+			preparedStatement.setInt(1, bean.getId());
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+		} catch(SQLException e) {
+			Utility.printSQLException(e);
+			return false;
+				}
 		
 		return true;
 	}

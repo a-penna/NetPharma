@@ -20,8 +20,8 @@ if(loggedIn) {
 
 <body>
 
-<a href="<%=request.getContextPath()%>/gestoreOrdini/ListaOrdini.jsp">Lista Ordini</a>
-
+<a href="<%=request.getContextPath()%>/gestoreOrdini/ListaOrdini.jsp">Lista completa ordini</a>
+<a href="<%=request.getContextPath()%>/gestoreOrdini/SpedisciOrdini.jsp">Visualizza ordini da spedire</a>
 
 
 </body>

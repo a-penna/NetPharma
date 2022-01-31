@@ -70,7 +70,7 @@ public class CheckoutControl extends HttpServlet {
 			
 			model2.doSave(dati);
 			Ordine ordine = new Ordine();
-			ordine.setStato("non gestito");
+			ordine.setStato("No");
 			ordine.setCliente(email);
 			ordine.setData_ordine(new Date(System.currentTimeMillis()));
 			//Settare prezzo dal prodotto del carrello
