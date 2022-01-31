@@ -102,7 +102,50 @@ if(loggedIn) {
 </head>            
 
 <body>
-    	<h4>REGISTRAZIONE UTENTE</h4>
+<header class="py-4"></header>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"></a>
+  <img src="./imgs/logo.jpg" alt="NetPharma" width="50" height="50" class="rounded-circle alt="NetPharma" ></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">HomePage <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categorie
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Mamma&Bambino</a>
+          <a class="dropdown-item" href="#">Cosmetici</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Prevenzione Antivirale</a>
+        </div>
+      </li>
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+		<li class="nav-item active">
+        <a class="nav-link" href="#">Aiuto<span class="sr-only">(current)</span></a>
+        </li>      
+    </ul>
+      <li class="nav-item ">
+	        <a class="nav-link " href="#">Carrello</a>
+      </li>
+        <div class="my-2 my-lg-0">
+	      	<a href="#" class="btn btn-light">Accedi</a>
+      	  </div>
+  </div>
+</nav>
+
+<div class="container my-3">
+	<div class="card text-dark bg-light">
+ 	 <div class="card-header text-center"><h4>REGISTRAZIONE UTENTE</h4></div>
 		<form action="<%=response.encodeURL(request.getContextPath() + "/Registrazione")%>" method="post" onsubmit="event.preventDefault(); validate(this)"> 
 		        <fieldset>
 		        <%
@@ -111,15 +154,15 @@ if(loggedIn) {
 							%>
 		            		<div class="custom-control custom-radio">
 			           		  <input type="radio" class="custom-control-input" id="maschio" name="sesso" value="M" checked>
-							  <label for="maschio" class="custom-control-label">Uomo</label><br>
+							  <label for="maschio" class="custom-control-label">Uomo</label>
 			           		</div>
 			           		<div class="custom-control custom-radio"> 
 			           		  <input type="radio" class="custom-control-input" id="femmina" name="sesso" value="F">
-			            	  <label for="femmina" class="custom-control-label">Donna</label><br>
+			            	  <label for="femmina" class="custom-control-label">Donna</label>
 			            	</div>
 			            	<div class="custom-control custom-radio mb-3"> 
 			           		  <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I">
-			            	  <label for="femmina" class="custom-control-label">Indefinito</label><br>
+			            	  <label for="femmina" class="custom-control-label">Indefinito</label>
 			            	</div>
 							<% 
 						} else if (sesso != null && sesso.equals("F")) { %>
@@ -250,11 +293,12 @@ if(loggedIn) {
 								}
 							%>
 		                    <div class="invalid-feedback">La password deve contenere almeno 8 caratteri&comma; una lettera minuscola ed una maiuscola&comma; un numero ed un carattere speciale tra &commat; &excl; &num; &dollar; &percnt; &dash; &sol; &equals; &Hat; &lowbar; &lbrace; &rbrace; &tilde; &plus;</div> 
-			        	<input type="checkbox" onclick="showPassword()">Show Password
+			        	<input type="checkbox" onclick="showPassword()"> Show Password
 			        </div>
-					<input type="submit" class="btn btn-dark" value="CONTINUA"/>
+					<input type="submit" class="btn btn-dark btn-block" value="CONTINUA">
 				</fieldset>
 		    </form> 
-	
+	</div>
+</div>
 </body>
 </html>

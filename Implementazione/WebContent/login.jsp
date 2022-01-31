@@ -55,14 +55,55 @@
             if(valid) obj.submit();
         }
     </script> 
-</head>            
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"></a>
+  <img src="./imgs/logo.jpg" alt="NetPharma" width="50" height="50" class="rounded-circle alt="NetPharma" ></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<body class="bg-login-admin text-black pt-3">
-	<h4>Login</h4>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">HomePage <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categorie
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Mamma&Bambino</a>
+          <a class="dropdown-item" href="#">Cosmetici</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Prevenzione Antivirale</a>
+        </div>
+      </li>
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+		<li class="nav-item active">
+        <a class="nav-link" href="#">Aiuto<span class="sr-only">(current)</span></a>
+        </li>      
+    </ul>
+      <li class="nav-item ">
+	        <a class="nav-link " href="#">Carrello</a>
+      </li>
+        <div class="my-2 my-lg-0">
+	      	<a href="#" class="btn btn-light">Accedi</a>
+      	  </div>
+  </div>
+</nav>
+
+<div class="card text-white bg-dark col-lg-4 col-md-4 col-sm-4 container justify-content-center">
+  	<div class="card-header">LOGIN</div>
+	<div class="bg-login-admin text-black ">
 		<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Login")%>"> 
 			<fieldset>
 		    	<div class="form-group">
-		             <label for="username">USERNAME&colon;</label>
+		             <label for="username">Username&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
 				          <span class="input-group-text" id="inputGroupPrepend1">
@@ -85,7 +126,7 @@
 				      </div>
 				</div>
 			    <div class="form-group">
-			         <label for="password">PASSWORD&colon;</label>
+			         <label for="password">Password&colon;</label>
 				      <div class="input-group">
 				        <div class="input-group-prepend">
 				          <span class="input-group-text" id="inputGroupPrepend2">
@@ -108,10 +149,13 @@
 	                        <div class="invalid-feedback">Password errata&excl;</div> 
 	                  </div>
 		        </div>
-		          	<input type="submit" class="btn btn-dark" value="LOGIN"/>
+		          	<input type="submit" class="btn btn-light container justify-content-center" value="LOGIN">
 		    	</fieldset>
 		    </form> 
 		    <h5>Non hai un account &quest;</h5>
-		   	<a class="btn btn-dark" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
+		   	<a class="btn btn-light" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
+</div>
+</div>
+
 </body>
 </html>
