@@ -24,6 +24,39 @@ public class OrdineDAO implements Model<Ordine>{
 	
 	public Ordine doRetrieveByKey(String key) throws SQLException {
 		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT * FROM ordine WHERE id=?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(0, Integer.parseInt(key));
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				
+			Ordine ordine = new Ordine();
+			ordine.setCliente(rs.getString("cliente"));
+			ordine.setData_ordine(rs.getDate("data_ordine"));
+			ordine.setDati_spedizione(rs.getInt("dati_spedizione"));
+			ordine.setStato(rs.getString("Stato"));
+			ordine.setId(rs.getInt("id"));
+			ordine.setPrezzo(rs.getFloat("prezzo"));
+			ordine.setData_arrivo(rs.getDate("data_arrivo"));
+			return ordine;
+			
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 		return null;
 	}
 
