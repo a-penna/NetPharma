@@ -7,7 +7,7 @@
     Collection<?> ordini = (Collection<?>) request.getAttribute("ordini");
 
     if (ordini == null) {
-        response.sendRedirect(response.encodeRedirectURL("/NetPharma/ListaOrdini"));
+        response.sendRedirect(response.encodeRedirectURL("/NetPharma/OrdiniDaSpedire"));
         return;
     }
 %>    

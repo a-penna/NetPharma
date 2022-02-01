@@ -26,15 +26,16 @@ public class OrdineDAO implements Model<Ordine>{
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String selectSQL = "SELECT * FROM ordine WHERE id=?";
+		String selectSQL = "SELECT * FROM ordine WHERE id = ?";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(0, Integer.parseInt(key));
+			
+			preparedStatement.setInt(1, Integer.parseInt(key));
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				
 			Ordine ordine = new Ordine();
 			ordine.setCliente(rs.getString("cliente"));
