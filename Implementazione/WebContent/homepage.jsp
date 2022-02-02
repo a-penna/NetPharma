@@ -58,10 +58,10 @@
         </li>      
     </ul>
       <li class="nav-item ">
-	        <a class="nav-link " href="#">Carrello</a>
+	        <a class="nav-link " href="<%=response.encodeURL(request.getContextPath() + "/carrello.jsp")%>">Carrello</a>
       </li>
         <div class="my-2 my-lg-0">
-	      	<a href="#" class="btn btn-light">Accedi</a>
+	      	<a href="<%=response.encodeURL(request.getContextPath() + "/login.jsp")%>" class="btn btn-light">Accedi</a>
       	  </div>
   </div>
 </nav>
