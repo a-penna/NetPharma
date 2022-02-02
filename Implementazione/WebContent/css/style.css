@@ -6,6 +6,14 @@
 	 background-attachment: fixed;
 }
 
+.container-registrazione {
+	 background-image: url('../imgs/sfondo-reg.jpg');
+	 background-position:bottom; 
+	 background-size: cover;
+	 background-repeat:no-repeat;
+	 background-attachment: fixed;
+}
+
 .mydark-dropdown-menu .mydark-dropdown-item {
 	color: #ffffff;
 	text-decoration: none;
