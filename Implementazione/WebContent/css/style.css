@@ -1,5 +1,5 @@
 .container-login {
-	 background-image: url('https://professor-falken.com/wp-content/uploads/2017/11/Como-cambiar-la-imagen-de-fondo-del-inicio-de-sesion-en-tu-Mac-professor-falken.com_.jpg');
+	 background-image: url('./imgs/sfondo-login.jpg');
 	 background-position:bottom; 
 	 background-size: cover;
 	 background-repeat:no-repeat;
