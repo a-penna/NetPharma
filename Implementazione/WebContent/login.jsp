@@ -29,7 +29,6 @@
 	<!-- Latest compiled JavaScript --> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" href="glyphicons/glyphicons.css"> 
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
 	
 	<script>
@@ -58,48 +57,9 @@
         }
     </script> 
 </head>
-<body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"></a>
-  <img src="./imgs/logo.jpg" alt="NetPharma" width="50" height="50" class="rounded-circle alt="NetPharma" ></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<body class="container-login pt-5">
+<%@ include file="header.jsp"%>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">HomePage <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categorie
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Mamma&Bambino</a>
-          <a class="dropdown-item" href="#">Cosmetici</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Prevenzione Antivirale</a>
-        </div>
-      </li>
-	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-	    </form>
-		<li class="nav-item active">
-        <a class="nav-link" href="#">Aiuto<span class="sr-only">(current)</span></a>
-        </li>      
-    </ul>
-      <li class="nav-item ">
-	        <a class="nav-link " href="#">Carrello</a>
-      </li>
-        <div class="my-2 my-lg-0">
-	      	<a href="#" class="btn btn-light">Accedi</a>
-      	  </div>
-  </div>
-</nav>
-
-<div class="container-login my-3">
 <div class="card text-white bg-dark col-lg-4 col-md-4 col-sm-4 container justify-content-center">
   	<div class="card-header col-lg-4 col-md-4 col-sm-4 container justify-content-center">
 	<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -107,7 +67,7 @@
   		<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 	</svg>
 	</div>
-	<div class="bg-login text-black ">
+	<div class="bg-login text-black pb-3">
 		<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Login")%>"> 
 			<fieldset>
 		    	<div class="form-group">
@@ -157,14 +117,17 @@
 	                        <div class="invalid-feedback">Password errata&excl;</div> 
 	                  </div>
 		        </div>
-		          	<input type="submit" class="btn btn-light container justify-content-center" value="LOGIN">
+		        <div class="container-accesso col-lg-4 col-md-4 col-sm-4 container justify-content-center">
+		          	<input type="submit" class="btn btn-light" value="   LOGIN   ">
+		          	</div>
+		          	<div class="container-nessun-account pt-5">
+		          	<label for="nessun-account">Non hai un account&quest;</label>
+		   			<br>
+		   			<a class="btn btn-light container" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
+		          	</div>
 		    	</fieldset>
-		    </form> 
-		    <h5>Non hai un account &quest;</h5>
-		   	<a class="btn btn-light" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
-
-</div>
-</div>
+		    </form>
+		    </div>
 </div>
 
 </body>

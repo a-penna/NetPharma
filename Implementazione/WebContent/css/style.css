@@ -1,7 +1,24 @@
 .container-login {
-	 background-image: url('./imgs/sfondo-login.jpg');
+	 background-image: url('../imgs/sfondo-login.jpg');
 	 background-position:bottom; 
 	 background-size: cover;
 	 background-repeat:no-repeat;
 	 background-attachment: fixed;
+}
+
+.mydark-dropdown-menu .mydark-dropdown-item {
+	color: #ffffff;
+	text-decoration: none;
+	transition: 0.5s;
+}
+
+.mydark-dropdown-item:hover {
+	color: black;
+}
+
+@media screen and (min-width: 1025px){
+	.dropdown:hover .mydark-dropdown-menu{
+		display: block;
+		margin-top: 0;
+	}
 }	
