@@ -40,7 +40,7 @@ if(loggedIn) {
 	        var genderM = document.getElementsByName("sesso")[0];
             var genderF = document.getElementsByName("sesso")[1];
             var genderI = document.getElementsByName("sesso")[2];
-            if(!genderM.checked && !genderF.checked) {
+            if(!genderM.checked && !genderF.checked && !genderI.checked) {
                 valid = false;
                 genderM.classList.add("is-invalid");
                 genderM.focus();
@@ -115,60 +115,60 @@ if(loggedIn) {
 		               	String sesso = (String)request.getAttribute("sesso");
 						if (sesso != null && sesso.equals("M")) {
 							%>
-		            		<div class="custom-control custom-radio">
+		            		<div class="custom-control custom-radio custom-control-inline">
 			           		  <input type="radio" class="custom-control-input" id="maschio" name="sesso" value="M" checked>
 							  <label for="maschio" class="custom-control-label">Uomo</label>
 			           		</div>
-			           		<div class="custom-control custom-radio"> 
+			           		<div class="custom-control custom-radio custom-control-inline"> 
 			           		  <input type="radio" class="custom-control-input" id="femmina" name="sesso" value="F">
 			            	  <label for="femmina" class="custom-control-label">Donna</label>
 			            	</div>
-			            	<div class="custom-control custom-radio"> 
+			            	<div class="custom-control custom-radio custom-control-inline"> 
 			           		  <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I">
-			            	  <label for="femmina" class="custom-control-label">Indefinito</label>
+			            	  <label for="indefinito" class="custom-control-label">Indefinito</label>
 			            	</div>
 							<% 
 						} else if (sesso != null && sesso.equals("F")) { %>
-							<div class="custom-control custom-radio">
+							<div class="custom-control custom-radio custom-control-inline">
 			           		 	<input type="radio" class="custom-control-input" id="maschio" name="sesso" value="M">
 								<label for="maschio" class="custom-control-label">Uomo</label><br>
 			           		 </div>
-			           		 <div class="custom-control custom-radio">
+			           		 <div class="custom-control custom-radio custom-control-inline">
 			           		 	<input type="radio" class="custom-control-input mb-3" id="femmina" name="sesso" value="F" checked>
 			            	  	<label for="femmina" class="custom-control-label">Donna</label>
 							 </div>
-							 <div class="custom-control custom-radio"> 
+							 <div class="custom-control custom-radio custom-control-inline"> 
 			           		   <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I">
-			            	   <label for="femmina" class="custom-control-label">Indefinito</label>
+			            	   <label for="indefinito" class="custom-control-label">Indefinito</label>
 			            	 </div>
 			            <%} else if (sesso != null && sesso.equals("I")) { %>
-							<div class="custom-control custom-radio">
+							<div class="custom-control custom-radio custom-control-inline">
 			           		 	<input type="radio" class="custom-control-input" id="maschio" name="sesso" value="M">
 								<label for="maschio" class="custom-control-label">Uomo</label>
 			           		 </div>
-			           		 <div class="custom-control custom-radio">
+			           		 <div class="custom-control custom-radio custom-control-inline">
 			           		 	<input type="radio" class="custom-control-input mb-3" id="femmina" name="sesso" value="F">
 			            	  	<label for="femmina" class="custom-control-label">Donna</label>
 							 </div>
-							 <div class="custom-control custom-radio"> 
+							 <div class="custom-control custom-radio custom-control-inline"> 
 			           		   <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I" checked>
-			            	   <label for="femmina" class="custom-control-label">Indefinito</label>
+			            	   <label for="indefinito" class="custom-control-label">Indefinito</label>
 			            	 </div>
 						<% 			 
 						} else {
 						%>  
-							<div class="custom-control custom-radio">
+							<div class="custom-control custom-radio custom-control-inline">
 					        	<input type="radio" id="maschio" class="custom-control-input" name="sesso" value="M">
 					        	<label for="maschio" class="custom-control-label">Maschio</label>
 					        </div>
-					        <div class="custom-control custom-radio">
+					        <div class="custom-control custom-radio custom-control-inline">
 					        	<input type="radio" id="femmina" class="custom-control-input" name="sesso" value="F">
 					        	<label for="femmina" class="custom-control-label">Femmina</label> 
 					        </div>
-					        <div class="custom-control custom-radio"> 
+					        <div class="custom-control custom-radio custom-control-inline"> 
 			           		   <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I">
-			            	   <label for="femmina" class="custom-control-label">Indefinito</label>
-			            	   <div class="invalid-feedback">Selezionare il sesso&excl;</div>
+			            	   <label for="indefinito" class="custom-control-label">Indefinito</label>
+			            	   <div class="invalid-feedback pl-3">Selezionare il sesso&excl;</div>
 			            	</div>	<%
 						}
 					%>
