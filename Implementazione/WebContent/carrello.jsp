@@ -110,7 +110,7 @@
         <a class="nav-link" href="#">Aiuto<span class="sr-only">(current)</span></a>
         </li>      
     </ul>
-      <li class="nav-item ">
+      <li class="nav-item">
 	        <a class="nav-link " href="#">Carrello</a>
       </li>
         <div class="my-2 my-lg-0">
@@ -122,80 +122,71 @@
 	<br>
 	<h4>Il tuo Carrello</h4>
 	
-	<table>
-<%
-	Prodotto prodotto = null;
-	int quantity = 0;
-	BigDecimal prezzo = BigDecimal.ZERO;
-	
-	Collection<?> prodotti = cart.getItems();
-	Iterator<?> it = prodotti.iterator();
-	while(it.hasNext()) {
-    	ContenutoCarrello cartItem = (ContenutoCarrello)it.next(); 
-    	prodotto = cartItem.getProdotto();
-    	quantity = cartItem.getQuantity();
-    	prezzo = prodotto.getPrezzo().multiply(new BigDecimal(quantity));
-        %>
-		<tr>
-			<td><img src="<%=request.getContextPath()%>/PhotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
-			<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
-			<td>
-				<button class="btn btn-block btn-dark" onclick="remove('<%=prodotto.getId()%>')">&dash;</button>
-				<input type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>')" value="<%=quantity%>">
-				<button class="btn btn-block btn-dark" onclick="add('<%=prodotto.getId()%>')">&plus;</button>
-				<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
-			</td>
-			<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>
-		</tr>
-        <%   	
-    }     
- %> 
- 	</table>
- 	<br>
- 	<p id="nProdotti"> Prodotti (<%=cart.getNProdotti()%> Articoli)</p>
- 	<table class="table shadow p-3 mb-5 bg-white">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Nome</th>
-      <th scope="col">Descrizione</th>
-      <th scope="col">Quantita'</th>
-      <th scope="col">Prezzo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Foto</th>
-      <td>Nome prodotto 1</td>
-      <td>Descrizione prodotto 1</td>
-      <td>Form quantita' prodotto 1</td>
-      <td>Prezzo prodotto 1</td>
-    </tr>
-    <tr>
-      <th scope="row">Foto</th>
-      <td>Nome prodotto 2</td>
-      <td>Descrizione prodotto 2</td>
-      <td>Form quantita' prodotto 2</td>
-      <td>Prezzo prodotto 2</td>
-    </tr>    
-    <tr>
-      <th scope="row">Foto</th>
-      <td>Nome prodotto 3</td>
-      <td>Descrizione prodotto 3</td>
-      <td>Form quantita' prodotto 3</td>
-      <td>Prezzo prodotto 3</td>
-    </tr>
-  </tbody>
-</table>
- 	
- 	<div class="card text-black bg-light mb-3 shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
-  		<div class="card-header text-center">Riepilogo Ordine</div>
-  			<div class="card-body">
-   				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
-    				<a href="#" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
-			</div>
-		</div>		
-	</div> 	
+	 <br>
+	 <p id="nProdotti"> Prodotti (<%=cart.getNProdotti()%> Articoli)</p>
+	 <div class="row">
+		<div class="col">
+		 <table class="table shadow p-3 mb-5 bg-white">
+		  <thead class="thead-dark">
+		    <tr>
+		      <th scope="col"></th>
+		      <th scope="col">Nome</th>
+		      <th scope="col">Descrizione</th>
+		      <th scope="col">Quantita'</th>
+		      <th scope="col">Prezzo</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		<%
+			Prodotto prodotto = null;
+			int quantity = 0;
+			BigDecimal prezzo = BigDecimal.ZERO;
+			
+			Collection<?> prodotti = cart.getItems();
+			Iterator<?> it = prodotti.iterator();
+			while(it.hasNext()) {
+		    	ContenutoCarrello cartItem = (ContenutoCarrello)it.next(); 
+		    	prodotto = cartItem.getProdotto();
+		    	quantity = cartItem.getQuantity();
+		    	prezzo = prodotto.getPrezzo().multiply(new BigDecimal(quantity));
+		        %>
+				<tr>
+					<td><img src="<%=request.getContextPath()%>/PhotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
+					<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
+					<%String des = prodotto.getDescrizione();
+					if (des.length() >= 80) {
+						char[] smallDes = new char[80];
+		         		des.getChars(0, 79, smallDes, 0);%>
+						<td><%=smallDes%>...</td>
+						<%
+					} else {%>
+						<td><%=des%></td>
+					<%}%>
+					<td>
+						<button class="btn btn-block btn-dark" onclick="remove('<%=prodotto.getId()%>')">&dash;</button>
+						<input type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>')" value="<%=quantity%>">
+						<button class="btn btn-block btn-dark" onclick="add('<%=prodotto.getId()%>')">&plus;</button>
+						<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
+					</td>
+					<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>
+				</tr>
+		        <%   	
+		    }     
+		 %> 
+		  </tbody>
+		</table>
+	</div>
+	<div class="col">
+	 	<div class="card text-black bg-light mb-3 shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
+	  		<div class="card-header text-center">Riepilogo Ordine</div>
+	  			<div class="card-body">
+	   				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
+	    				<a href="#" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div> 	
 
 </body>
 </html>

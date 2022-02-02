@@ -28,7 +28,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
 	<!-- Latest compiled JavaScript --> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="glyphicons/glyphicons.css"> 
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
 	
 	<script>
         function validate(obj) {	
@@ -97,9 +99,15 @@
   </div>
 </nav>
 
+<div class="container-login my-3">
 <div class="card text-white bg-dark col-lg-4 col-md-4 col-sm-4 container justify-content-center">
-  	<div class="card-header">LOGIN</div>
-	<div class="bg-login-admin text-black ">
+  	<div class="card-header col-lg-4 col-md-4 col-sm-4 container justify-content-center">
+	<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  		<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  		<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+	</svg>
+	</div>
+	<div class="bg-login text-black ">
 		<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Login")%>"> 
 			<fieldset>
 		    	<div class="form-group">
@@ -154,6 +162,8 @@
 		    </form> 
 		    <h5>Non hai un account &quest;</h5>
 		   	<a class="btn btn-light" href="<%=response.encodeURL(request.getContextPath() + "/registrazione.jsp")%>" role="button">CREA ACCOUNT</a>
+
+</div>
 </div>
 </div>
 
