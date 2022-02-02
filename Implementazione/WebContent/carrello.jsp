@@ -153,7 +153,7 @@
  	</table>
  	<br>
  	<p id="nProdotti"> Prodotti (<%=cart.getNProdotti()%> Articoli)</p>
- 	<table class="table">
+ 	<table class="table shadow p-3 mb-5 bg-white">
   <thead class="thead-dark">
     <tr>
       <th scope="col"></th>
@@ -188,7 +188,7 @@
   </tbody>
 </table>
  	
- 	<div class="card text-black bg-light mb-3" style="max-width: 18rem;">
+ 	<div class="card text-black bg-light mb-3 shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
   		<div class="card-header text-center">Riepilogo Ordine</div>
   			<div class="card-body">
    				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
