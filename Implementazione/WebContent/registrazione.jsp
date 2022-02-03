@@ -259,7 +259,7 @@ if(loggedIn) {
 								}
 							%>
 		                    <div class="invalid-feedback">La password deve contenere almeno 8 caratteri&comma; una lettera minuscola ed una maiuscola&comma; un numero ed un carattere speciale tra &commat; &excl; &num; &dollar; &percnt; &dash; &sol; &equals; &Hat; &lowbar; &lbrace; &rbrace; &tilde; &plus;</div> 
-			        	<input type="checkbox" onclick="showPassword()"> Show Password
+			        	<input class="container-show-password mt-3" type="checkbox" onclick="showPassword()"> Show Password
 			        </div>
 			        <div class="container-continua col-lg-4 col-md-4 col-sm-4 container justify-content-center">
 			        	<div class="container-bottone-continua pb-4">
