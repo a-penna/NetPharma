@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, model.* , bean.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, model.* , bean.* , java.sql.Date"%>
     
     <% 
    
@@ -29,6 +29,7 @@
 <th scope="row">Cliente</th>
 <th scope="row">Prezzo</th>
 <th scope="row">Data_Ordine</th>
+<th scope="row">Data_Arrivo</th>
 </tr>
 
 <%
@@ -44,6 +45,22 @@ while(it.hasNext()) {
 <td><%=ordine.getCliente()%> </td>
 <td><%=ordine.getPrezzo()%> </td>
 <td><%=ordine.getData_ordine() %></td>
+<td><%=ordine.getStato()%></td>
+<%
+
+if (ordine.getData_arrivo()!=null) {
+	
+	
+	
+	
+	%>
+<td><%=ordine.getData_arrivo()%></td>
+<% }
+else {
+%>
+
+<td>Data non disponibile</td>
+<% } %>
 </tr>
 
 <%

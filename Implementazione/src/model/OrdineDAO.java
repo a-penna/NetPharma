@@ -172,8 +172,8 @@ public class OrdineDAO implements Model<Ordine>{
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setDate(0, data);
-			preparedStatement.setInt(1, bean.getId());
+			preparedStatement.setDate(1, data);
+			preparedStatement.setInt(2, bean.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 			
