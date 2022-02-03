@@ -110,11 +110,12 @@ if(loggedIn) {
 	<div class="card text-dark bg-light">
  	 <div class="card-header text-center"><h4>REGISTRAZIONE UTENTE</h4></div>
 		<form action="<%=response.encodeURL(request.getContextPath() + "/Registrazione")%>" method="post" onsubmit="event.preventDefault(); validate(this)"> 
+		        <div class="container-fieldset my-3 mx-2">
 		        <fieldset class="container-card-reg py-2 px-2">
-		        <%
+		        		<%
 		               	String sesso = (String)request.getAttribute("sesso");
 						if (sesso != null && sesso.equals("M")) {
-							%>
+						%>
 		            		<div class="custom-control custom-radio custom-control-inline">
 			           		  <input type="radio" class="custom-control-input" id="maschio" name="sesso" value="M" checked>
 							  <label for="maschio" class="custom-control-label">Uomo</label>
@@ -169,11 +170,13 @@ if(loggedIn) {
 			           		   <input type="radio" class="custom-control-input" id="indefinito" name="sesso" value="I">
 			            	   <label for="indefinito" class="custom-control-label">Indefinito</label>
 			            	   <div class="invalid-feedback pl-3">Selezionare il sesso&excl;</div>
+			            	</div>
 			            	</div>	<%
 						}
 					%>
-					<div class="form-group">
-						 <div class="input-group">
+					<div class="container my-3"></div>
+					<div class="form-row col-md-12">
+						 <div class="form-group col-md-6">
 			           		<%
 								if (request.getAttribute("erroreNome") != null) {
 									%><input type="text" placeholder="Nome&ast;" class="form-control is-invalid" id="nome" value="<%=request.getAttribute("nome")%>" name="nome"><% 
@@ -184,9 +187,8 @@ if(loggedIn) {
 								}
 							%>
 						<div class="invalid-feedback">Inserire nome, non sono previsti numeri o caratteri speciali&excl;</div> 
-					 </div>
-			        </div>   
-		            <div class="form-group">
+					 </div>  
+		            <div class="form-group col-md-6">
 			            	<%
 								if (request.getAttribute("erroreCognome") != null) {
 									%><input type="text" class="form-control is-invalid" id="cognome" placeholder="Cognome&ast;" value="<%=request.getAttribute("cognome")%>" name="cognome"><% 
@@ -198,7 +200,8 @@ if(loggedIn) {
 							%>
 		                    <div class="invalid-feedback">Inserire cognome, non sono previsti numeri o caratteri speciali&excl;</div> 
 			        </div>
-			        <div class="form-group">
+			        </div> 
+			        <div class="form-group col-md-6">
 			            <label for="nickname">Username&ast;</label>
 			            	<%
 								if ((request.getAttribute("erroreUsername") != null) || (request.getAttribute("usernameEsistente") != null)) {
@@ -214,7 +217,7 @@ if(loggedIn) {
 									%><div class="invalid-feedback">Inserire username, puoi usare solo lettere e numeri&excl;</div><% 
 								}%> 
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group col-md-5">
 			            <label for="email">E&dash;mail&ast;</label>
 			            	<%
 								if ((request.getAttribute("erroreEmail") != null) || (request.getAttribute("emailEsistente") != null)) {
@@ -231,7 +234,7 @@ if(loggedIn) {
 									%><div class="invalid-feedback">Questo indirizzo email non sembra essere valido&excl;</div><% 
 								}%> 
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group col-md-3">
 			            <label for="data">Data di nascita&ast;</label>
 			            	<%
 								if (request.getAttribute("erroreData") != null) {
@@ -244,7 +247,7 @@ if(loggedIn) {
 							%>
 		                <div class="invalid-feedback">Inserire una data valida&excl;</div> 
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group col-md-4">
 			            <label for="password">Password&ast;</label>
 			            	<%
 								if (request.getAttribute("errorePassword") != null) {
