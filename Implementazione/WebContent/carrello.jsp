@@ -142,7 +142,7 @@
 	  		<div class="card-header text-center">Riepilogo Ordine</div>
 	  			<div class="card-body">
 	   				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
-	    				<a href="#" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
+	    				<a href="<%=response.encodeURL(request.getContextPath() + "/checkout.jsp")%>" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
 				</div>
 		</div>
 			<div class="col-md-12">

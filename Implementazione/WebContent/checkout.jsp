@@ -20,11 +20,24 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>            
 
-<body class="bg-light">
-<h3>Indirizzo di spedizione : </h3>
+<body class="bg-dark">
+ <div class="container-fluid" id="grad1">
+        <div class="col text-center py-2 px-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform">
+							 <ul id="progressbar">
+							             <li class="active" id="spedizione"><strong>Spedizione</strong></li>
+							             <li id="fatturazione"><strong>Fatturazione</strong></li>
+							             <li id="pagamento"><strong>Pagamento</strong></li>
+							             <li id="terminato"><strong>Terminato</strong></li>
+							</ul>
+<div class="form-card">
+<h2 class="fs-title px-2">Spedizione</h2>
 <form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 			<fieldset>
-		    	<div class="form-group">
+		    	<div class="form-group px-2">
 		             <label for="email">E-Mail&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -36,8 +49,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci e-mail" value="<%=request.getAttribute("email")%>" name="email">
 						</div>
-						</div>
-					<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="name">Nome&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -49,8 +62,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" value="<%=request.getAttribute("name")%>" name="name">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="surname">Cognome&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -62,8 +75,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" value="<%=request.getAttribute("surname")%>" name="surname">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="city">Città&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -74,9 +87,9 @@
 						  </span>
 				        </div>
 				        <input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci città" value="<%=request.getAttribute("city")%>" name="city">
-						</div>
-						</div>
-							<div class="form-group">
+					  </div>
+				</div>
+				<div class="form-group px-2">
 		             <label for="country">Paese&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -87,9 +100,9 @@
 						  </span>
 				        </div>
 				        <input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" value="<%=request.getAttribute("country")%>" name="country">
-						</div>
-						</div>
-							<div class="form-group">
+					  </div>
+				</div>
+				<div class="form-group px-2">
 		             <label for="provincia">Provincia&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -101,8 +114,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" value="<%=request.getAttribute("provincia")%>" name="provincia">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="cap">CAP&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -114,8 +127,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" value="<%=request.getAttribute("cap")%>" name="cap">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="address">Indirizzo&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -127,8 +140,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci address" value="<%=request.getAttribute("address")%>" name="address">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="number">Numero Civico&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -140,8 +153,8 @@
 				        </div>
 				        <input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" value="<%=request.getAttribute("number")%>" name="number">
 						</div>
-						</div>
-							<div class="form-group">
+				</div>
+				<div class="form-group px-2">
 		             <label for="cellulare">Cellulare&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -152,44 +165,76 @@
 						  </span>
 				        </div>
 				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" value="<%=request.getAttribute("cellulare")%>" name="cellulare">
-						</div>
-						</div>
-						<div class="form-check">
+					  </div>
+			    </div>
+				<div class="form-check px-2">
   							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
   								<label class="form-check-label" for="flexRadioDefault1">
    								Corriere di default			 
   								</label>
-						</div>
+				</div>
+				
+
+						<input type="button" name="next" class="next action-button" value="Continua"/>
+			    
+
+					
 						
 						<!-- Altri corrieri -->
 						<!-- Da mettere in altra sezione della pagina tramite la grafica a sezioni -->
-						<h3>Fatturazione :</h3>
+			   </fieldset>
+
+			   <fieldset>
+			   <div class="form-card">
+                      <h2 class="fs-title px-2">Fatturazione</h2>
 						<div class="form-check">
   							<input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault2">
   								<label class="form-check-label" for="flexRadioDefault2">
    								Riepilogo non fiscale	 
   								</label>
-						</div>
-						<div class="form-check">
+			   </div>
+			   <div class="form-check">
   							<input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3">
   								<label class="form-check-label" for="flexRadioDefault3">
    								Invio telematico 
   								</label>
-						</div>
-						<div class="form-check">
+			   </div>
+			   <div class="form-check">
   							<input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4">
   								<label class="form-check-label" for="flexRadioDefault4">
    								Fattura elettronica
   								</label>
-						</div>
+			   </div>
+			   </div>
+				<input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+			   </fieldset>
+			   <fieldset>
+			   <div class="form-card">
+			   		<h2 class="fs-title px-2">Pagamento</h2>
+			   
+			   
 						<!--  Metodi di pagamento -->
 						<!-- Da mettere in altra sezione della pagina tramite la grafica a sezioni -->
-			</fieldset>
+				</div>
+				<input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+				</fieldset>
+				<fieldset>
+	                   <div class="form-card">
+	                         <h2 class="fs-title text-center ">Il tuo ordine è andato a buon fine!</h2> <br>
+	                             <div class="row justify-content-center">
+	                                  <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
+	                             </div>
+	                   </div>
+	            </fieldset>
+
 </form>
-
-
-
-<body>
+</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
