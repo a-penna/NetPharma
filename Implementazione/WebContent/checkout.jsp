@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,80 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
 	<!-- Latest compiled JavaScript --> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function(){
+
+		var current_fs, next_fs, previous_fs; //fieldsets
+		var opacity;
+
+		$(".next").click(function(){
+
+		current_fs = $(this).parent();
+		next_fs = $(this).parent().next();
+
+		//Add Class Active
+		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+		//show the next fieldset
+		next_fs.show();
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+		step: function(now) {
+		// for making fielset appear animation
+		opacity = 1 - now;
+
+		current_fs.css({
+		'display': 'none',
+		'position': 'relative'
+		});
+		next_fs.css({'opacity': opacity});
+		},
+		duration: 600
+		});
+		});
+
+		$(".previous").click(function(){
+
+		current_fs = $(this).parent();
+		previous_fs = $(this).parent().prev();
+
+		//Remove class active
+		$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+		//show the previous fieldset
+		previous_fs.show();
+
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+		step: function(now) {
+		// for making fielset appear animation
+		opacity = 1 - now;
+
+		current_fs.css({
+		'display': 'none',
+		'position': 'relative'
+		});
+		previous_fs.css({'opacity': opacity});
+		},
+		duration: 600
+		});
+		});
+
+		$('.radio-group .radio').click(function(){
+		$(this).parent().find('.radio').removeClass('selected');
+		$(this).addClass('selected');
+		});
+
+		$(".submit").click(function(){
+		return false;
+		})
+
+		});
+	</script>
 </head>            
 
 <body class="bg-dark">
+<%@ include file="header.jsp"%>
  <div class="container-fluid" id="grad1">
         <div class="col text-center py-2 px-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
@@ -37,7 +108,7 @@
 <h2 class="fs-title px-2">Spedizione</h2>
 <form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 			<fieldset>
-		    	<div class="form-group px-2">
+		    	<div class="form-group text-left px-2">
 		             <label for="email">E-Mail&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -50,7 +121,7 @@
 				        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci e-mail" value="<%=request.getAttribute("email")%>" name="email">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="name">Nome&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -63,7 +134,7 @@
 				        <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" value="<%=request.getAttribute("name")%>" name="name">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="surname">Cognome&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -76,7 +147,7 @@
 				        <input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" value="<%=request.getAttribute("surname")%>" name="surname">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="city">Città&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -89,7 +160,7 @@
 				        <input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci città" value="<%=request.getAttribute("city")%>" name="city">
 					  </div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="country">Paese&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -102,7 +173,7 @@
 				        <input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" value="<%=request.getAttribute("country")%>" name="country">
 					  </div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="provincia">Provincia&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -115,7 +186,7 @@
 				        <input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" value="<%=request.getAttribute("provincia")%>" name="provincia">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="cap">CAP&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -128,7 +199,7 @@
 				        <input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" value="<%=request.getAttribute("cap")%>" name="cap">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="address">Indirizzo&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -141,7 +212,7 @@
 				        <input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci address" value="<%=request.getAttribute("address")%>" name="address">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="number">Numero Civico&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -154,7 +225,7 @@
 				        <input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" value="<%=request.getAttribute("number")%>" name="number">
 						</div>
 				</div>
-				<div class="form-group px-2">
+				<div class="form-group text-left px-2">
 		             <label for="cellulare">Cellulare&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
@@ -167,7 +238,7 @@
 				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" value="<%=request.getAttribute("cellulare")%>" name="cellulare">
 					  </div>
 			    </div>
-				<div class="form-check px-2">
+				<div class="form-check text-left px-2">
   							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
   								<label class="form-check-label" for="flexRadioDefault1">
    								Corriere di default			 
