@@ -124,10 +124,18 @@
 							<td><%=des%></td>
 						<%}%>
 						<td>
-							<button class="btn btn-block btn-dark col-md-3 my-2" onclick="remove('<%=prodotto.getId()%>')">&dash;</button>
-							<input class="container-quantity col-md-3" type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>')" value="<%=quantity%>">
-							<button class="btn btn-block btn-dark col-md-3 my-2" onclick="add('<%=prodotto.getId()%>')">&plus;</button>
+						<div class="row">
+							<button class="btn btn-block btn-dark col-xl-4 my-2" onclick="remove('<%=prodotto.getId()%>')">&dash;</button>
+						</div>
+						<div class="row">
+							<input class="container-quantity col-xl-4" type="number" id="quantity<%=prodotto.getId()%>" name="quantity<%=prodotto.getId()%>" onchange="updateQuantity('<%=prodotto.getId()%>')" value="<%=quantity%>">
+						</div>
+						<div class="row">
+							<button class="btn btn-block btn-dark col-xl-4 my-2" onclick="add('<%=prodotto.getId()%>')">&plus;</button>
+						</div>
+						<div class="row">
 							<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
+						</div>
 						</td>
 						<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>
 					</tr>
