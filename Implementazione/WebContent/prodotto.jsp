@@ -27,12 +27,14 @@
 	<!-- Latest compiled JavaScript --> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body class="bg-light">
-	<div class="container py-5">  
+<%@ include file="header.jsp"%>
+	<div class="container py-5">
 		<h1 align="center"><%=prodotto.getNome()%></h1>
 		
 		<br>
-		<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="mx-auto d-block rounded" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
+		<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
 	    <br>
 		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getMarchio()%></p>
 		<br>
