@@ -47,7 +47,8 @@ pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
 							            while(it.hasNext()) {
 											Prodotto bean = (Prodotto)it.next();
 											 %>
-							            		<option value="<%=bean.getId()%>"><%=bean.getNome()%></option>
+							            		<option value="<%=bean.getNome()%>"><%=bean.getNome()%></option>
+							            		// id categoria, nome categoria
 							            <%	  
 										} 
 							            %>

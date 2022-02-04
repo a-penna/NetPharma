@@ -3,6 +3,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import bean.Categoria;
-import model.*;
+import model.CategoriaDAO;
 import utils.Utility;
 
 @WebServlet("/RimuoviCategoria")
@@ -31,18 +32,22 @@ public class RimuoviCategoriaControl extends HttpServlet {
 			return;
 		}
 		
-		String nome = request.getParameter("nome");
-		if (nome == null) {
+		if (request.getParameter("id") == null) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/rimuoviCategoria.jsp"));
 			return;
 		}
 		
+		int id = Integer.parseInt(request.getParameter("id"));
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CategoriaDAO model = new CategoriaDAO(ds);	
-
+		//modificare con id
+		//lista di categoria da passare in select in jsp
 		try {
-			Categoria bean = model.doRetrieveByKey(nome);
+			Collection<Categoria> categorie = model.doRetrieveAll("nome");
+			request.setAttribute("listaCategorie", categorie);
+			Categoria bean = new Categoria();
+			bean.setId(id);
 			model.doDelete(bean);
 	    	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 	    	return;

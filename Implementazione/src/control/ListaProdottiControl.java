@@ -2,8 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
-import model.*;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import bean.Categoria;
 import bean.Prodotto;
+import model.ProdottoDAO;
 import utils.Utility;
 
 @WebServlet("/ProdottiControl")
@@ -23,7 +22,6 @@ public class ListaProdottiControl extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoria = request.getParameter("categoria");
-		Categoria c = new Categoria(categoria);
 		
 		if (categoria == null) {
 		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottiControl"));
@@ -34,7 +32,7 @@ public class ListaProdottiControl extends HttpServlet {
 		ProdottoDAO model = new ProdottoDAO(ds);
 		
 		try {
-			Collection<Prodotto> prodotti = model.doRetrieveAllByCategoria(c);
+			Collection<Prodotto> prodotti = model.doRetrieveAllByCategoria(categoria);
 
 			request.setAttribute("prodotti", prodotti); 
 			request.setAttribute("categoria", categoria);

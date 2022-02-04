@@ -38,7 +38,7 @@ public class AggiungiCategoriaControl extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiCategoria.jsp"));
 			return;
 		}
-		
+		 //lista di tutti i prodotti svincolati con nuova query nel dao
 		nome = Utility.filter(nome);
 		
 

@@ -42,7 +42,7 @@ public class AggiungiProdottoCarrelloControl extends HttpServlet {
 			ProdottoDAO prodottoModel = new ProdottoDAO(ds);
 			Prodotto p = null;
 			try {
-				p = prodottoModel.doRetrieveByKey(prodottoID + "");
+				p = prodottoModel.doRetrieveByKey(prodottoID);
 			} catch (SQLException e) {
 				Utility.printSQLException(e);
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));

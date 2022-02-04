@@ -9,11 +9,10 @@ import java.util.LinkedList;
 
 import javax.sql.DataSource;
 
-import bean.Categoria;
 import bean.Prodotto;
 import utils.Utility;
 
-public class ProdottoDAO implements Model<Prodotto>{
+public class ProdottoDAO {
     
 	private DataSource ds = null;
 
@@ -21,7 +20,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 		this.ds = ds;
 	}
 
-	public Prodotto doRetrieveByKey(String id) throws SQLException {
+	public Prodotto doRetrieveByKey(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -32,7 +31,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, id);
+			preparedStatement.setInt(1, id);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -45,7 +44,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(new Categoria(rs.getString("categoria")));
+				bean.setCategoria(rs.getString("categoria"));
 				bean.setFoto(rs.getBytes("foto"));
 			}
 
@@ -105,7 +104,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(new Categoria(rs.getString("categoria")));
+				bean.setCategoria(rs.getString("categoria"));
 				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
 
 				prodotti.add(bean);
@@ -129,6 +128,8 @@ public class ProdottoDAO implements Model<Prodotto>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
+		
+		//da vedere
 		String insertSQL = "INSERT INTO Prodotto (nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
@@ -143,7 +144,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 			preparedStatement.setString(5, prodotto.getDescrizione());
 			preparedStatement.setInt(6, prodotto.getDisponibilita());
 			preparedStatement.setBigDecimal(7, prodotto.getPrezzo());
-			preparedStatement.setString(8, prodotto.getCategoria().getNome());
+			preparedStatement.setString(8, prodotto.getCategoria());
             preparedStatement.setBytes(9, prodotto.getFoto());
 
             int result = preparedStatement.executeUpdate();
@@ -185,7 +186,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 			preparedStatement.setString(4, prodotto.getDescrizione());
 			preparedStatement.setInt(5, prodotto.getDisponibilita());
 			preparedStatement.setBigDecimal(6, prodotto.getPrezzo());
-			preparedStatement.setString(8, prodotto.getCategoria().getNome());
+			preparedStatement.setString(7, prodotto.getCategoria());
             preparedStatement.setBytes(8, prodotto.getFoto());
             preparedStatement.setString(9, prodotto.getNome());
             
@@ -211,16 +212,16 @@ public class ProdottoDAO implements Model<Prodotto>{
 		
 		
 		String deleteSQL = "DELETE FROM Prodotto "
-						+ "WHERE nome=?";
+						+ "WHERE id=?";
 		
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			
-			String prodotto = bean.getNome();
+			int prodotto = bean.getId();
 	
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, prodotto);
+			preparedStatement.setInt(1, prodotto);
 			
 			int result = preparedStatement.executeUpdate();
 			if (result != 1) {
@@ -246,18 +247,19 @@ public class ProdottoDAO implements Model<Prodotto>{
 	}
 
 	
-	public Collection<Prodotto> doRetrieveAllByCategoria(Categoria categoria) throws SQLException{
+	public Collection<Prodotto> doRetrieveAllByCategoria(String categoria) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-	
+		
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 	
-		String selectSQL = "SELECT * FROM prodotto WHERE categoria=?))";
+		String selectSQL = "SELECT * FROM prodotto WHERE categoria=?";
 	
 		try {
 			connection = ds.getConnection();
+		
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, categoria.getNome());
+			preparedStatement.setString(1, categoria);
 	
 			ResultSet rs = preparedStatement.executeQuery();
 	
@@ -271,7 +273,7 @@ public class ProdottoDAO implements Model<Prodotto>{
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(new Categoria(rs.getString("categoria")));
+				bean.setCategoria(rs.getString("categoria"));
 				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
 				
 				prodotti.add(bean);
@@ -288,4 +290,52 @@ public class ProdottoDAO implements Model<Prodotto>{
 		}
 		return prodotti;
 	}	
+	
+
+	public Prodotto doRicerca(String nome, String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Prodotto bean = new Prodotto();
+
+		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?%";
+		
+		if (checkOrder(order)) {
+			selectSQL += " ORDER BY " + order;
+		}
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, nome);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setId(rs.getInt("id"));
+				bean.setNome(rs.getString("nome"));
+				bean.setMarchio(rs.getString("marchio"));
+				bean.setProduttore(rs.getString("produttore"));
+				bean.setFormato(rs.getString("formato"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setDisponibilita(rs.getInt("disponibilita"));
+				bean.setPrezzo(rs.getBigDecimal("prezzo"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setFoto(rs.getBytes("foto"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		
+		return bean;
+	}
+	
 }

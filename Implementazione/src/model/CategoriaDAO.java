@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import bean.Categoria;
 import utils.Utility;
 
-public class CategoriaDAO implements Model<Categoria>{
+public class CategoriaDAO {
     
 	private DataSource ds = null;
 
@@ -20,7 +20,41 @@ public class CategoriaDAO implements Model<Categoria>{
 		this.ds = ds;
 	}
 
-	public Categoria doRetrieveByKey(String nome) throws SQLException {
+
+	public Categoria doRetrieveByKey(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Categoria bean = new Categoria();
+
+		String selectSQL = "SELECT * FROM categoria WHERE id = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, id);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setId(rs.getInt(id));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+
+		return bean;
+	}
+	
+	public Categoria doRetrieveByUsername(String nome) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

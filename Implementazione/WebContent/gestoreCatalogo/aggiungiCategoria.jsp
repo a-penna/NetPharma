@@ -37,6 +37,8 @@ pageEncoding="UTF-8" import="java.util.*, model.*"%>
 								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome categoria">
 				    		</div>
 				        </fieldset>
+				        
+				        lista di tutti i prodotti svincolati e pulsante più da freevote
 				       
 				        <button type="submit" class="btn btn-primary">Aggiungi</button>
 				</form>

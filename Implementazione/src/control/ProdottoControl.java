@@ -19,12 +19,13 @@ import model.*;
 		private static final long serialVersionUID = 1L;
 	       
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String id = request.getParameter("id");
 			
-			if (id == null) {
+			if (request.getParameter("id") == null) {
 			 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottoControl"));
 			 	return;
 			}
+			
+			int id = Integer.parseInt(request.getParameter("id"));
 			
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			ProdottoDAO prodottoDAO = new ProdottoDAO(ds);

@@ -19,10 +19,10 @@ import model.ProdottoDAO;
 import utils.Utility;
 
 
-@WebServlet("/AggiungiProdotto")
+@WebServlet("/ModificaProdotto")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB after which the file will be temporarily stored on disk
 				maxFileSize = 1024 * 1024 * 10) // 10MB maximum size allowed for uploaded files
-public class AggiungiProdottoControl extends HttpServlet {
+public class ModificaProdottoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 		
 		
 		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || categoria == null || prezzo == null) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/modificaProdotto.jsp"));
 			return;
 		}
 		
@@ -79,18 +79,19 @@ public class AggiungiProdottoControl extends HttpServlet {
 			prodotto.setFormato(formato);
 			prodotto.setDescrizione(descrizione);
 			prodotto.setDisponibilita(disponibilita);
-			prodotto.setCategoria(categoria);
 			prodotto.setPrezzo(prezzo);
+			prodotto.setCategoria(categoria);
 			prodotto.setFoto(streamFoto.readAllBytes());
+			
 
-			model.doSave(prodotto);
+			model.doUpdate(prodotto);
 			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
 
 		} catch(SQLException e) {
 			Utility.printSQLException(e);
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/updateError.jsp"));
 			return;
 		}
 	}
