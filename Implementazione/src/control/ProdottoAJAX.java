@@ -18,7 +18,7 @@ import bean.Prodotto;
 import model.ProdottoDAO;
 import utils.Utility;
 
-@WebServlet("/Prodotto")
+@WebServlet("/ProdottoAJAX")
 public class ProdottoAJAX extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
