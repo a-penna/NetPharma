@@ -22,18 +22,21 @@ pageEncoding="UTF-8" import="java.util.*, model.*"%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>
 		$(document).ready(function() {
-			$('#regione').change(function() {
+			$('#prodotto').change(function() {
 				var id = $(this).val();
 				$.ajax({
 					url:"Prodotto?id=" + id,
 					method:"GET",
 				})
 				.done(function(msg) {
-					var prodotti = msg.listaProdotti;  //listacomuni è un array json
+					var prodotti = msg.prodotto;   
 					$("#nome").html(prodotti[0]);
 					$("#marchio").html(prodotti[1]);
-					//ecc ecc
-						
+					$("#produttore").html(prodotti[2]);
+					$("#formato").html(prodotti[3]);
+					$("#descrizione").html(prodotti[4]);
+					$("#disponibilita").html(prodotti[5]);
+					$("#prezzo").html(prodotti[6]);
 					})
 					.fail(function(xhr, textStatus) {
 						alert("Errore");

@@ -128,24 +128,23 @@ public class ProdottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		
-		//da vedere
-		String insertSQL = "INSERT INTO Prodotto (nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT * FROM categoria WHERE nome=?), ?)";
 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setString(1, prodotto.getNome());
-			preparedStatement.setString(2, prodotto.getMarchio());
-			preparedStatement.setString(3, prodotto.getProduttore());
-			preparedStatement.setString(4, prodotto.getFormato());
-			preparedStatement.setString(5, prodotto.getDescrizione());
-			preparedStatement.setInt(6, prodotto.getDisponibilita());
-			preparedStatement.setBigDecimal(7, prodotto.getPrezzo());
-			preparedStatement.setString(8, prodotto.getCategoria());
-            preparedStatement.setBytes(9, prodotto.getFoto());
+			preparedStatement.setInt(1, prodotto.getId());
+			preparedStatement.setString(2, prodotto.getNome());
+			preparedStatement.setString(3, prodotto.getMarchio());
+			preparedStatement.setString(4, prodotto.getProduttore());
+			preparedStatement.setString(5, prodotto.getFormato());
+			preparedStatement.setString(6, prodotto.getDescrizione());
+			preparedStatement.setInt(7, prodotto.getDisponibilita());
+			preparedStatement.setBigDecimal(8, prodotto.getPrezzo());
+			preparedStatement.setString(9, prodotto.getCategoria());
+            preparedStatement.setBytes(10, prodotto.getFoto());
 
             int result = preparedStatement.executeUpdate();
             if (result != 1) {
@@ -172,23 +171,24 @@ public class ProdottoDAO {
 	public void doUpdate(Prodotto prodotto) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String updateSQL = "UPDATE prodotto SET marchio = ?, produttore = ?, formato = ?, descrizione = ?, disponibilita = ?, prezzo = ?, categoria = ?, foto = ? WHERE nome = ?";
+		
+		String updateSQL = "UPDATE prodotto SET nome = ?, marchio = ?, produttore = ?, formato = ?, descrizione = ?, disponibilita = ?, prezzo = ?, categoria = (SELECT * FROM categoria WHERE nome=?), foto = ? WHERE id = ?";
 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, prodotto.getMarchio());
-			preparedStatement.setString(2, prodotto.getProduttore());
-			preparedStatement.setString(3, prodotto.getFormato());
-			preparedStatement.setString(4, prodotto.getDescrizione());
-			preparedStatement.setInt(5, prodotto.getDisponibilita());
-			preparedStatement.setBigDecimal(6, prodotto.getPrezzo());
-			preparedStatement.setString(7, prodotto.getCategoria());
-            preparedStatement.setBytes(8, prodotto.getFoto());
-            preparedStatement.setString(9, prodotto.getNome());
+			preparedStatement.setString(1, prodotto.getNome());
+			preparedStatement.setString(2, prodotto.getMarchio());
+			preparedStatement.setString(3, prodotto.getProduttore());
+			preparedStatement.setString(4, prodotto.getFormato());
+			preparedStatement.setString(5, prodotto.getDescrizione());
+			preparedStatement.setInt(6, prodotto.getDisponibilita());
+			preparedStatement.setBigDecimal(7, prodotto.getPrezzo());
+			preparedStatement.setString(8, prodotto.getCategoria());
+            preparedStatement.setBytes(9, prodotto.getFoto());
+            preparedStatement.setInt(10, prodotto.getId());
             
 			preparedStatement.executeUpdate();
 
@@ -253,7 +253,7 @@ public class ProdottoDAO {
 		
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 	
-		String selectSQL = "SELECT * FROM prodotto WHERE categoria=?";
+		String selectSQL = "SELECT * FROM prodotto WHERE categoria=(SELECT id FROM categoria WHERE nome=?)";
 	
 		try {
 			connection = ds.getConnection();
@@ -273,7 +273,7 @@ public class ProdottoDAO {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(categoria);
 				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
 				
 				prodotti.add(bean);
@@ -337,5 +337,49 @@ public class ProdottoDAO {
 		
 		return bean;
 	}
+	
+
+	public Collection<Prodotto> doRetrieveSvincolati() throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
+	
+		String selectSQL = "SELECT * FROM prodotto WHERE categoria=null";
+	
+		try {
+			connection = ds.getConnection();
+		
+			preparedStatement = connection.prepareStatement(selectSQL);
+	
+			ResultSet rs = preparedStatement.executeQuery();
+	
+			while (rs.next()) {
+				Prodotto bean = new Prodotto();
+				
+				bean.setNome(rs.getString("nome"));
+				bean.setMarchio(rs.getString("marchio"));
+				bean.setProduttore(rs.getString("produttore"));
+				bean.setFormato(rs.getString("formato"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setDisponibilita(rs.getInt("disponibilita"));
+				bean.setPrezzo(rs.getBigDecimal("prezzo"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
+				
+				prodotti.add(bean);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return prodotti;
+	}	
 	
 }

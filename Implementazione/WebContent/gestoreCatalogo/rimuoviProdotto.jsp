@@ -14,7 +14,7 @@ pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
 <head>
 	<meta charset="UTF-8">
 	<meta name="keywords" content="NetPharma, piattaforma e-commerce, e-commerce, shop online, shop, operazioni gestore catalogo, gestore catalogo, rimuovi, prodotto, rimuovi prodotto">
-	<meta name="description" content="Elimina partito">
+	<meta name="description" content="Rimuovi Prodotto">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">    
 	<title>NetPharma &dash; Rimuovi Prodotto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">

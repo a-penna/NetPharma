@@ -33,6 +33,8 @@ pageEncoding="UTF-8" import="java.util.*, model.*"%>
 				        <fieldset>
 				        	<legend>Informazioni sul prodotto&colon; </legend>
 							<div class="form-group">
+							
+							<!-- INSERIRE ID --------- -->
 					        	<label for="nome">Nome&colon;</label>
 								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome prodotto">
 				    		</div>

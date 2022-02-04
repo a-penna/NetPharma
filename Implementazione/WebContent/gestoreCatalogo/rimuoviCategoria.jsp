@@ -2,9 +2,9 @@
 pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
 
 <% 
-	Collection<?> prodotti = (Collection<?>) request.getAttribute("listaProdotti");
-    if (prodotti == null) {
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/RimuoviProdotto"));
+	Collection<?> categorie = (Collection<?>) request.getAttribute("listaCategorie");
+    if (categorie == null) {
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/RimuoviCategoria"));
         return;
     }
 %>
@@ -13,10 +13,10 @@ pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="keywords" content="NetPharma, piattaforma e-commerce, e-commerce, shop online, shop, operazioni gestore catalogo, gestore catalogo, rimuovi, prodotto, rimuovi prodotto">
-	<meta name="description" content="Elimina partito">
+	<meta name="keywords" content="NetPharma, piattaforma e-commerce, e-commerce, shop online, shop, operazioni gestore catalogo, gestore catalogo, rimuovi, categoria, rimuovi categoria">
+	<meta name="description" content="Rimuovi Categoria">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">    
-	<title>NetPharma &dash; Rimuovi Prodotto</title>
+	<title>NetPharma &dash; Rimuovi Categoria</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
@@ -38,22 +38,21 @@ pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
 			<div class="col-md-10">
 				<form action="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdotto")%>" method="post"> 
 					    <fieldset>
-					        <legend>Inserisci informazioni sul prodotto&colon; </legend>
+					        <legend>Inserisci informazioni sulla categoria&colon; </legend>
 							<div class="form-group">
 						        <select class="custom-select" name="id">
-						        		<option disabled selected>Seleziona Prodotto</option>
+						        		<option disabled selected>Seleziona Categoria</option>
 							            <%
-							            Iterator<?> it = prodotti.iterator();
+							            Iterator<?> it = categorie.iterator();
 							            while(it.hasNext()) {
-											Prodotto bean = (Prodotto)it.next();
+											Categoria bean = (Categoria)it.next();
 											 %>
-							            		<option value="<%=bean.getNome()%>"><%=bean.getNome()%></option>
-							            		// id categoria, nome categoria
+							            		<option value="<%=bean.getId()%>"><%=bean.getNome()%></option>	            		
 							            <%	  
 										} 
 							            %>
 							     </select> 
-							     <div class="invalid-feedback">Seleziona il prodotto da eliminare&excl;</div>
+							     <div class="invalid-feedback">Seleziona la categoria da eliminare&excl;</div>
 				   			</div>
 					        <button type="submit" class="btn btn-primary">Elimina</button>
 					   </fieldset>

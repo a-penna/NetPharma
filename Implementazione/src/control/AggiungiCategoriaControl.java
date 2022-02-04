@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import bean.Categoria;
+import bean.Prodotto;
 import model.CategoriaDAO;
+import model.ProdottoDAO;
 import utils.Utility;
 
 
@@ -38,19 +41,22 @@ public class AggiungiCategoriaControl extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiCategoria.jsp"));
 			return;
 		}
-		 //lista di tutti i prodotti svincolati con nuova query nel dao
+		
 		nome = Utility.filter(nome);
 		
 
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CategoriaDAO model = new CategoriaDAO(ds);
-
+		ProdottoDAO prodottoModel = new ProdottoDAO(ds);
 		try {
+			Collection<Prodotto> prodotti = prodottoModel.doRetrieveSvincolati();
+			request.setAttribute("listaProdotti", prodotti);
 			Categoria categoria = new Categoria();
+			
 			categoria.setNome(nome);
-
-
 			model.doSave(categoria);
+			for(Prodotto p : prodotti)
+				p.setCategoria(categoria.getNome());
 			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
