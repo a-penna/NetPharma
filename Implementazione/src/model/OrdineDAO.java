@@ -165,7 +165,7 @@ public class OrdineDAO implements Model<Ordine>{
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Date data = new Date(System.currentTimeMillis()+172800000); //Data attuale + 2 giorni
+		Date data = new Date(System.currentTimeMillis()+172800000); //Data attuale + 4 giorni --- Data dinamica
 		
 		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ?";
 		try {

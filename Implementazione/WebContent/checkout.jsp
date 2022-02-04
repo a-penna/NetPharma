@@ -106,7 +106,7 @@
 							</ul>
 <div class="form-card">
 <h2 class="fs-title px-2">Spedizione</h2>
-<form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
+ <form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 			<fieldset>
 		    	<div class="form-group text-left px-2">
 		             <label for="email">E-Mail&colon;</label>

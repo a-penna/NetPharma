@@ -1,7 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -12,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import bean.Carrello;
+import bean.ContenutoCarrello;
 import bean.DatiSpedizione;
 import bean.Ordine;
+import model.CarrelloDAO;
 import model.DatiSpedizioneDAO;
 import model.OrdineDAO;
 import utils.Utility;
@@ -50,6 +55,11 @@ public class CheckoutControl extends HttpServlet {
 		OrdineDAO model = new OrdineDAO(ds);
 		DatiSpedizioneDAO model2 = new DatiSpedizioneDAO(ds);
 		
+		
+		
+		
+		
+		
 		String email = request.getParameter("email");
 		String nome = request.getParameter("name");
 		String cognome = request.getParameter("surname");
@@ -65,17 +75,30 @@ public class CheckoutControl extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/checkout.jsp"));
 			return;
 		}
-		DatiSpedizione dati = new DatiSpedizione(nome,cognome,email,cellulare,numeroCivico,citta,indirizzo,paese,provincia,cap,email);
+		
 		try {
+			DatiSpedizione dati = new DatiSpedizione(nome,cognome,email,cellulare,numeroCivico,citta,indirizzo,paese,provincia,cap,email);
+			CarrelloDAO carrelloModel = new CarrelloDAO(ds);
+			String username = (String) request.getSession().getAttribute("username");
+			Carrello carrello = carrelloModel.doRetrieveByUsername(username);
+			ArrayList<ContenutoCarrello> contenuti = carrello.getItems();
+			BigDecimal prezzo = null;
+			for(ContenutoCarrello items : contenuti) {
+				for(int i=0;i<=items.getQuantity();i++) {
+				prezzo=prezzo.add(items.getProdotto().getPrezzo()); 
+				}
+			}
 			
+			//Update carrello e quantità prodotto
 			model2.doSave(dati);
 			Ordine ordine = new Ordine();
+			ordine.setPrezzo(prezzo.floatValue());
 			ordine.setStato("No");
 			ordine.setCliente(email);
+			
 			ordine.setData_ordine(new Date(System.currentTimeMillis()));
-			//Settare prezzo dal prodotto del carrello
-			//Mandare dati a gestore ordine che deve settare data di arrivo
 			model.doSaveCheck(ordine, model2.doRetriveIdByEmail(email).getId());
+			//Clear cart
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/success.jsp"));
 			
 		} catch (SQLException e) {
