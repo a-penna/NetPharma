@@ -172,7 +172,7 @@ public class ProdottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String updateSQL = "UPDATE prodotto SET nome = ?, marchio = ?, produttore = ?, formato = ?, descrizione = ?, disponibilita = ?, prezzo = ?, categoria = (SELECT * FROM categoria WHERE nome=?), foto = ? WHERE id = ?";
+		String updateSQL = "UPDATE prodotto SET nome = ?, marchio = ?, produttore = ?, formato = ?, descrizione = ?, disponibilita = ?, prezzo = ?, foto = ? WHERE id = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -186,9 +186,8 @@ public class ProdottoDAO {
 			preparedStatement.setString(5, prodotto.getDescrizione());
 			preparedStatement.setInt(6, prodotto.getDisponibilita());
 			preparedStatement.setBigDecimal(7, prodotto.getPrezzo());
-			preparedStatement.setString(8, prodotto.getCategoria());
-            preparedStatement.setBytes(9, prodotto.getFoto());
-            preparedStatement.setInt(10, prodotto.getId());
+            preparedStatement.setBytes(8, prodotto.getFoto());
+            preparedStatement.setInt(9, prodotto.getId());
             
 			preparedStatement.executeUpdate();
 
@@ -292,11 +291,12 @@ public class ProdottoDAO {
 	}	
 	
 
-	public Prodotto doRicerca(String nome, String order) throws SQLException {
+	public Collection<Prodotto> doRicerca(String nome, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Prodotto bean = new Prodotto();
+		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
+		
 
 		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?%";
 		
@@ -312,6 +312,7 @@ public class ProdottoDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+				Prodotto bean = new Prodotto();
 				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
@@ -322,6 +323,8 @@ public class ProdottoDAO {
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
 				bean.setCategoria(rs.getString("categoria"));
 				bean.setFoto(rs.getBytes("foto"));
+				
+				prodotti.add(bean);
 			}
 
 		} finally {
@@ -335,7 +338,7 @@ public class ProdottoDAO {
 			}
 		}
 		
-		return bean;
+		return prodotti;
 	}
 	
 

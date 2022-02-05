@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
           <a class="dropdown-item mydark-dropdown-item" href="#">Prevenzione Antivirale</a>
         </div>
       </li>
-	    <form class="form-inline my-2 my-lg-0">
+	    <form class="form-inline my-2 my-lg-0" action="<%=response.encodeURL(request.getContextPath() + "/RicercaProdotto")%>" method="post">
 	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
 	    </form>

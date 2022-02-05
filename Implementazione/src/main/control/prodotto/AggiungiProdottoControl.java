@@ -38,6 +38,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 		}
 		
 		request.setCharacterEncoding("UTF-8");
+		int id = Integer.parseInt(request.getParameter("id"));
 		String nome = request.getParameter("nome");
 		String marchio = request.getParameter("marchio");
 		String produttore = request.getParameter("produttore");
@@ -73,6 +74,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 
 		try {
 			Prodotto prodotto = new Prodotto();
+			prodotto.setId(id);
 			prodotto.setNome(nome);
 			prodotto.setMarchio(marchio);
 			prodotto.setProduttore(produttore);

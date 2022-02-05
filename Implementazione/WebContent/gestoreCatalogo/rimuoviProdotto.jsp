@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 
-<% 
-	Collection<?> prodotti = (Collection<?>) request.getAttribute("listaProdotti");
-    if (prodotti == null) {
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/RimuoviProdotto"));
-        return;
-    }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,21 +30,10 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 			<div class="col-md-10">
 				<form action="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdotto")%>" method="post"> 
 					    <fieldset>
-					        <legend>Inserisci informazioni sul prodotto&colon; </legend>
 							<div class="form-group">
-						        <select class="custom-select" name="id">
-						        		<option disabled selected>Seleziona Prodotto</option>
-							            <%
-							            Iterator<?> it = prodotti.iterator();
-							            while(it.hasNext()) {
-											Prodotto bean = (Prodotto)it.next();
-											 %>
-							            		<option value="<%=bean.getId()%>"><%=bean.getNome()%></option>
-							            <%	  
-										} 
-							            %>
-							     </select> 
-							     <div class="invalid-feedback">Seleziona il prodotto da eliminare&excl;</div>
+								
+					        	<label for="id">Codice Prodotto&colon;</label>
+								<input id="id" type="text" class="form-control" name="id" placeholder="Codice prodotto">
 				   			</div>
 					        <button type="submit" class="btn btn-primary">Elimina</button>
 					   </fieldset>

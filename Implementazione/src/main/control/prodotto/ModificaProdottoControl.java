@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -72,6 +73,9 @@ public class ModificaProdottoControl extends HttpServlet {
 		ProdottoDAO model = new ProdottoDAO(ds);
 
 		try {
+            Collection<Prodotto> prodotti = model.doRetrieveAll("nome");
+			request.setAttribute("listaProdotti", prodotti);
+			
 			Prodotto prodotto = new Prodotto();
 			prodotto.setNome(nome);
 			prodotto.setMarchio(marchio);

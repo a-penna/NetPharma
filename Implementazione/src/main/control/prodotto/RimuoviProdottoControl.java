@@ -2,7 +2,6 @@ package main.control.prodotto;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,8 +34,6 @@ public class RimuoviProdottoControl extends HttpServlet {
 		ProdottoDAO model = new ProdottoDAO(ds);	
 		
 		try {
-            Collection<Prodotto> prodotti = model.doRetrieveAll("nome");
-			request.setAttribute("listaProdotti", prodotti);
 			String id = request.getParameter("id");
 			if (id != null) {
 				Prodotto prodotto = new Prodotto();

@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
+pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
+
+<% 
+	Collection<?> prodotti = (Collection<?>) request.getAttribute("listaProdotti");
+    if (prodotti == null) {
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/ModificaProdotto"));
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="keywords" content="NetPharma, piattaforma e-commerce, e-commerce, shop, shop online, operazioni gestore catalogo, gestore catalogo, aggiungi, aggiungi prodotto, prodotto">
-	<meta name="description" content="Aggiungi Prodotto">
+	<meta name="keywords" content="NetPharma, piattaforma e-commerce, e-commerce, shop, shop online, operazioni gestore catalogo, gestore catalogo, modifica, modifica prodotto, prodotto">
+	<meta name="description" content="Modifica Prodotto">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">    
-	<title>Netpharma &dash; Aggiungi Prodotto</title>
+	<title>Netpharma &dash; Modifica Prodotto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" />
@@ -52,13 +60,28 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 	<div class="container-fluid py-5">
 		<div class="row">
 			<div class="col-md-10">
-				<p>Inserisci i dati nel seguente form per aggiungere un nuovo prodotto&colon; <p>
+				<p>Inserisci i dati nel seguente form per modificare un nuovo prodotto&colon; <p>
 				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdotto")%>" method="post" enctype="multipart/form-data"> 
 				        <fieldset>
 				        	<legend>Informazioni sul prodotto&colon; </legend>
+				        	<div class="form-group">
+						        <select class="custom-select" name="prodotto">
+						        		<option disabled selected>Prodotti</option>
+							            <%
+							            Iterator<?> it = prodotti.iterator();
+							            while(it.hasNext()) {
+											Prodotto bean = (Prodotto)it.next();
+											 %>
+							            		<option value="<%=bean.getId()%>"><%=bean.getNome()%></option>
+							            <%	  
+										} 
+							            %>
+							     </select> 
+							     <div class="invalid-feedback">Seleziona il prodotto da modificare&excl;</div>
+				   			</div>
 							<div class="form-group">
 					        	<label for="nome">Nome&colon;</label>
-								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome prodotto">
+								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome prodotto">
 				    		</div>
 				    		
 							<div class="form-group">
@@ -97,13 +120,13 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 				    		</div>
 				    		
 							<div class="form-group">
-					        	<label for="foto">Carica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
+					        	<label for="foto">Modifica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
 					       	    <input id="foto" type="file" accept="image/*" name="Foto"> 
 					        	<br>
 					        </div>
 				        </fieldset>
 				       
-				        <button type="submit" class="btn btn-primary">Aggiungi</button>
+				        <button type="submit" class="btn btn-primary">Modifica</button>
 				</form>
 		</div>
 	</div>
