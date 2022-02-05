@@ -30,44 +30,49 @@
 
 <body class="bg-light">
 <%@ include file="header.jsp"%>
-	<div class="container py-5">
 	
-	<div class="card border-dark mb-3">
-  <div class="card-header"></div>
-  <div class="card-body text-dark">
-  <h1 align="center"><%=prodotto.getNome()%></h1>
-		
-		<br>
-		<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
-	    <br>
-		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getMarchio()%></p>
-		<br>
-		<br>
-		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getFormato()%></p>
-		<br>
-		<br>
-		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getCategoria()%></p>
-		<br>
-		<br>
-		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getDescrizione()%></p>
-		<br>
-	    <br>
-		<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getPrezzo()%></p>
-		<br>
-		<hr>
-		<br>
+	<div class="row">
+	<div class="col my-4 mx-4">
+  			<div class="container-product my-4">  
+					<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
+				   	<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getNome()%></p>
+					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getMarchio()%></p>
+					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getCategoria()%></p>
+					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getDescrizione()%> prodotto</p>
+					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getFormato()%></p>
+		    </div>
 	</div>
-	
-	<form method="get" action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello")%>"> 
-		<label for="quantity">Quantit&agrave;&colon;</label>
-			 <input type="hidden" name="prodotto"  value="<%=prodotto.getId()%>">
-			 <input type="number" id="quantity" value="1" min="1" name="quantity">
-		<input type="submit" class="btn btn-dark" value="AGGIUNGI AL CARRELLO"/>
-	</form> 
-  
-  </div>
-</div>
-	
-		
+					<div class="col-3 my-5">
+					<form method="get" action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello")%>">
+						<div class="card border-dark mb-3" style="max-width: 16rem;">
+							  	<div class="card-body text-dark pl-2 pr-0">
+							  		<div class="row px-2">
+										<div class="col-6">
+										<p>Prezzo di listino </p>
+										</div>
+										<div class="col-6">
+											<p class="h6 text-right font-weight-normal py-4"><%=prodotto.getPrezzo()%> &euro;</p>
+										</div>
+									</div>
+									<div class="row px-2">
+										<div class="col-6">
+										<p>Quantit&agrave; </p>
+										</div>
+										<div class="col-6">
+											  	<span class="input-number input-number-quantity text-right">
+											  		<input type="hidden" name="prodotto" value="<%=prodotto.getId()%>">
+											   		 <label>
+											    		<input class="container-quantity col-xl-8" type="number" id="quantity" name="quantity" value="1" min="1" step="1">
+											   		 </label>
+											 	</span>
+										</div>
+									</div>								    
+								 </div>
+								 <input type="submit" class="btn btn-dark" value="AGGIUNGI AL CARRELLO"/>
+						</div>						
+					</form>
+					</div>
+	</div>
+
 </body>
 </html>
