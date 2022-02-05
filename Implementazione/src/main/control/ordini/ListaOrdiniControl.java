@@ -1,4 +1,4 @@
-package main.ordini;
+package main.control.ordini;
 
 import java.io.IOException;
 import java.sql.SQLException;

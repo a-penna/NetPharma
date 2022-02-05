@@ -1,7 +1,9 @@
-package main.ordini;
+package main.control.ordini;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,55 +17,45 @@ import main.bean.Ordine;
 import main.model.OrdineDAO;
 import main.utils.Utility;
 
-/**
- * Servlet implementation class GestisciOrdiniControl
- */
-@WebServlet(name = "GestisciOrdini", urlPatterns = { "/GestisciOrdini" })
-public class GestisciOrdiniControl extends HttpServlet {
+
+@WebServlet("/OrdiniDaSpedire")
+public class OrdiniDaSpedireControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GestisciOrdiniControl() {
+
+    public OrdiniDaSpedireControl() {
         super();
-        
+      
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrdineDAO model = new OrdineDAO(ds);
+		
 		try {
-			Ordine ordine = model.doRetrieveByKey(request.getParameter("scelta"));
-			if(model.doUpdateStatus(ordine)) {
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreOrdini/SpedisciOrdini.jsp"));
-				dispatcher.forward(request, response);
-			}
-			else {
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
-				return;
-			}
-		} catch (SQLException e) {
+			Collection<Ordine> ordini = model.doRetrieveAll("");
 			
+			
+			
+			request.setAttribute("ordini", ordini); 
+			
+		} catch (SQLException e) {
 			Utility.printSQLException(e);
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 			return;
-			
 		}
-		
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreOrdini/SpedisciOrdini.jsp"));
+		dispatcher.forward(request, response);
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		doGet(request,response);
 	}
 
 }
