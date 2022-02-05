@@ -131,7 +131,7 @@ select.list-dt:focus {
     border-bottom: 2px solid skyblue
 }
 
-.card {
+.my-card {
     z-index: 0;
     border: none;
     border-radius: 0.5rem;

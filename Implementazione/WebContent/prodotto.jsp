@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, model.*, bean.*"%>
+    pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 
 <%
 	Prodotto prodotto = (Prodotto)request.getAttribute("prodotto");
@@ -31,7 +31,11 @@
 <body class="bg-light">
 <%@ include file="header.jsp"%>
 	<div class="container py-5">
-		<h1 align="center"><%=prodotto.getNome()%></h1>
+	
+	<div class="card border-dark mb-3">
+  <div class="card-header"></div>
+  <div class="card-body text-dark">
+  <h1 align="center"><%=prodotto.getNome()%></h1>
 		
 		<br>
 		<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
@@ -60,6 +64,10 @@
 			 <input type="number" id="quantity" value="1" min="1" name="quantity">
 		<input type="submit" class="btn btn-dark" value="AGGIUNGI AL CARRELLO"/>
 	</form> 
-
+  
+  </div>
+</div>
+	
+		
 </body>
 </html>

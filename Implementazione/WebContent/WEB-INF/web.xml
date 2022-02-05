@@ -35,7 +35,7 @@
   
  <filter> 
     <filter-name>ClienteFilter</filter-name>
-    <filter-class>filter.ClienteFilter</filter-class>
+    <filter-class>main.filter.ClienteFilter</filter-class>
  </filter>
  <filter-mapping> 
     <filter-name>ClienteFilter</filter-name>
@@ -44,7 +44,7 @@
 
  <filter>
     <filter-name>GestoreOrdiniFilter</filter-name>
-    <filter-class>filter.GestoreOrdiniFilter</filter-class>
+    <filter-class>main.filter.GestoreOrdiniFilter</filter-class>
  </filter>
  <filter-mapping>
     <filter-name>GestoreOrdiniFilter</filter-name>
@@ -53,7 +53,7 @@
  
   <filter>
     <filter-name>GestoreCatalogoFilter</filter-name>
-    <filter-class>filter.GestoreCatalogoFilter</filter-class>
+    <filter-class>main.filter.GestoreCatalogoFilter</filter-class>
  </filter>
  <filter-mapping>
     <filter-name>GestoreCatalogoFilter</filter-name>

@@ -95,7 +95,7 @@
 <%@ include file="header.jsp"%>
  <div class="container-fluid" id="grad1">
         <div class="col text-center py-2 px-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+            <div class="card my-card px-0 pt-4 pb-0 mt-3 mb-3">
                 <div class="row">
                     <div class="col-md-12 mx-0">
                         <form id="msform">
