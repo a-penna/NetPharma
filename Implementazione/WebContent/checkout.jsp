@@ -106,11 +106,10 @@
 							             <li id="terminato"><strong>Terminato</strong></li>
 							</ul>
 <div class="form-card">
-<h2 class="fs-title px-2">Spedizione</h2>
  <form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 			<fieldset>
 		    	<div class="form-group text-left px-2">
-		             <label for="email">E-Mail&colon;</label>
+		             <label for="email"><h4>INDIRIZZO DI SPEDIZIONE</h4><br>E-Mail&colon;</label>
 					  <div class="input-group">
 				        <div class="input-group-prepend">
 				          <span class="input-group-text" id="inputGroupPrepend1">
@@ -239,7 +238,9 @@
 				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" value="<%=request.getAttribute("cellulare")%>" name="cellulare">
 					  </div>
 			    </div>
-				<div class="form-check text-left px-2">
+			    <br>
+				<div class="form-check text-left pl-4">
+					<p><h4>METODI DI SPEDIZIONE</h4></p>
   							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
   								<label class="form-check-label" for="flexRadioDefault1">
    								Corriere di default			 

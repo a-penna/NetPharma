@@ -144,7 +144,7 @@ select.list-dt:focus {
     color: #2C3E50;
     margin-bottom: 10px;
     font-weight: bold;
-    text-align: left
+    text-align: left;
 }
 /*Testo passaggi checkout*/
 #progressbar {

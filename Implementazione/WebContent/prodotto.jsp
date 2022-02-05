@@ -42,18 +42,20 @@
 					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getFormato()%></p>
 		    </div>
 	</div>
-					<div class="col-md-3 my-5">
+					<div class="col-md-3 my-5 mx-4">
 					<form method="get" action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello")%>">
 						<div class="card border-dark mb-3" style="max-width: 16rem;">
 							  	<div class="card-body text-dark pl-2 pr-0">
 							  		<div class="row px-2">
-										<div class="col-6">
+										<div class="col-8">
 										<p>Prezzo di listino </p>
 										</div>
-										<div class="col-6">
-											<p class="h6 text-right font-weight-normal py-4"><%=prodotto.getPrezzo()%> &euro;</p>
+										<div class="col-4">
+											<p class="h6 text-right font-weight-normal"><%=prodotto.getPrezzo()%> &euro;</p>
 										</div>
 									</div>
+									<br>
+									<br>
 									<div class="row px-2">
 										<div class="col-6">
 										<p>Quantit&agrave; </p>
