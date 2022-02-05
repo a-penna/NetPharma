@@ -36,7 +36,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 		<div class="row">
 
 			<div class="col-md-10">
-				<form action="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdotto")%>" method="post"> 
+				<form action="<%=response.encodeURL(request.getContextPath() + "/RimuoviCategoria")%>" method="post"> 
 					    <fieldset>
 					        <legend>Inserisci informazioni sulla categoria&colon; </legend>
 							<div class="form-group">

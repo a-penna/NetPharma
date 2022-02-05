@@ -124,6 +124,9 @@ insert into ordine(DATA_ORDINE,DATA_ARRIVO,ID,PREZZO,STATO,CLIENTE,DATI_SPEDIZIO
 insert into account(username,password) values ("SVerdi",MD5("pw1"));
 insert into ruoli(account, ruolo) values(2,"GO");
 insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("F","Sara","Verdi","s@verdi.com","1989-01-22",2);
+insert into account(username,password) values ("GVerdi",MD5("pw2"));
+insert into ruoli(account, ruolo) values(3,"GC");
+insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("M","Gianni","Verdi","g@verdi.com","1978-02-13",3);
 insert into prodotto(id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo) values(883, "prodotto1", "marchio1", "produttore1", "formato1", "descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1", 100, '4.35');
 insert into carrello(cliente, prodotto, quantita) values("Mrossi", 883, 2);
 insert into prodotto(id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo) values(884, "prodotto2", "marchio2", "produttore2", "formato2", "descrizione2", 100, '7.35');

@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
+pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
+
+<% 
+	Collection<?> prodotti = (Collection<?>) request.getAttribute("listaProdotti");
+    if (prodotti == null) {
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/AggiungiCategoria"));
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -20,26 +28,37 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
-   
+    
+    
 </head>            
-<!--
+
 <body class="bg-light">
 	<%@ include file="/header.jsp"%>
 	<div class="container-fluid py-5">
 		<div class="row">
 			<div class="col-md-10">
 				<p>Inserisci i dati nel seguente form per aggiungere una nuova categoria&colon; <p>
-				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiCategoria")%>" method="post"> 
+				<form action="<%=response.encodeURL(request.getContextPath() + "/SettaCategoria")%>" method="post"> 
 				        <fieldset>
 				        	<legend>Informazioni sulla categoria&colon; </legend>
 							<div class="form-group">
 					        	<label for="nome">Nome&colon;</label>
 								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome categoria">
 				    		</div>
+					    		<select class="custom-select" name="nomeProdotto" multiple>
+							        	<option disabled selected>Seleziona prodotti da aggiungere&colon;</option>
+								        <%
+								     	    Iterator<?> it = prodotti.iterator();
+								            while(it.hasNext()) {
+												Prodotto bean = (Prodotto)it.next();
+												 %>
+								            		<option value="<%=bean.getId()%>"><%=bean.getNome()%></option>	            		
+								            <%	  
+											} 
+								        %>
+								</select>
 				        </fieldset>
 				        
-				        lista di tutti i prodotti svincolati e pulsante più da freevote
-				       
 				        <button type="submit" class="btn btn-primary">Aggiungi</button>
 				</form>
 		</div>
@@ -47,5 +66,4 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 	</div> 
 
 </body>
--->
 </html> 

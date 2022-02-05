@@ -5,10 +5,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="keywords" content="NetPharma, farmacia online">
+    <meta name="keywords" content="NetPharma, farmacia online, home, homepage, home-page">
 	<meta name="description" content="HomePage">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">  
-	<title>NetPharma &dash; </title>
+	<title>NetPharma &dash; HomePage</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS --> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 

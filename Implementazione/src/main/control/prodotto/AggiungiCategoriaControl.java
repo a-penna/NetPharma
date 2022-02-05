@@ -36,7 +36,7 @@ public class AggiungiCategoriaControl extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		String nome = request.getParameter("nome");
-		
+	
 		if (nome == null) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiCategoria.jsp"));
 			return;
@@ -55,8 +55,6 @@ public class AggiungiCategoriaControl extends HttpServlet {
 			
 			categoria.setNome(nome);
 			model.doSave(categoria);
-			for(Prodotto p : prodotti)
-				p.setCategoria(categoria.getNome());
 			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
