@@ -6,7 +6,7 @@ public class Ruoli {
 	
 	public enum Ruolo { CL, GO, GC } // CL(Cliente), GO(Gestore degli ordini), GC(Gestore del catalogo)
 	
-	private int Account;
+	private int account;
 	private ArrayList<Ruolo> ruoli;
 	
 	public Ruoli() {
@@ -14,16 +14,16 @@ public class Ruoli {
 	}
 	
 	public Ruoli(int account, ArrayList<Ruolo> ruoli) {
-		Account = account;
+		this.account = account;
 		this.ruoli = ruoli;
 	}
 
 	public int getAccount() {
-		return Account;
+		return account;
 	}
 
 	public void setAccount(int account) {
-		Account = account;
+		this.account = account;
 	}
 
 	public ArrayList<Ruolo> getRuoli() {
@@ -48,7 +48,7 @@ public class Ruoli {
 
 	@Override
 	public String toString() {
-		return "Ruoli [Account=" + Account + ", ruoli=" + ruoli + "]";
+		return "Ruoli [Account=" + account + ", ruoli=" + ruoli + "]";
 	}
 	
 	public static Ruoli.Ruolo stringToRole(String role) {
@@ -71,4 +71,11 @@ public class Ruoli {
 		return null;
 	}
 	
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		Ruoli other = (Ruoli)otherObject; 
+		return account == (other.account)
+				&& ruoli.equals(other.ruoli);
+	}
 }

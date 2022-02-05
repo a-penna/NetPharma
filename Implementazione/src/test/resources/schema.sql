@@ -1,18 +1,4 @@
-SET GLOBAL time_zone = '+1:00';
-
-DROP DATABASE IF EXISTS NETPHARMA;
-CREATE DATABASE NETPHARMA; 
-USE NETPHARMA;
-
-DROP USER IF EXISTS 'admin'@'localhost';
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL ON NETPHARMA.* TO 'admin'@'localhost';
-
-DROP USER IF EXISTS 'user'@'localhost';
-CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
-GRANT SELECT, INSERT, UPDATE ON NETPHARMA.* TO 'user'@'localhost';
-
-CREATE TABLE ACCOUNT
+CREATE TABLE IF NOT EXISTS ACCOUNT
 (
 	ID	INT	NOT NULL AUTO_INCREMENT,
 	USERNAME VARCHAR(20) NOT NULL UNIQUE, 	
@@ -20,7 +6,7 @@ CREATE TABLE ACCOUNT
 	PRIMARY KEY(ID)	
 );
 
-CREATE TABLE RUOLI
+CREATE TABLE IF NOT EXISTS RUOLI
 (
 	ACCOUNT	INT	NOT NULL,
 	RUOLO VARCHAR(2)	NOT NULL,
@@ -28,7 +14,7 @@ CREATE TABLE RUOLI
 	FOREIGN KEY(ACCOUNT) REFERENCES ACCOUNT(ID)
 );
 
-CREATE TABLE UTENTE_REGISTRATO
+CREATE TABLE IF NOT EXISTS UTENTE_REGISTRATO
 (
 	GENERE CHAR NOT NULL, 
 	NOME VARCHAR(20) NOT NULL, 
@@ -40,7 +26,7 @@ CREATE TABLE UTENTE_REGISTRATO
     FOREIGN KEY(ACCOUNT) REFERENCES ACCOUNT(ID)
 ); 
 
-CREATE TABLE DATI_SPEDIZIONE 
+CREATE TABLE IF NOT EXISTS DATI_SPEDIZIONE 
 (
 	ID	INT NOT NULL,  
 	NOME_RICEVENTE VARCHAR(20) NOT NULL,	
@@ -58,7 +44,7 @@ CREATE TABLE DATI_SPEDIZIONE
 	FOREIGN KEY(CLIENTE) REFERENCES UTENTE_REGISTRATO(EMAIL) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
 
-CREATE TABLE ORDINE 
+CREATE TABLE IF NOT EXISTS ORDINE 
 (
 	DATA_ORDINE	DATE NOT NULL,	
 	DATA_ARRIVO	DATE NOT NULL,	
@@ -72,14 +58,14 @@ CREATE TABLE ORDINE
 	FOREIGN KEY(DATI_SPEDIZIONE) REFERENCES DATI_SPEDIZIONE(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE CATEGORIA
+CREATE TABLE IF NOT EXISTS CATEGORIA
 (
 	ID INT NOT NULL AUTO_INCREMENT,
 	NOME VARCHAR(50) NOT NULL,
 	PRIMARY KEY(ID)
 );
 
-CREATE TABLE PRODOTTO
+CREATE TABLE IF NOT EXISTS PRODOTTO
 (
 	ID	INT	NOT NULL,	
 	NOME VARCHAR(100) NOT NULL,	
@@ -95,7 +81,7 @@ CREATE TABLE PRODOTTO
     FOREIGN KEY(CATEGORIA) REFERENCES CATEGORIA(ID) ON DELETE CASCADE ON UPDATE CASCADE	
 );
 
-CREATE TABLE RIGA_ORDINE
+CREATE TABLE IF NOT EXISTS RIGA_ORDINE
 (
 	PRODOTTO INT NOT NULL,
 	ORDINE INT NOT NULL,
@@ -106,7 +92,7 @@ CREATE TABLE RIGA_ORDINE
 	FOREIGN KEY(ORDINE) REFERENCES ORDINE(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE CARRELLO
+CREATE TABLE IF NOT EXISTS CARRELLO
 (
 	CLIENTE VARCHAR(20)	NOT NULL,
 	PRODOTTO INT NOT NULL,
@@ -115,16 +101,3 @@ CREATE TABLE CARRELLO
 	FOREIGN KEY(CLIENTE) REFERENCES ACCOUNT(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(PRODOTTO) REFERENCES PRODOTTO(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-insert into account(username, password) values("Mrossi", MD5("pw"));
-insert into ruoli(account, ruolo) values(1, "CL");
-insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("M","Mario", "Rossi","m@rossi.com","1999-07-25",1);
-insert into dati_spedizione(ID,NOME_RICEVENTE,COGNOME_RICEVENTE,EMAIL,CELLULARE,NCIVICO,VIA,CITY,PAESE,PROVINCIA,CAP,CLIENTE) values (12,"Mario","Rossi","m@rossi.com",333333,404,"Via Roma","Sant'Antonio Abate","Sant'Antonio Abate","NA","80057","m@rossi.com");
-insert into ordine(DATA_ORDINE,DATA_ARRIVO,ID,PREZZO,STATO,CLIENTE,DATI_SPEDIZIONE) values ('2022-01-01','2022-01-06',1,20,"OK","m@rossi.com",12);
-insert into account(username,password) values ("SVerdi",MD5("pw1"));
-insert into ruoli(account, ruolo) values(2,"GO");
-insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("F","Sara","Verdi","s@verdi.com","1989-01-22",2);
-insert into prodotto(id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo) values(883, "prodotto1", "marchio1", "produttore1", "formato1", "descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1", 100, '4.35');
-insert into carrello(cliente, prodotto, quantita) values("Mrossi", 883, 2);
-insert into prodotto(id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo) values(884, "prodotto2", "marchio2", "produttore2", "formato2", "descrizione2", 100, '7.35');
-insert into carrello(cliente, prodotto, quantita) values("Mrossi", 884, 2);

@@ -32,7 +32,7 @@
 <%@ include file="header.jsp"%>
 	
 	<div class="row">
-	<div class="col my-4 mx-4">
+	<div class="col-md-8 my-4 mx-4">
   			<div class="container-product my-4">  
 					<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
 				   	<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getNome()%></p>
@@ -42,7 +42,7 @@
 					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getFormato()%></p>
 		    </div>
 	</div>
-					<div class="col-3 my-5">
+					<div class="col-md-3 my-5">
 					<form method="get" action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello")%>">
 						<div class="card border-dark mb-3" style="max-width: 16rem;">
 							  	<div class="card-body text-dark pl-2 pr-0">

@@ -18,5 +18,7 @@
 	<classpathentry kind="lib" path="junit-vintage-engine-5.8.2.jar"/>
 	<classpathentry kind="lib" path="junit-jupiter-5.8.2.jar"/>
 	<classpathentry kind="lib" path="junit-jupiter-api-5.8.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="slf4j-api-1.7.32.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
