@@ -16,8 +16,8 @@ import main.model.ProdottoDAO;
 import main.utils.Utility;
 
 
-@WebServlet("/PhotoControl")
-public class PhotoControl extends HttpServlet {
+@WebServlet("/FotoControl")
+public class FotoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
