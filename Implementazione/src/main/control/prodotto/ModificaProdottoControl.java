@@ -44,12 +44,20 @@ public class ModificaProdottoControl extends HttpServlet {
 		String produttore = request.getParameter("produttore");
 		String formato = request.getParameter("formato");
 		String descrizione = request.getParameter("descrizione");
-		int disponibilita = Integer.parseInt(request.getParameter("disponibilita"));
+		String disponibilitaStr= request.getParameter("disponibilita");
 		String categoria = request.getParameter("categoria");
 		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
+		int disponibilita;
+		
+		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || categoria == null || disponibilitaStr == null || prezzo == null) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/modificaProdotto.jsp"));
+			return;
+		}
 		
 		
-		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || categoria == null || prezzo == null) {
+		try {
+			disponibilita = Integer.parseInt(disponibilitaStr);
+		} catch (NumberFormatException e) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/modificaProdotto.jsp"));
 			return;
 		}

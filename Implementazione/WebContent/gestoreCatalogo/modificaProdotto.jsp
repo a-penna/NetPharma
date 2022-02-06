@@ -61,11 +61,11 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 		<div class="row">
 			<div class="col-md-10">
 				<p>Inserisci i dati nel seguente form per modificare un nuovo prodotto&colon; <p>
-				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdotto")%>" method="post" enctype="multipart/form-data"> 
+				<form action="<%=response.encodeURL(request.getContextPath() + "/ModificaProdotto")%>" method="post" enctype="multipart/form-data"> 
 				        <fieldset>
 				        	<legend>Informazioni sul prodotto&colon; </legend>
 				        	<div class="form-group">
-						        <select class="custom-select" name="prodotto">
+						        <select class="custom-select">
 						        		<option disabled selected>Prodotti</option>
 							            <%
 							            Iterator<?> it = prodotti.iterator();
@@ -121,7 +121,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 				    		
 							<div class="form-group">
 					        	<label for="foto">Modifica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
-					       	    <input id="foto" type="file" accept="image/*" name="Foto"> 
+					       	    <input id="foto" type="file" accept="image/*" name="foto"> 
 					        	<br>
 					        </div>
 				        </fieldset>

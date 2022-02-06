@@ -38,7 +38,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 				    		</div>
 							<div class="form-group">
 					        	<label for="nome">Nome&colon;</label>
-								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome prodotto">
+								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome prodotto">
 				    		</div>
 				    		
 							<div class="form-group">
@@ -78,7 +78,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 				    		
 							<div class="form-group">
 					        	<label for="foto">Carica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
-					       	    <input id="foto" type="file" accept="image/*" name="Foto"> 
+					       	    <input id="foto" type="file" accept="image/*" name="foto"> 
 					        	<br>
 					        </div>
 				        </fieldset>

@@ -21,7 +21,7 @@ import main.utils.Utility;
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			if (request.getParameter("id") == null) {
-			 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottoControl"));
+			 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Prodotto"));
 			 	return;
 			}
 			

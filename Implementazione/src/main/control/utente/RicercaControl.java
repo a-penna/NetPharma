@@ -16,7 +16,7 @@ import main.bean.Prodotto;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
-@WebServlet("/RicercaControl")
+@WebServlet("/RicercaProdotto")
 public class RicercaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,7 +24,7 @@ public class RicercaControl extends HttpServlet {
 		String nome = request.getParameter("nome");
 		
 		if (nome == null) {
-		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/RicercaControl"));
+		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/RicercaProdotto"));
 		 	return;
 		}
 		
@@ -44,7 +44,7 @@ public class RicercaControl extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/listaProdotti.jsp"));
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/ricercaView.jsp"));
 		dispatcher.forward(request, response);
 	}
 

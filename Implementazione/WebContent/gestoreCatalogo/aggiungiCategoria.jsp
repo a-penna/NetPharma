@@ -43,7 +43,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 				        	<legend>Informazioni sulla categoria&colon; </legend>
 							<div class="form-group">
 					        	<label for="nome">Nome&colon;</label>
-								 <input id="nome" type="text" class="form-control" value="<%=request.getAttribute("nome")%>" name="nome" placeholder="Nome categoria">
+								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome categoria">
 				    		</div>
 					    		<select class="custom-select" name="nomeProdotto" multiple>
 							        	<option disabled selected>Seleziona prodotti da aggiungere&colon;</option>

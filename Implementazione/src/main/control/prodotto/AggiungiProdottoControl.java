@@ -38,18 +38,27 @@ public class AggiungiProdottoControl extends HttpServlet {
 		}
 		
 		request.setCharacterEncoding("UTF-8");
-		int id = Integer.parseInt(request.getParameter("id"));
+		String idStr = request.getParameter("id");
 		String nome = request.getParameter("nome");
 		String marchio = request.getParameter("marchio");
 		String produttore = request.getParameter("produttore");
 		String formato = request.getParameter("formato");
 		String descrizione = request.getParameter("descrizione");
-		int disponibilita = Integer.parseInt(request.getParameter("disponibilita"));
+		String disponibilitaStr = request.getParameter("disponibilita");
 		String categoria = request.getParameter("categoria");
 		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
+		int id, disponibilita;
 		
 		
-		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || categoria == null || prezzo == null) {
+		if (idStr == null || nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || categoria == null || prezzo == null) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
+			return;
+		}
+		
+		try {
+			id = Integer.parseInt(idStr);
+			disponibilita = Integer.parseInt(disponibilitaStr);
+		} catch (NumberFormatException e) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
 			return;
 		}

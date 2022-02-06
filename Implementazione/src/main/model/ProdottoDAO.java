@@ -128,7 +128,7 @@ public class ProdottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT * FROM categoria WHERE nome=?), ?)";
+		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT * FROM categoria WHERE nome=?), ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -298,7 +298,7 @@ public class ProdottoDAO {
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 		
 
-		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?%";
+		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?"; //mettere percento
 		
 		if (checkOrder(order)) {
 			selectSQL += " ORDER BY " + order;

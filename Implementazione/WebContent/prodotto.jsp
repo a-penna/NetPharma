@@ -4,7 +4,7 @@
 <%
 	Prodotto prodotto = (Prodotto)request.getAttribute("prodotto");
 	if(prodotto == null) {
- 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottoControl"));
+ 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Prodotto"));
  		return;
  	}
 %>
@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="keywords" content="NetPharma, e-commerce, ecommerce,  piattaforma e-commerce, shop, farmacia, info prodotto, prodotto<%=prodotto.getNome()%>">
+    <meta name="keywords" content="NetPharma, e-commerce, ecommerce,  piattaforma e-commerce, shop, farmacia, info prodotto, prodotto, <%=prodotto.getNome()%>">
 	<meta name="description" content="Pagina Prodotto">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">  
 	<title>NetPharma &dash; <%=prodotto.getNome()%> </title>
@@ -34,7 +34,7 @@
 	<div class="row">
 	<div class="col-md-8 my-4 mx-4">
   			<div class="container-product my-4">  
-					<img src="PhotoControl?type=partito&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
+					<img src="PhotoControl?type=prodotto&id=<%=prodotto.getNome()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/nologo.png'" alt="foto">
 				   	<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getNome()%></p>
 					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getMarchio()%></p>
 					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getCategoria()%></p>
