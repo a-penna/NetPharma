@@ -5,7 +5,7 @@
     Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 
     if (prodotti == null) {
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/RicercaControl"));
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
         return;
     }
 %>    
@@ -33,7 +33,7 @@
 <body class="bg-light">
 
 	
-    
+    <%@ include file="/header.jsp"%>
     <div class="container py-5"> 
 		<div class="row">
 			<div class="col-md">

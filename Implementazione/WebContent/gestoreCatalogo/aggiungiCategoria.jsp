@@ -45,7 +45,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 					        	<label for="nome">Nome&colon;</label>
 								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome categoria">
 				    		</div>
-					    		<select class="custom-select" name="nomeProdotto" multiple>
+					    		<select class="custom-select" name="idProdotti" multiple>
 							        	<option disabled selected>Seleziona prodotti da aggiungere&colon;</option>
 								        <%
 								     	    Iterator<?> it = prodotti.iterator();

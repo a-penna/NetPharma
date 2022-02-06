@@ -128,7 +128,7 @@ public class ProdottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT * FROM categoria WHERE nome=?), ?)";
+		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM categoria WHERE nome=?), ?)";
 
 		try {
 			connection = ds.getConnection();

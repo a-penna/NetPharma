@@ -33,9 +33,9 @@ public class SettaCategoriaControl extends HttpServlet {
 		}
 		
 		request.setCharacterEncoding("UTF-8");
-		String nome = request.getParameter("nomeProdotto");
+		
 		String categoria= request.getParameter("categoria");
-		String idString[] = request.getParameterValues("prodotti");
+		String idString[] = request.getParameterValues("idProdotti");
 		ArrayList<Integer> ids = new ArrayList<>();
 		try {
 			for(int i=0; i<idString.length; i++) {

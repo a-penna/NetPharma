@@ -56,6 +56,7 @@
 					  %>		
 						  <tr>
 								<th scope="row">
+								<img class="rounded-corners" src="PhotoControl?type=prodotto&id=<%=prodotto.getNome()%>" height=50 width=50 onerror="this.src='./imgs/nologo.png'">
 								</th>
 								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?nome=" + prodotto.getNome())%>"><%=prodotto.getNome()%></a></td>
 										  <td>&dash;</td>
