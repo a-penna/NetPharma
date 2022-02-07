@@ -204,6 +204,37 @@ public class ProdottoDAO {
 			}
 		}
 	}
+	
+	public void updateCategoria(int prodottoID, String categoria) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String updateSQL = "UPDATE prodotto SET categoria = (SELECT id FROM Categoria WHERE nome = ?) WHERE id = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(updateSQL);
+
+			preparedStatement.setString(1, categoria);
+            preparedStatement.setInt(2, prodottoID);
+            
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		}catch(SQLException e){ 
+			System.out.println(e);
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+	}
 
 	public void doDelete(Prodotto bean) throws SQLException {
 		Connection connection = null;
@@ -296,9 +327,9 @@ public class ProdottoDAO {
 		PreparedStatement preparedStatement = null;
 
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
-		
+		nome = "%"+nome+"%";
 
-		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?"; //mettere percento
+		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?"; 
 		
 		if (checkOrder(order)) {
 			selectSQL += " ORDER BY " + order;
@@ -348,7 +379,7 @@ public class ProdottoDAO {
 		
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 	
-		String selectSQL = "SELECT * FROM prodotto WHERE categoria=null";
+		String selectSQL = "SELECT * FROM prodotto WHERE categoria IS NULL";
 	
 		try {
 			connection = ds.getConnection();
@@ -360,6 +391,7 @@ public class ProdottoDAO {
 			while (rs.next()) {
 				Prodotto bean = new Prodotto();
 				
+				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
 				bean.setProduttore(rs.getString("produttore"));

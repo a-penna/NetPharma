@@ -155,7 +155,8 @@ public class CategoriaDAO {
 					Utility.printSQLException(e);
 				}
 			}
-
+            
+            connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)

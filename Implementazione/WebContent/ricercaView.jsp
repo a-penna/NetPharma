@@ -57,7 +57,7 @@
 						  <tr>
 								<th scope="row">
 								</th>
-								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?nome=" + prodotto.getNome())%>"><%=prodotto.getNome()%></a></td>
+								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
 										  <td>&dash;</td>
 							  <% } %>
 						  </tr>

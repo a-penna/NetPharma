@@ -27,9 +27,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<!-- Latest compiled JavaScript --> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
-    
-    
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>   
 </head>            
 
 <body class="bg-light">

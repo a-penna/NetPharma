@@ -2,7 +2,6 @@ package main.control.prodotto;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import main.bean.Prodotto;
+import main.bean.Categoria;
+import main.model.CategoriaDAO;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
@@ -34,27 +34,23 @@ public class SettaCategoriaControl extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String categoria= request.getParameter("categoria");
-		String idString[] = request.getParameterValues("idProdotti");
-		ArrayList<Integer> ids = new ArrayList<>();
-		try {
-			for(int i=0; i<idString.length; i++) {
-				ids.add(Integer.parseInt(idString[i]));
-			}			
-		} catch (NumberFormatException e) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiCategoria.jsp"));
-			return;
+		String nome= request.getParameter("nome");
+		String idProdotti[] = request.getParameterValues("idProdotti");
 		
-		}
-				
-
+		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		ProdottoDAO model = new ProdottoDAO(ds);
+		CategoriaDAO categoriaModel = new CategoriaDAO(ds);
+		
 		try {
-			for(int id : ids) {
-				Prodotto p = model.doRetrieveByKey(id);
-				p.setCategoria(categoria);
-				model.doUpdate(p);
+			Categoria categoria = new Categoria();
+			
+			categoria.setNome(nome);
+			categoriaModel.doSave(categoria);
+			
+			for (int i = 0; i < idProdotti.length; i++) {
+				System.out.println(idProdotti[i]);
+				model.updateCategoria(Integer.parseInt(idProdotti[i]), nome);
 			}
 			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
