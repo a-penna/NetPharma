@@ -54,7 +54,7 @@ public class CategoriaDAO {
 		return bean;
 	}
 	
-	public Categoria doRetrieveByUsername(String nome) throws SQLException {
+	public Categoria doRetrieveByNome(String nome) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -46,21 +47,45 @@ public class AggiungiProdottoControl extends HttpServlet {
 		String descrizione = request.getParameter("descrizione");
 		String disponibilitaStr = request.getParameter("disponibilita");
 		String categoria = request.getParameter("categoria");
-		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
-		int id, disponibilita;
+		String prezzoStr = request.getParameter("prezzo");
+		int id = 0, disponibilita = 0;
 		
 		
-		if (idStr == null || nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || categoria == null || prezzo == null) {
+		if (idStr == null || nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || categoria == null || prezzoStr == null) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
 			return;
 		}
 		
+		boolean error = false;
+		
 		try {
 			id = Integer.parseInt(idStr);
-			disponibilita = Integer.parseInt(disponibilitaStr);
 		} catch (NumberFormatException e) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
-			return;
+			request.setAttribute("erroreCodice", "true");
+			error = true;
+		}
+		
+		try {
+			disponibilita = Integer.parseInt(disponibilitaStr);
+			if (disponibilita <= 0) {
+				request.setAttribute("erroreDisponibilita", "true");
+				error = true;
+			}		
+		} catch (NumberFormatException e) {
+			request.setAttribute("erroreDisponibilita", "true");
+			error = true;
+		}
+		
+		BigDecimal prezzo = BigDecimal.ZERO;
+		try {
+			prezzo = new BigDecimal(prezzoStr);
+			if (prezzo.compareTo(BigDecimal.ZERO) <= 0) {
+				request.setAttribute("errorePrezzo", "true");
+				error = true;
+			}		
+		} catch (NumberFormatException e) {
+			request.setAttribute("errorePrezzo", "true");
+			error = true;
 		}
 		
 		nome = Utility.filter(nome);
@@ -68,7 +93,23 @@ public class AggiungiProdottoControl extends HttpServlet {
 		descrizione = Utility.filter(descrizione);
 		produttore = Utility.filter(produttore);
 		formato = Utility.filter(formato);
+		categoria = Utility.filter(categoria);
 
+		
+		if(nome.trim().equals("")) {
+			request.setAttribute("erroreNome", "true");
+			error = true;
+		}
+		
+		if(marchio.trim().equals("")) {
+			request.setAttribute("erroreMarchio", "true");
+			error = true;
+		}
+		
+		if(descrizione.trim().equals("")) {
+			request.setAttribute("erroreDescrizione", "true");
+			error = true;
+		}
 		
 		InputStream streamFoto = null; 
 		
@@ -77,6 +118,20 @@ public class AggiungiProdottoControl extends HttpServlet {
 			streamFoto = filePart.getInputStream();
 		}
 		
+		if (error) { 
+			request.setAttribute("nome", nome);
+			request.setAttribute("prezzo", prezzoStr);
+			request.setAttribute("marchio", marchio);
+			request.setAttribute("descrizione", descrizione);
+			request.setAttribute("produttore", produttore);
+			request.setAttribute("formato", formato);
+			request.setAttribute("codice", idStr);
+			request.setAttribute("categoria", categoria);
+			request.setAttribute("disponibilita", disponibilitaStr);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/aggiungiProdotto.jsp"));
+			dispatcher.forward(request, response);
+			return;
+		}
 
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		ProdottoDAO model = new ProdottoDAO(ds);

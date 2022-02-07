@@ -112,7 +112,7 @@
 			    	prezzo = prodotto.getPrezzo().multiply(new BigDecimal(quantity));
 			        %>
 					<tr>
-						<td><img src="<%=request.getContextPath()%>/PhotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
+						<td><img src="<%=request.getContextPath()%>/FotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
 						<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
 						<%String des = prodotto.getDescrizione();
 						if (des.length() >= 80) {

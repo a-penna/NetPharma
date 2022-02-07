@@ -20,7 +20,9 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
-   
+    <script>
+	    
+    </script>
 </head>            
 
 <body class="bg-light">
@@ -32,50 +34,120 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdotto")%>" method="post" enctype="multipart/form-data"> 
 				        <fieldset>
 				        	<legend>Informazioni sul prodotto&colon; </legend>
+				        	<div class="form-group">
+					            <label for="id">Codice Prodotto&ast;&colon;</label>
+					            	<%
+										if ((request.getAttribute("erroreCodice") != null)) {
+											%><input type="text" class="form-control is-invalid" id="id" value="<%=request.getAttribute("codice")%>" name="id"><% 
+										} else if (request.getAttribute("codice") != null) {
+											%><input type="text" class="form-control" id="id" value="<%=request.getAttribute("codice")%>" name="id"><% 
+										} else {
+											%><input type="text" class="form-control" id="id" name="id" placeholder="Codice"><% 
+										}
+					            	%>
+					            		
+										<div class="invalid-feedback">Questo codice non sembra essere valido&excl;</div> 
+										 
+					        </div>
+					        <div class="form-group">
+					            <label for="nome">Nome&ast;&colon;</label>
+					            	<%
+										if ((request.getAttribute("erroreNome") != null)) {
+											%><input type="text" class="form-control is-invalid" id="nome" value="<%=request.getAttribute("nome")%>" name="nome"><% 
+										} else if (request.getAttribute("nome") != null) {
+											%><input type="text" class="form-control" id="nome" value="<%=request.getAttribute("nome")%>" name="nome"><% 
+										} else {
+											%><input type="text" class="form-control" id="nome" name="nome" placeholder="Nome prodotto"><% 
+										}
+					            	%>
+					            		
+										<div class="invalid-feedback">Inserisci un nome&excl;</div>
+					        </div>
+					        <div class="form-group">
+					            <label for="marchio">Marchio&ast;&colon;</label>
+					            	<%
+										if ((request.getAttribute("erroreMarchio") != null)) {
+											%><input type="text" class="form-control is-invalid" id="marchio" value="<%=request.getAttribute("marchio")%>" name="marchio"><% 
+										} else if (request.getAttribute("marchio") != null) {
+											%><input type="text" class="form-control" id="marchio" value="<%=request.getAttribute("marchio")%>" name="marchio"><% 
+										} else {
+											%><input type="text" class="form-control" id="macrhio" name="marchio" placeholder="Nome marchio"><% 
+										}
+					            		%>
+										<div class="invalid-feedback">Inserisci un marchio&excl;</div>
+					        </div>
 							<div class="form-group">
-					        	<label for="id">Codice Prodotto&colon;</label>
-								<input id="id" type="text" class="form-control" name="id" placeholder="Codice">
-				    		</div>
+					            <label for="produttore">Produttore&colon;</label>
+					            	<%
+										if (request.getAttribute("produttore") != null) {
+											%><input type="text" class="form-control" id="produttore" value="<%=request.getAttribute("produttore")%>" name="produttore"><% 
+										} else {
+											%><input type="text" class="form-control" id="produttore" name="produttore" placeholder="Nome produttore"><% 
+										}
+							%>					            	
+					        </div>	
+					        <div class="form-group">
+					            <label for="formato">Formato&colon;</label>
+					            	<%
+										if (request.getAttribute("formato") != null) {
+											%><input type="text" class="form-control" id="formato" value="<%=request.getAttribute("formato")%>" name="formato"><% 
+										} else {
+											%><input type="text" class="form-control" id="formato" name="formato" placeholder="Formato"><% 
+										}
+							%>					            	
+					        </div>				    		
 							<div class="form-group">
-					        	<label for="nome">Nome&colon;</label>
-								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome prodotto">
-				    		</div>
-				    		
-							<div class="form-group">
-					        	<label for="marchio">Marchio&colon;</label>
-								<input id="marchio" type="text" class="form-control" name="marchio" placeholder="Nome marchio">
-				    		</div>
-				    		
-							<div class="form-group">
-					        	<label for="produttore">Produttore&colon;</label>
-								<input id="produttore" type="text" class="form-control" name="produttore" placeholder="Nome produttore">
-				    		</div>
-				    		
-				    		<div class="form-group">
-					        	<label for="formato">Formato&colon;</label>
-								<input id="formato" type="text" class="form-control" name="formato" placeholder="Formato">
-				    		</div>
-				    	
-				    		<div class="form-group">
-					        	<label for="descrizione">Descrizione&colon;</label>
-					        	<textarea id="descrizione" class="form-control" name="descrizione" rows="10" cols="48" placeholder="Inserisci qui la descrizione del prodotto"></textarea>
-							</div>
-							
-							<div class="form-group">
-					        	<label for="disponibilita">disponibilita&colon;</label>
-								<input id="disponibilita" type="text" class="form-control" name="disponibilita" placeholder="Disponibilità">
-				    		</div>
-				    		
-				    		<div class="form-group">
-					        	<label for="prezzo">Prezzo&colon;</label>
-								<input id="prezzo" type="text" class="form-control" name="prezzo" placeholder="Prezzo">
-				    		</div>
-				    		
-				    		<div class="form-group">
-					        	<label for="cagtegoria">Categoria&colon;</label>
-								<input id="categoria" type="text" class="form-control" name="categoria" placeholder="Categoria">
-				    		</div>
-				    		
+					            <label for="descrizione">Descrizione&ast;&colon;</label>
+					            	<%
+										if ((request.getAttribute("erroreDescrizione") != null)) {
+											%><textarea id="descrizione" class="form-control is-invalid" name="descrizione" rows="10" cols="48"><%=request.getAttribute("descrizione")%></textarea><% 
+										} else if (request.getAttribute("descrizione") != null) {
+											%><textarea id="descrizione" class="form-control" name="descrizione" rows="10" cols="48"><%=request.getAttribute("descrizione")%></textarea><%
+										} else {
+											%><textarea id="descrizione" class="form-control" name="descrizione" rows="10" cols="48"></textarea><% 
+										}
+					            		%>
+										<div class="invalid-feedback">Inserisci una descrizione&excl;</div>
+					        </div>
+					        <div class="form-group">
+					            <label for="disponibilita">Disponibilit&agrave;&ast;&colon;</label>
+					            	<%
+					            		if ((request.getAttribute("erroreDisponibilita") != null)) {
+										    %><input type="text" class="form-control is-invalid" id="disponibilita" value="<%=request.getAttribute("disponibilita")%>" name="disponibilita"><% 
+										} else if (request.getAttribute("disponibilita") != null) {
+											%><input type="text" class="form-control" id="disponibilita" value="<%=request.getAttribute("disponibilita")%>" name="disponibilita"><% 
+										} else {
+											%><input type="text" class="form-control" id="disponibilita" name="disponibilita" placeholder="Disponibilit&agrave;"><% 
+										} %>
+					            	<div class="invalid-feedback">Disponibilit&agrave; deve essere un intero positivo&excl;</div>
+					        </div>	
+					        <div class="form-group">
+					            <label for="prezzo">Prezzo&colon;&ast;</label>
+					            	<%
+					            		if ((request.getAttribute("errorePrezzo") != null)) {
+										    %><input type="text" class="form-control is-invalid" id="prezzo" value="<%=request.getAttribute("prezzo")%>" name="prezzo"><% 
+										} else if (request.getAttribute("prezzo") != null) {
+											%><input type="text" class="form-control" id="prezzo" value="<%=request.getAttribute("prezzo")%>" name="prezzo"><% 
+										} else {
+											%><input type="text" class="form-control" id="prezzo" name="prezzo" placeholder="0.00"><% 
+										}
+							%>		
+								<div class="invalid-feedback">Il prezzo inserito non &egrave; valido&excl;</div>			            	
+					        </div>
+					        <div class="form-group">
+					            <label for="categoria">Categoria&colon;</label>
+					            	<%
+										if ((request.getAttribute("erroreCategoria") != null)) {
+											%><input type="text" class="form-control is-invalid" id="categoria" value="<%=request.getAttribute("categoria")%>" name="categoria"><% 
+										} else if (request.getAttribute("categoria") != null) {
+											%><input type="text" class="form-control" id="categoria" value="<%=request.getAttribute("categoria")%>" name="categoria"><% 
+										} else {
+											%><input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoria"><% 
+										} 
+					            	%>
+										<div class="invalid-feedback">Inserire il nome di una categoria esistente&excl;</div>
+										 
+					        </div>
 							<div class="form-group">
 					        	<label for="foto">Carica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
 					       	    <input id="foto" type="file" accept="image/*" name="foto"> 

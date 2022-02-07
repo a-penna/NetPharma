@@ -26,7 +26,9 @@ public class ProdottoDAO {
 
 		Prodotto bean = new Prodotto();
 
-		String selectSQL = "SELECT * FROM prodotto WHERE id = ?";
+		String selectSQL = "SELECT * FROM prodotto "
+						 + "LEFT JOIN categoria ON prodotto.categoria = categoria.id "
+						 + "WHERE prodotto.id=?";
 
 		try {
 			connection = ds.getConnection();
@@ -44,7 +46,7 @@ public class ProdottoDAO {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getString(12));
 				bean.setFoto(rs.getBytes("foto"));
 			}
 
@@ -155,6 +157,7 @@ public class ProdottoDAO {
 				}
 			}
 
+            connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -329,10 +332,12 @@ public class ProdottoDAO {
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 		nome = "%"+nome+"%";
 
-		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ?"; 
+		String selectSQL = "SELECT * FROM prodotto "
+						 + "LEFT JOIN categoria ON prodotto.categoria = categoria.id "
+						 + "WHERE prodotto.nome LIKE ?"; 
 		
 		if (checkOrder(order)) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY prodotto." + order;
 		}
 
 		try {
@@ -341,7 +346,7 @@ public class ProdottoDAO {
 			preparedStatement.setString(1, nome);
 
 			ResultSet rs = preparedStatement.executeQuery();
-
+ 
 			while (rs.next()) {
 				Prodotto bean = new Prodotto();
 				bean.setId(rs.getInt("id"));
@@ -352,7 +357,7 @@ public class ProdottoDAO {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getString(12));
 				bean.setFoto(rs.getBytes("foto"));
 				
 				prodotti.add(bean);
