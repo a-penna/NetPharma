@@ -39,7 +39,7 @@ public class GestisciOrdiniControl extends HttpServlet {
 		OrdineDAO model = new OrdineDAO(ds);
 		try {
 			Ordine ordine = model.doRetrieveByKey(request.getParameter("scelta"));
-			if(model.doUpdateStatus(ordine)) {
+			if(model.doUpdateStatus(ordine,(long) request.getSession().getAttribute("giorni"))) {
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreOrdini/SpedisciOrdini.jsp"));
 				dispatcher.forward(request, response);
 			}

@@ -37,6 +37,7 @@ while(it.hasNext()) {
 <h3><%=ordine.getCliente()%> </h3>
 <h3><%=ordine.getPrezzo()%> </h3>
 <h3><%=ordine.getData_ordine() %></h3>
+<input type="text" placeholder="Giorni" class="form-control" id="giorni" value="<%=request.getAttribute("giorni")%>" name="giorni">
 <input type="submit" class="custom-control-input mb-3" id="scelta" name="scelta" value=<%=ordine.getId()%>>
 
 <%
