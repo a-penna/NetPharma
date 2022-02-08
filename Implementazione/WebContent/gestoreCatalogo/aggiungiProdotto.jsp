@@ -71,7 +71,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 										} else if (request.getAttribute("marchio") != null) {
 											%><input type="text" class="form-control" id="marchio" value="<%=request.getAttribute("marchio")%>" name="marchio"><% 
 										} else {
-											%><input type="text" class="form-control" id="macrhio" name="marchio" placeholder="Nome marchio"><% 
+											%><input type="text" class="form-control" id="marchio" name="marchio" placeholder="Nome marchio"><% 
 										}
 					            		%>
 										<div class="invalid-feedback">Inserisci un marchio&excl;</div>

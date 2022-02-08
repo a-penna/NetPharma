@@ -60,7 +60,7 @@ public class ProdottoDAO {
 				}
 			}
 		}
-		
+
 		return bean;
 	}
 
@@ -99,6 +99,7 @@ public class ProdottoDAO {
 			while (rs.next()) {
 				Prodotto bean = new Prodotto();
 
+				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
 				bean.setProduttore(rs.getString("produttore"));

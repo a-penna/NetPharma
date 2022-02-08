@@ -23,7 +23,7 @@ public class RuoliDAO {
 		PreparedStatement preparedStatement = null;
 		
 		Ruoli bean = new Ruoli();
-		bean.setAccount(account);
+		
 		
 		String selectSQL = "SELECT * FROM Ruoli "
 						 + "WHERE account = ?";
@@ -36,6 +36,7 @@ public class RuoliDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
+				bean.setAccount(account);
 				bean.addRuolo(Ruoli.stringToRole(rs.getString("ruolo")));
 			}
 			

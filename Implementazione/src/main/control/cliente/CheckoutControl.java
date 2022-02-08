@@ -2,7 +2,6 @@ package main.control.cliente;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;

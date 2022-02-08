@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,19 @@ public class ModificaProdottoControl extends HttpServlet {
 			return;
 		}
 		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoDAO model = new ProdottoDAO(ds);
+
+		try {
+            Collection<Prodotto> prodotti = model.doRetrieveAll("nome");
+			request.setAttribute("listaProdotti", prodotti);
+		} catch(SQLException e) {
+			Utility.printSQLException(e);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/updateError.jsp"));
+			return;
+		}
+		
+		
 		request.setCharacterEncoding("UTF-8");
 		String nome = request.getParameter("nome");
 		String marchio = request.getParameter("marchio");
@@ -45,21 +59,46 @@ public class ModificaProdottoControl extends HttpServlet {
 		String formato = request.getParameter("formato");
 		String descrizione = request.getParameter("descrizione");
 		String disponibilitaStr= request.getParameter("disponibilita");
-		String categoria = request.getParameter("categoria");
-		BigDecimal prezzo = new BigDecimal(request.getParameter("prezzo"));
-		int disponibilita;
+		String idStr = request.getParameter("id");
+		String prezzoStr = request.getParameter("prezzo");
+		int disponibilita=0;
 		
-		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || categoria == null || disponibilitaStr == null || prezzo == null) {
+		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || prezzoStr == null || idStr == null) {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/modificaProdotto.jsp"));
+			dispatcher.forward(request, response);
+			return;
+		}
+
+		boolean error = false;
+		int id = 0;
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (NumberFormatException e) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/modificaProdotto.jsp"));
 			return;
 		}
 		
-		
 		try {
 			disponibilita = Integer.parseInt(disponibilitaStr);
+			if (disponibilita <= 0) {
+				request.setAttribute("erroreDisponibilita", "true");
+				error = true;
+			}		
 		} catch (NumberFormatException e) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/modificaProdotto.jsp"));
-			return;
+			request.setAttribute("erroreDisponibilita", "true");
+			error = true;
+		}
+		
+		BigDecimal prezzo = BigDecimal.ZERO;
+		try {
+			prezzo = new BigDecimal(prezzoStr);
+			if (prezzo.compareTo(BigDecimal.ZERO) <= 0) {
+				request.setAttribute("errorePrezzo", "true");
+				error = true;
+			}		
+		} catch (NumberFormatException e) {
+			request.setAttribute("errorePrezzo", "true");
+			error = true;
 		}
 		
 		nome = Utility.filter(nome);
@@ -69,6 +108,35 @@ public class ModificaProdottoControl extends HttpServlet {
 		formato = Utility.filter(formato);
 
 		
+		if(nome.trim().equals("")) {
+			request.setAttribute("erroreNome", "true");
+			error = true;
+		}
+		
+		if(marchio.trim().equals("")) {
+			request.setAttribute("erroreMarchio", "true");
+			error = true;
+		}
+		
+		if(descrizione.trim().equals("")) {
+			request.setAttribute("erroreDescrizione", "true");
+			error = true;
+		}
+		
+		if (error) { 
+			request.setAttribute("nome", nome);
+			request.setAttribute("prezzo", prezzoStr);
+			request.setAttribute("marchio", marchio);
+			request.setAttribute("descrizione", descrizione);
+			request.setAttribute("produttore", produttore);
+			request.setAttribute("formato", formato);
+			request.setAttribute("codice", idStr);
+			request.setAttribute("disponibilita", disponibilitaStr);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/modificaProdotto.jsp"));
+			dispatcher.forward(request, response);
+			return;
+		}
+
 		InputStream streamFoto = null; 
 		
 		Part filePart = request.getPart("foto");
@@ -76,15 +144,9 @@ public class ModificaProdottoControl extends HttpServlet {
 			streamFoto = filePart.getInputStream();
 		}
 		
-
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		ProdottoDAO model = new ProdottoDAO(ds);
-
 		try {
-            Collection<Prodotto> prodotti = model.doRetrieveAll("nome");
-			request.setAttribute("listaProdotti", prodotti);
-			
 			Prodotto prodotto = new Prodotto();
+			prodotto.setId(id);
 			prodotto.setNome(nome);
 			prodotto.setMarchio(marchio);
 			prodotto.setProduttore(produttore);
@@ -92,7 +154,6 @@ public class ModificaProdottoControl extends HttpServlet {
 			prodotto.setDescrizione(descrizione);
 			prodotto.setDisponibilita(disponibilita);
 			prodotto.setPrezzo(prezzo);
-			prodotto.setCategoria(categoria);
 			prodotto.setFoto(streamFoto.readAllBytes());
 			
 
@@ -108,5 +169,6 @@ public class ModificaProdottoControl extends HttpServlet {
 		}
 	}
 }
+
 
 

@@ -33,6 +33,7 @@ public class ProdottoAJAX extends HttpServlet {
 		try {
 			JSONArray jsArray = new JSONArray();
 			Prodotto prodotto = model.doRetrieveByKey(id);
+
 			jsArray.put(prodotto.getNome());
 			jsArray.put(prodotto.getMarchio());
 			jsArray.put(prodotto.getProduttore());
@@ -40,6 +41,7 @@ public class ProdottoAJAX extends HttpServlet {
 			jsArray.put(prodotto.getDescrizione());
 			jsArray.put(prodotto.getDisponibilita());
 			jsArray.put(prodotto.getPrezzo());
+			jsArray.put(prodotto.getId());
 			
 			json.put("prodotto", jsArray);
 

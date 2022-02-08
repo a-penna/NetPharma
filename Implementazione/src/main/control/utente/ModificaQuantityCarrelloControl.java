@@ -1,7 +1,6 @@
 package main.control.utente;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -77,7 +76,6 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 		try {
 			if (updated) {
 				json.append ("update", "true");
-				json.append("price", p.getPrezzo().multiply(new BigDecimal(quantity)).toString());
 				json.append("prezzoTotale", c.getTotale());
 				json.append("nProdotti", c.getNProdotti());
 			} 

@@ -37,7 +37,6 @@
 				})
 				.done(function(msg) {
 					if(msg.update == "true") {
-						$("#prezzo"+prodotto).html(msg.price + "&euro;");
 						$("#prezzoTotale").html("<b>Totale</b> " + msg.prezzoTotale + "&euro;");
 						$("#nProdotti").html(msg.nProdotti + " Prodotti");
 					} else {
@@ -109,7 +108,6 @@
 			    	ContenutoCarrello cartItem = (ContenutoCarrello)it.next(); 
 			    	prodotto = cartItem.getProdotto();
 			    	quantity = cartItem.getQuantity();
-			    	prezzo = prodotto.getPrezzo().multiply(new BigDecimal(quantity));
 			        %>
 					<tr>
 						<td><img src="<%=request.getContextPath()%>/FotoControl?&id=<%=prodotto.getId()%>" height="150" width="150" onerror="this.src='./imgs/noPhoto.png'"></td>
@@ -137,7 +135,7 @@
 							<a href="<%=response.encodeURL(request.getContextPath() + "/RimuoviProdottoCarrello?prodotto=" + prodotto.getId())%>">Remove</a>
 						</div>
 						</td>
-						<td><div id="prezzo<%=prodotto.getId()%>"><%=prezzo%>&euro;</div></td>
+						<td><div id="prezzo<%=prodotto.getId()%>"><%=prodotto.getPrezzo()%>&euro;</div></td>
 					</tr>
 			        <%   	
 			    }     

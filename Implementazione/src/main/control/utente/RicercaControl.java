@@ -21,7 +21,7 @@ public class RicercaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nome = request.getParameter("nome");
+		String nome = request.getParameter("search");
 		
 		if (nome == null) {
 		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/RicercaProdotto"));
