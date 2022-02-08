@@ -42,7 +42,7 @@
       <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
       <th scope="col">Dati Spedizione</th>
       <th scope="col">Data ordine</th>
-      <th scope="col"></th>
+      <th scope="col">Data arrivo</th>
     </tr>
   </thead>
   <tbody>
@@ -51,21 +51,21 @@
       <td>Mario</td>
       <td>Verdi</td>
       <td>Data ordine 1</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
+      <td>Data arrivo 1</td>
     </tr>
     <tr>
       <th scope="row">2</th>
       <td>Francesco</td>
       <td>Bianchi</td>
       <td>Data ordine 2</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
+      <td>Data arrivo 2</td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Alessandro</td>
       <td>Rossi</td>
       <td>Data ordine 3</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
+      <td>Data arrivo 3</td>
     </tr>
   </tbody>
 </table>
