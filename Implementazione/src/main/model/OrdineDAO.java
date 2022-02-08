@@ -161,11 +161,12 @@ public class OrdineDAO implements Model<Ordine>{
 		return true;
 	}
 	
-	public Boolean doUpdateStatus(Ordine bean) {
+	public Boolean doUpdateStatus(Ordine bean, long millis) {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Date data = new Date(System.currentTimeMillis()+172800000); //Data attuale + 4 giorni --- Data dinamica
+		if(millis>172800000 && millis < 864000000) {
+		Date data = new Date(System.currentTimeMillis()+millis); 
 		
 		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ?";
 		try {
@@ -184,4 +185,9 @@ public class OrdineDAO implements Model<Ordine>{
 		
 		return true;
 	}
+	return false;
+	}
+	
+		
+	
 }
