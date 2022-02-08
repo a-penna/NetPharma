@@ -35,7 +35,6 @@ if(System.getProperty("os.name").startsWith("Mac")) {
 } else if(System.getProperty("os.name").startsWith("Windows")) {
 	System.setProperty("webdriver.chrome.driver", "chromedriverWin.exe");
 }
-System.setProperty("webdriver.chrome.driver", "chromedriverMac");
 driver = new ChromeDriver();
 js = (JavascriptExecutor) driver;
 vars = new HashMap<String, Object>();
