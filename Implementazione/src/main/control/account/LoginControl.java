@@ -29,15 +29,21 @@ public class LoginControl extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+			boolean isCliente = request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!= null;
+			boolean isGestore = request.getSession(false) != null && (request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null 
+															|| request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null);
 			
-			boolean loggedIn = request.getSession(false) != null && (request.getSession(false).getAttribute("clienteRoles")!= null 
-																  || request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null 
-																  || request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null);
+			if (isGestore) { 
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepageGestori.jsp"));
+				return;
+			}
 			
-			if (loggedIn) { 
+			if (isCliente) { 
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
 				return;
 			}
+		
 			
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		    AccountDAO model = new AccountDAO(ds);
@@ -74,20 +80,30 @@ public class LoginControl extends HttpServlet {
 				
 					if (roles.contains(Ruoli.Ruolo.CL)) {
 						request.getSession().setAttribute("clienteRoles", "true");	
+						isCliente = true;
 					}
 					
 					if (roles.contains(Ruoli.Ruolo.GO)) {
-						request.getSession().setAttribute("gestoreOrdiniRoles", "true");	
+						request.getSession().setAttribute("gestoreOrdiniRoles", "true");
+						isGestore = true;
 					}
 					
 					if (roles.contains(Ruoli.Ruolo.GC)) {
 						request.getSession().setAttribute("gestoreCatalogoRoles", "true");	
+						isGestore = true;
 					}
 					
 					request.getSession().setAttribute("user", username);	
 					
-					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
-					return;
+					if (isGestore) { 
+						response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepageGestori.jsp"));
+						return;
+					}
+					
+					if (isCliente) { 
+						response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
+						return;
+					}
 				} else { 
 					request.setAttribute("errorePass", "true");
 					username = Utility.filter(username);

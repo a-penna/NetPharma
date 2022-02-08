@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%	
-boolean loggedIn = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null;
-
-if(loggedIn) {
-
-%>
 
 <!DOCTYPE html>
 <html>
@@ -15,19 +9,15 @@ if(loggedIn) {
     <meta name="keywords" content="NetPharma, farmacia online">
 	<meta name="description" content="HomePage - Gestore Ordini">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">  
-<title>HOME-PAGE GESTORE ORDINI</title>
+	<%@ include file="/commonSources.jsp"%>
+	<title>HOME-PAGE GESTORE ORDINI</title>
 </head>
 
-<body>
-
-<a href="<%=request.getContextPath()%>/gestoreOrdini/ListaOrdini.jsp">Lista completa ordini</a>
-<a href="<%=request.getContextPath()%>/gestoreOrdini/SpedisciOrdini.jsp">Visualizza ordini da spedire</a>
+<body class="pt-5">
+	<%@ include file="/headerGestori.jsp"%>
+	<a href="<%=request.getContextPath()%>/gestoreOrdini/ListaOrdini.jsp">Lista completa ordini</a>
+	<a href="<%=request.getContextPath()%>/gestoreOrdini/SpedisciOrdini.jsp">Visualizza ordini da spedire</a>
 
 
 </body>
-<% }
-else {
-	response.sendRedirect("/NetPharma/login.jsp");
-}
-%>
 </html>

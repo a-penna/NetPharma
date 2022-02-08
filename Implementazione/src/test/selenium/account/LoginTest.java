@@ -30,7 +30,12 @@ private Map<String, Object> vars;
 JavascriptExecutor js;
 @Before
 public void setUp() {
-System.setProperty("webdriver.chrome.driver", "chromedriver");
+if(System.getProperty("os.name").startsWith("Mac")) {
+	System.setProperty("webdriver.chrome.driver", "chromedriverMac");
+} else if(System.getProperty("os.name").startsWith("Windows")) {
+	System.setProperty("webdriver.chrome.driver", "chromedriverWin.exe");
+}
+System.setProperty("webdriver.chrome.driver", "chromedriverMac");
 driver = new ChromeDriver();
 js = (JavascriptExecutor) driver;
 vars = new HashMap<String, Object>();
@@ -48,7 +53,7 @@ driver.findElement(By.id("username")).sendKeys("mrossi");
 driver.findElement(By.id("password")).click();
 driver.findElement(By.id("password")).sendKeys("pw");
 driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
-assertThat(driver.getTitle(), is("NetPharma ‐ HomePage"));
+assertThat(driver.getTitle(), is("HomePage"));
 }
 @Test
 public void testLoginUsernameNotExisting() {

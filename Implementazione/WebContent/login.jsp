@@ -2,11 +2,13 @@
     pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 
 <%
-	boolean loggedIn = request.getSession(false) != null && (request.getSession(false).getAttribute("clienteRoles")!= null 
-															|| request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null 
-															|| request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null);
+	if(request.getSession(false) != null && (request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null 
+											|| request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null)) {
+		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepageGestori.jsp"));
+		return;
+	}
 
-	if(loggedIn) {
+	if(request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!= null) {
 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
 	 	return;
 	}
@@ -20,14 +22,7 @@
 	<meta name="description" content="Login">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">    
     <title>NetPharma &dash; Login</title>
-    <!-- Latest compiled and minified CSS --> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
-	<!-- jQuery library --> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-	<!-- Popper JS --> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
-	<!-- Latest compiled JavaScript --> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+	<%@ include file="/commonSources.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
 	
