@@ -3,4 +3,5 @@
     <ACCOUNT id='0' username='us' password='pw'/>
     <RUOLI account='0' ruolo='CL'/>
     <UTENTE_REGISTRATO genere='M' nome='Mario' cognome='Rossi' email='m@rossi.com' nascita='1999-07-25' account='0'/>
+    <DATI_SPEDIZIONE id='1' nome_ricevente='Mario' cognome_ricevente='rossi' email='m@rossi.com' cellulare='3333' ncivico='3' via='vvv' city='a' paese='a' provincia='b' cap='80000' cliente='m@rossi.com'/>
 </dataset>

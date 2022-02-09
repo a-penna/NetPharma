@@ -126,7 +126,7 @@ public class OrdineDAO implements Model<Ordine>{
 		PreparedStatement preparedStatement = null;
 		
 
-		String insertSQL = "INSERT INTO Ordine(data_ordine,data_arrivo,id,prezzo,stato,cliente,dati_spedizione) VALUES (?,?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO Ordine(data_ordine,id,prezzo,stato,cliente,dati_spedizione) VALUES (?,?,?,?,?,?)";
 		
 
 		try {
@@ -135,12 +135,12 @@ public class OrdineDAO implements Model<Ordine>{
 			preparedStatement = connection.prepareStatement(insertSQL);
 
 			preparedStatement.setDate(1, bean.getData_ordine());
-			preparedStatement.setDate(2, bean.getData_arrivo());
-			preparedStatement.setInt(3,bean.getId() );
-			preparedStatement.setBigDecimal(4,bean.getPrezzo());
-			preparedStatement.setString(5, bean.getStato());
-			preparedStatement.setString(6,bean.getCliente());
-			preparedStatement.setInt(7, id);
+			preparedStatement.setInt(2,bean.getId() );
+			preparedStatement.setBigDecimal(3,bean.getPrezzo());
+			preparedStatement.setString(4, bean.getStato());
+			preparedStatement.setString(5,bean.getCliente());
+			preparedStatement.setInt(6, id);
+			
 	
 			preparedStatement.executeUpdate();
 			
