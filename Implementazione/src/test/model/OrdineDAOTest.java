@@ -16,9 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.bean.Ordine;
-import main.bean.Ruoli;
+
 import main.model.OrdineDAO;
-import main.model.RuoliDAO;
+
 
 public class OrdineDAOTest extends DataSourceBasedDBTestCase {
 
@@ -79,8 +79,58 @@ private JdbcDataSource dataSource;
         assertEquals(true, actual);
         
     }
-
+    
+    @Test
+    public void doSaveCheckFalseChecking() throws SQLException {
+    	Ordine bean = new Ordine();
+		bean.setCliente("m@rossi.com");
+		bean.setData_ordine(new Date(System.currentTimeMillis()));
+		
+		bean.setId(5);
+		bean.setStato("Si");
+		bean.setPrezzo(new BigDecimal(30));
+		
+		int id = 100;
+		
+        boolean actual = ordine.doSaveCheck(bean,id);
+        
+        assertEquals(false, actual);
+        
+    }
    
+    @Test
+    public void doUpdateStatusTrue() throws SQLException {
+    	Ordine bean = new Ordine();
+		//bean.setCliente("m@rossi.com"); Serve altro utente
+		
+		bean.setId(2); //Id dell'altro ordine
+		
+		
+		
+		
+        boolean actual = ordine.doUpdateStatus(bean,System.currentTimeMillis());
+        
+        assertEquals(true, actual);
+        
+    }
+    
+    
+    @Test
+    public void doUpdateStatusFalse() throws SQLException {
+    	Ordine bean = new Ordine();
+		//bean.setCliente("m@rossi.com"); Serve altro utente
+		
+		bean.setId(3); //Id dell'altro ordine
+		
+		
+		
+		
+        boolean actual = ordine.doUpdateStatus(bean,System.currentTimeMillis());
+        
+        assertEquals(false, actual);
+        
+    }
+    
 }
 	
 	

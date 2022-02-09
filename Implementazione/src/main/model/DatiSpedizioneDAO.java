@@ -48,6 +48,7 @@ private DataSource ds;
 			}
 		}  catch(SQLException e) {
 			Utility.printSQLException(e);
+			return null;
 		}
 		return null;
 	}
