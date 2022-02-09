@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">
-	<title>NetPharma &dash; Unauthorized</title>
+	<title>NetPharma &dash; Errore</title>
 </head>
 <body>
 	<h1 class="alert-heading">ERRORE&colon;</h1>

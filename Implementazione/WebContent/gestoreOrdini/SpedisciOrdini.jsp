@@ -68,11 +68,8 @@
 <%
 Iterator<?> it = ordini.iterator();
 while(it.hasNext()) {
-	
 	Ordine ordine = (Ordine)it.next();
 	if(ordine.getStato().equals("No")) {
-		
-	
 %>
 <h3><%=ordine.getCliente()%> </h3>
 <h3><%=ordine.getPrezzo()%> </h3>
@@ -81,7 +78,7 @@ while(it.hasNext()) {
 <input type="submit" class="custom-control-input mb-3" id="scelta" name="scelta" value=<%=ordine.getId()%>>
 
 <%
-}
+	}
 }
 %>
 </form>

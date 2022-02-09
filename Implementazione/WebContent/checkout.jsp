@@ -91,15 +91,14 @@
             <div class="card my-card px-0 pt-4 pb-0 mt-3 mb-3">
                 <div class="row">
                     <div class="col-md-12 mx-0">
-                        <form id="msform">
+                        <form id="msform" method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
 							 <ul id="progressbar">
 							             <li class="active" id="spedizione"><strong>Spedizione</strong></li>
 							             <li id="fatturazione"><strong>Fatturazione</strong></li>
 							             <li id="pagamento"><strong>Pagamento</strong></li>
 							             <li id="terminato"><strong>Terminato</strong></li>
 							</ul>
-<div class="form-card">
- <form method="post" action="<%=response.encodeURL(request.getContextPath() + "/Checkout")%>">
+		<div class="form-card">
 			<fieldset>
 		    	<div class="form-group text-left px-2">
 		             <label for="email"><h4>INDIRIZZO DI SPEDIZIONE</h4><br>E-Mail&colon;</label>
@@ -111,7 +110,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci e-mail" value="<%=request.getAttribute("email")%>" name="email">
+				        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci e-mail" name="email">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -124,7 +123,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" value="<%=request.getAttribute("name")%>" name="name">
+				        <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" name="name">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -137,7 +136,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" value="<%=request.getAttribute("surname")%>" name="surname">
+				        <input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" name="surname">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -150,7 +149,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci città" value="<%=request.getAttribute("city")%>" name="city">
+				        <input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci città" name="city">
 					  </div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -163,7 +162,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" value="<%=request.getAttribute("country")%>" name="country">
+				        <input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" name="country">
 					  </div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -176,7 +175,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" value="<%=request.getAttribute("provincia")%>" name="provincia">
+				        <input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" name="provincia">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -189,7 +188,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" value="<%=request.getAttribute("cap")%>" name="cap">
+				        <input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" name="cap">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -202,7 +201,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci address" value="<%=request.getAttribute("address")%>" name="address">
+				        <input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci address" name="address">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -215,7 +214,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" value="<%=request.getAttribute("number")%>" name="number">
+				        <input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" name="number">
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -228,7 +227,7 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" value="<%=request.getAttribute("cellulare")%>" name="cellulare">
+				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" name="cellulare">
 					  </div>
 			    </div>
 			    <br>
@@ -282,7 +281,7 @@
 						<!--  Metodi di pagamento -->
 						<!-- Da mettere in altra sezione della pagina tramite la grafica a sezioni -->
 				</div>
-				<input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+				<input type="submit" name="next" class="next action-button" value="Confirm"/>	
 				</fieldset>
 				<fieldset>
 	                   <div class="form-card">
@@ -293,8 +292,7 @@
 	                   </div>
 	            </fieldset>
 
-</form>
-</div>
+				</div>
                     </form>
                 </div>
             </div>

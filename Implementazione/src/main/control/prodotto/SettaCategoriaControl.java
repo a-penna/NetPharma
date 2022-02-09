@@ -49,7 +49,6 @@ public class SettaCategoriaControl extends HttpServlet {
 			categoriaModel.doSave(categoria);
 			
 			for (int i = 0; i < idProdotti.length; i++) {
-				System.out.println(idProdotti[i]);
 				model.updateCategoria(Integer.parseInt(idProdotti[i]), nome);
 			}
 			

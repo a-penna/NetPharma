@@ -36,7 +36,7 @@ private DataSource ds;
 	public DatiSpedizione doRetriveIdByEmail(String email) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String selectSQL = "SELECT id FROM DatiSpedizione WHERE email=?";
+		String selectSQL = "SELECT id FROM Dati_Spedizione WHERE email=?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -57,7 +57,7 @@ private DataSource ds;
 		PreparedStatement preparedStatement = null;
 		
 
-		String insertSQL = "INSERT INTO DatiSpedizione(nome_ricevente,cognome_ricevente,email,cellulare,ncivico,via,city,paese,provincia,cap,cliente) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO Dati_Spedizione(nome_ricevente,cognome_ricevente,email,cellulare,ncivico,via,city,paese,provincia,cap,cliente) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		
 
 		try {
@@ -77,12 +77,6 @@ private DataSource ds;
 			preparedStatement.setString(10, dati.getCAP());
 			preparedStatement.setString(11, dati.getCliente());
 			preparedStatement.executeUpdate();
-			
-
-			
-			
-				
-			
 
 			connection.commit();
 		} 

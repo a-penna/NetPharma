@@ -43,7 +43,7 @@ public class OrdineDAO implements Model<Ordine>{
 			ordine.setDati_spedizione(rs.getInt("dati_spedizione"));
 			ordine.setStato(rs.getString("Stato"));
 			ordine.setId(rs.getInt("id"));
-			ordine.setPrezzo(rs.getFloat("prezzo"));
+			ordine.setPrezzo(rs.getBigDecimal("prezzo"));
 			ordine.setData_arrivo(rs.getDate("data_arrivo"));
 			return ordine;
 			
@@ -82,7 +82,7 @@ public class OrdineDAO implements Model<Ordine>{
 			ordine.setDati_spedizione(rs.getInt("dati_spedizione"));
 			ordine.setStato(rs.getString("Stato"));
 			ordine.setId(rs.getInt("id"));
-			ordine.setPrezzo(rs.getFloat("prezzo"));
+			ordine.setPrezzo(rs.getBigDecimal("prezzo"));
 			ordine.setData_arrivo(rs.getDate("data_arrivo"));
 			lista.add(ordine);
 			
@@ -137,19 +137,13 @@ public class OrdineDAO implements Model<Ordine>{
 			preparedStatement.setDate(1, bean.getData_ordine());
 			preparedStatement.setDate(2, bean.getData_arrivo());
 			preparedStatement.setInt(3,bean.getId() );
-			preparedStatement.setFloat(4,bean.getPrezzo());
+			preparedStatement.setBigDecimal(4,bean.getPrezzo());
 			preparedStatement.setString(5, bean.getStato());
 			preparedStatement.setString(6,bean.getCliente());
 			preparedStatement.setInt(7, id);
 	
 			preparedStatement.executeUpdate();
 			
-
-			
-			
-				
-			
-
 			connection.commit();
 		} 
 			 catch(SQLException e) {

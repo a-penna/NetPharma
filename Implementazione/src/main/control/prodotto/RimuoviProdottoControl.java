@@ -47,7 +47,7 @@ public class RimuoviProdottoControl extends HttpServlet {
 			return;
 		}
 		
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/rimuoviProdotto.jsp"));
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/successo.jsp"));
 		dispatcher.forward(request, response);
 	}
 

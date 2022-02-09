@@ -16,7 +16,7 @@
 </head>             
 
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="headerGestori.jsp"%>
 	<div class="container py-5">
 		<div class="alert alert-success" role="alert">
 		  <h4 class="alert-heading">SUCCESSO&excl;</h4>

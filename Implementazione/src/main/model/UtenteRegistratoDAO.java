@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import main.bean.UtenteRegistrato;
+
 public class UtenteRegistratoDAO{
 
 	private DataSource ds = null;
@@ -14,6 +16,45 @@ public class UtenteRegistratoDAO{
 	public UtenteRegistratoDAO(DataSource ds) {
 		this.ds = ds;
 	}
+	
+	public UtenteRegistrato doRetrieveByUsername(String username) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		UtenteRegistrato bean = new UtenteRegistrato();
+		
+		String selectSQL = "SELECT * FROM utente_registrato WHERE username = ?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, username);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setGenere(rs.getString("genere"));
+				bean.setEmail(rs.getString("email"));
+				bean.setNascita(rs.getDate("nascita"));
+				bean.setAccount(rs.getInt("account"));
+			}
+			
+			rs.close();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return bean;
+	}
+
 	
 	public boolean checkEmail(String email) throws SQLException {
 		Connection connection = null;

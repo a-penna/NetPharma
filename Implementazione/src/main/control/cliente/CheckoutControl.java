@@ -22,42 +22,20 @@ import main.model.DatiSpedizioneDAO;
 import main.model.OrdineDAO;
 import main.utils.Utility;
 
-/**
- * Servlet implementation class CheckoutControl
- */
-@WebServlet("/CheckoutControl")
+
+@WebServlet("/Checkout")
 public class CheckoutControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckoutControl() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrdineDAO model = new OrdineDAO(ds);
 		DatiSpedizioneDAO model2 = new DatiSpedizioneDAO(ds);
-		
-		
-		
-		
-		
 		
 		String email = request.getParameter("email");
 		String nome = request.getParameter("name");
@@ -77,25 +55,19 @@ public class CheckoutControl extends HttpServlet {
 		
 		try {
 			DatiSpedizione dati = new DatiSpedizione(nome,cognome,email,cellulare,numeroCivico,citta,indirizzo,paese,provincia,cap,email);
+			model2.doSave(dati);
+			
 			CarrelloDAO carrelloModel = new CarrelloDAO(ds);
-			String username = (String) request.getSession().getAttribute("username");
+			String username = (String) request.getSession().getAttribute("user");
 			Carrello carrello = carrelloModel.doRetrieveByUsername(username);
-			ArrayList<ContenutoCarrello> contenuti = carrello.getItems();
-			BigDecimal prezzo = null;
-			for(ContenutoCarrello items : contenuti) {
-				for(int i=0;i<=items.getQuantity();i++) {
-				prezzo=prezzo.add(items.getProdotto().getPrezzo()); 
-				}
-			}
 			
 			//Update carrello e quantit� prodotto
-			model2.doSave(dati);
 			Ordine ordine = new Ordine();
-			ordine.setPrezzo(prezzo.floatValue());
+			ordine.setPrezzo(carrello.getTotale());
 			ordine.setStato("No");
-			ordine.setCliente(email);
-			
+			ordine.setCliente((String) request.getSession().getAttribute("email"));
 			ordine.setData_ordine(new Date(System.currentTimeMillis()));
+			
 			model.doSaveCheck(ordine, model2.doRetriveIdByEmail(email).getId());
 			//Clear cart
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/success.jsp"));
@@ -105,10 +77,5 @@ public class CheckoutControl extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 		}
 		
-		
-		
-		
-		
 	}
-
 }

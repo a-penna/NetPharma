@@ -15,24 +15,11 @@ import main.bean.Ordine;
 import main.model.OrdineDAO;
 import main.utils.Utility;
 
-/**
- * Servlet implementation class GestisciOrdiniControl
- */
+
 @WebServlet(name = "GestisciOrdini", urlPatterns = { "/GestisciOrdini" })
 public class GestisciOrdiniControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GestisciOrdiniControl() {
-        super();
-        
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");

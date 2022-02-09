@@ -261,7 +261,6 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
 							<input type="submit" class="btn btn-dark btn-block" value="CONTINUA">
 						</div>
 					</div>
-				</fieldset>
 		    </form> 
 	</div>
 </div>

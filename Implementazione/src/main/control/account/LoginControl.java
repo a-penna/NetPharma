@@ -14,8 +14,10 @@ import javax.sql.DataSource;
 
 import main.bean.Account;
 import main.bean.Ruoli;
+import main.bean.UtenteRegistrato;
 import main.model.AccountDAO;
 import main.model.RuoliDAO;
+import main.model.UtenteRegistratoDAO;
 import main.utils.Utility;
  
 @WebServlet("/Login")
@@ -94,6 +96,11 @@ public class LoginControl extends HttpServlet {
 					}
 					
 					request.getSession().setAttribute("user", username);	
+					
+					UtenteRegistratoDAO utenteRegistratoModel = new UtenteRegistratoDAO(ds);
+					UtenteRegistrato user = utenteRegistratoModel.doRetrieveByUsername(username);
+					
+					request.getSession().setAttribute("email", user.getEmail());
 					
 					if (isGestore) { 
 						response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepageGestori.jsp"));

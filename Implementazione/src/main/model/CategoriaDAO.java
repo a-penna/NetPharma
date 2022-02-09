@@ -113,7 +113,7 @@ public class CategoriaDAO {
 
 			while (rs.next()) {
 				Categoria bean = new Categoria();
-
+				bean.setId(Integer.parseInt(rs.getString("id")));
 				bean.setNome(rs.getString("nome"));
 
 				categorie.add(bean);
@@ -180,16 +180,14 @@ public class CategoriaDAO {
 		
 		
 		String deleteSQL = "DELETE FROM Categoria "
-						+ "WHERE nome=?";
+						+ "WHERE id=?";
 		
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			
-			String categoria = bean.getNome();
-	
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, categoria);
+			preparedStatement.setInt(1,  bean.getId());
 			
 			int result = preparedStatement.executeUpdate();
 			if (result != 1) {

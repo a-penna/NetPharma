@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,19 +33,26 @@ public class RimuoviCategoriaControl extends HttpServlet {
 			return;
 		}
 		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		CategoriaDAO model = new CategoriaDAO(ds);	
+		try {
+			Collection<Categoria> categorie = model.doRetrieveAll("nome");
+			request.setAttribute("listaCategorie", categorie);
+		} catch(SQLException e) {
+			Utility.printSQLException(e);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+			return;
+		}
+		
 		if (request.getParameter("id") == null) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/rimuoviCategoria.jsp"));
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/rimuoviCategoria.jsp"));
+			dispatcher.forward(request, response);
 			return;
 		}
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		CategoriaDAO model = new CategoriaDAO(ds);	
-		//modificare con id
 		try {
-			Collection<Categoria> categorie = model.doRetrieveAll("nome");
-			request.setAttribute("listaCategorie", categorie);
 			Categoria bean = new Categoria();
 			bean.setId(id);
 			model.doDelete(bean);

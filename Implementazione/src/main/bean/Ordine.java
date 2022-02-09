@@ -1,5 +1,6 @@
 package main.bean;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Ordine {
@@ -7,7 +8,7 @@ public class Ordine {
 	private Date data_ordine;
 	private Date data_arrivo;
 	private int id;
-	private float prezzo;
+	private BigDecimal prezzo;
 	private String stato;
 	private String cliente;
 	private int dati_spedizione;
@@ -37,11 +38,11 @@ public class Ordine {
 		this.id = id;
 	}
 	
-	public float getPrezzo() {
+	public BigDecimal getPrezzo() {
 		return prezzo;
 	}
 	
-	public void setPrezzo(float prezzo) {
+	public void setPrezzo(BigDecimal prezzo) {
 		this.prezzo = prezzo;
 	}
 	
