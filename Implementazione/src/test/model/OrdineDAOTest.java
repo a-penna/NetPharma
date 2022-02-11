@@ -1,5 +1,7 @@
 package test.model;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.LinkedList;
@@ -171,7 +173,7 @@ private JdbcDataSource dataSource;
     	lista.add(bean);
     	Collection<Ordine> actual = ordine.doRetrieveAll("");
     	assertEquals(1,actual.size());
-    	assertEquals(lista.toArray(),actual.toArray());
+    	assertArrayEquals(lista.toArray(),actual.toArray());
     	
     }
     
