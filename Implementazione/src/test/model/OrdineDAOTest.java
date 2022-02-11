@@ -2,8 +2,9 @@ package test.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.sql.SQLException;
-
+import java.util.Collection;
 import javax.sql.DataSource;
 
 import org.dbunit.DataSourceBasedDBTestCase;
@@ -130,6 +131,50 @@ private JdbcDataSource dataSource;
         assertEquals(false, actual);
         
     }
+    
+    @Test
+    public void doRetriveByIDTrue() throws SQLException {
+    
+    	Ordine bean = new Ordine();
+    	bean.setId(5);
+    	Ordine actual = ordine.doRetrieveByKey("5");
+    	assertEquals(bean.getId(),actual.getId());
+    	
+    	
+    }
+    
+    
+    
+    @Test
+    public void doRetriveByIDFalse() throws SQLException {
+    
+    	Ordine bean = new Ordine();
+    	bean.setId(1000);
+    	Ordine actual = ordine.doRetrieveByKey("5");
+    	assertEquals(bean.getId(),actual.getId());
+    	
+    	
+    }
+    
+    @Test
+    public void doRetriveAll() throws SQLException {
+    
+    	Collection<Ordine> lista = new LinkedList<Ordine>();
+    	Ordine bean = new Ordine();
+    	bean.setId(5);
+    	bean.setData_ordine(new Date(2022,2,10));
+    	bean.setData_arrivo(new Date(2022,2,13));
+    	bean.setPrezzo(new BigDecimal(50));
+    	bean.setStato("Si");
+    	bean.setDati_spedizione(1);
+    	bean.setCliente("g@nappi.com");
+    	lista.add(bean);
+    	Collection<Ordine> actual = ordine.doRetrieveAll("");
+    	assertEquals(1,actual.size());
+    	assertEquals(lista.toArray(),actual.toArray());
+    	
+    }
+    
     
 }
 	
