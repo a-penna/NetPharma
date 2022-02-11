@@ -3,7 +3,7 @@ package main.control.ordini;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
-
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import main.bean.Ordine;
 import main.model.OrdineDAO;
+import main.model.RigaOrdineDAO;
 import main.utils.Utility;
 
 
@@ -33,12 +34,15 @@ public class ListaOrdiniControl extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrdineDAO model = new OrdineDAO(ds);
+		RigaOrdineDAO rigaOrdineModel = new RigaOrdineDAO(ds);
 		
 		try {
 			Collection<Ordine> ordini = model.doRetrieveAll("");
-			
-			
-			
+			Iterator<Ordine> it = ordini.iterator();
+			while(it.hasNext()) {
+				Ordine o = it.next();
+				o.setRigheOrdine(rigaOrdineModel.doRetrieveAllByOrder(o.getId()));
+			}
 			request.setAttribute("ordini", ordini); 
 			
 		} catch (SQLException e) {

@@ -17,18 +17,18 @@ public class UtenteRegistratoDAO{
 		this.ds = ds;
 	}
 	
-	public UtenteRegistrato doRetrieveByUsername(String username) throws SQLException {
+	public UtenteRegistrato doRetrieveByAccount(int accountID) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		UtenteRegistrato bean = new UtenteRegistrato();
 		
-		String selectSQL = "SELECT * FROM utente_registrato WHERE username = ?";
+		String selectSQL = "SELECT * FROM utente_registrato WHERE account = ?";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, username);
+			preparedStatement.setInt(1, accountID);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			

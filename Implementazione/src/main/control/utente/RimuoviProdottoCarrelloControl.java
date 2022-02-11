@@ -28,7 +28,7 @@ public class RimuoviProdottoCarrelloControl extends HttpServlet {
 			return;
 		}
 			
-		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!="true") { 
+		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles") !="true") { 
 			Carrello cart = (Carrello) request.getSession(false).getAttribute("carrello");
 			Prodotto p = new Prodotto();
 			p.setId(prodottoID);

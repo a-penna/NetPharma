@@ -17,6 +17,7 @@ CREATE TABLE ACCOUNT
 	ID	INT	NOT NULL AUTO_INCREMENT,
 	USERNAME VARCHAR(20) NOT NULL UNIQUE, 	
 	PASSWORD VARCHAR(32) NOT NULL,	
+	ORDER_COUNT INT NOT NULL,
 	PRIMARY KEY(ID)	
 );
 
@@ -40,9 +41,9 @@ CREATE TABLE UTENTE_REGISTRATO
     FOREIGN KEY(ACCOUNT) REFERENCES ACCOUNT(ID)
 ); 
 
-CREATE TABLE DATI_SPEDIZIONE 
+CREATE TABLE ORDINE 
 (
-	ID	INT NOT NULL AUTO_INCREMENT,  
+	ID	VARCHAR(15) NOT NULL,  
 	NOME_RICEVENTE VARCHAR(20) NOT NULL,	
 	COGNOME_RICEVENTE VARCHAR(20) NOT NULL,	
 	EMAIL VARCHAR(40) NOT NULL,	
@@ -53,24 +54,15 @@ CREATE TABLE DATI_SPEDIZIONE
 	PAESE VARCHAR(50) NOT NULL,	
 	PROVINCIA VARCHAR(50) NOT NULL,	
 	CAP	CHAR(5)	NOT NULL,	
+	DATA_ORDINE	DATE NOT NULL,	
+	DATA_ARRIVO	DATE,	
+	PREZZO DECIMAL(6,2)	NOT NULL,	
+	STATO CHAR(2) NOT NULL,	
 	CLIENTE	VARCHAR(20)	NOT NULL,	
     PRIMARY KEY(ID),
 	FOREIGN KEY(CLIENTE) REFERENCES UTENTE_REGISTRATO(EMAIL) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
 
-CREATE TABLE ORDINE 
-(
-	DATA_ORDINE	DATE NOT NULL,	
-	DATA_ARRIVO	DATE,	
-	ID INT NOT NULL,
-	PREZZO DECIMAL(6,2)	NOT NULL,	
-	STATO CHAR(2) NOT NULL,	
-	CLIENTE	VARCHAR(20)	NOT NULL,
-	DATI_SPEDIZIONE	INT	NOT NULL,
-	PRIMARY KEY(ID),
-    FOREIGN KEY(CLIENTE) REFERENCES UTENTE_REGISTRATO(EMAIL) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY(DATI_SPEDIZIONE) REFERENCES DATI_SPEDIZIONE(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 CREATE TABLE CATEGORIA
 (
@@ -98,7 +90,7 @@ CREATE TABLE PRODOTTO
 CREATE TABLE RIGA_ORDINE
 (
 	PRODOTTO INT NOT NULL,
-	ORDINE INT NOT NULL,
+	ORDINE VARCHAR(15) NOT NULL,
 	QUANTITY SMALLINT NOT NULL,	
 	PREZZO_AL_PEZZO	DECIMAL(6,2) NOT NULL,	
     PRIMARY KEY(PRODOTTO, ORDINE),
@@ -116,15 +108,13 @@ CREATE TABLE CARRELLO
 	FOREIGN KEY(PRODOTTO) REFERENCES PRODOTTO(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-insert into account(username, password) values("Mrossi", MD5("pw"));
+insert into account(username, password, order_count) values("Mrossi", MD5("pw"),1);
 insert into ruoli(account, ruolo) values(1, "CL");
 insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("M","Mario", "Rossi","m@rossi.com","1999-07-25",1);
-insert into dati_spedizione(ID,NOME_RICEVENTE,COGNOME_RICEVENTE,EMAIL,CELLULARE,NCIVICO,VIA,CITY,PAESE,PROVINCIA,CAP,CLIENTE) values (12,"Mario","Rossi","m@rossi.com",333333,404,"Via Roma","Sant'Antonio Abate","Sant'Antonio Abate","NA","80057","m@rossi.com");
-insert into ordine(DATA_ORDINE,DATA_ARRIVO,ID,PREZZO,STATO,CLIENTE,DATI_SPEDIZIONE) values ('2022-01-01','2022-01-06',1,20,"OK","m@rossi.com",12);
-insert into account(username,password) values ("SVerdi",MD5("pw1"));
+insert into account(username,password, order_count) values ("SVerdi",MD5("pw1"), 0);
 insert into ruoli(account, ruolo) values(2,"GO");
 insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("F","Sara","Verdi","s@verdi.com","1989-01-22",2);
-insert into account(username,password) values ("GVerdi",MD5("pw2"));
+insert into account(username,password, order_count) values ("GVerdi",MD5("pw2"),0);
 insert into ruoli(account, ruolo) values(3,"GC");
 insert into ruoli(account, ruolo) values(3,"GO");
 insert into utente_registrato(genere,nome,cognome,email,nascita,account) values ("M","Gianni","Verdi","g@verdi.com","1978-02-13",3);
@@ -132,3 +122,6 @@ insert into prodotto(id, nome, marchio, produttore, formato, descrizione, dispon
 insert into carrello(cliente, prodotto, quantita) values("Mrossi", 883, 2);
 insert into prodotto(id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo) values(884, "prodotto2", "marchio2", "produttore2", "formato2", "descrizione2", 100, '7.35');
 insert into carrello(cliente, prodotto, quantita) values("Mrossi", 884, 2);
+insert into ordine(ID,NOME_RICEVENTE,COGNOME_RICEVENTE,EMAIL,CELLULARE,NCIVICO,VIA,CITY,PAESE,PROVINCIA,CAP,DATA_ORDINE,DATA_ARRIVO,PREZZO,STATO,CLIENTE) 
+			values ("1-1","Mario","Rossi","m@rossi.com",333333,404,"Via Roma","Sant'Antonio Abate","Sant'Antonio Abate","NA","80057", '2022-01-01','2022-01-06',20,"Si","m@rossi.com");		
+insert into riga_ordine(prodotto, ordine, quantity, prezzo_al_pezzo) values (883,"1-1",3,'4.35');

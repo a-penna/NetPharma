@@ -168,4 +168,39 @@ public class CarrelloDAO {
 		}
 		return true;
 	}
+	
+	public boolean clearCart(String username) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String deleteSQL = "DELETE FROM Carrello "
+						+ "WHERE cliente=?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setString(1, username);
+			
+			int result = preparedStatement.executeUpdate();
+			if (result < 1) {
+				return false;
+			}
+			
+			connection.commit();
+		} 
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return true;
+	}
+	
 }

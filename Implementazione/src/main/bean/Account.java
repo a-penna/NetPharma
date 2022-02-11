@@ -4,13 +4,15 @@ public class Account {
 	private int id;
 	private String username;
 	private String password;
+	private int orderCount;
 	
 	public Account() { }
 
-	public Account(int id, String username, String password) {
+	public Account(int id, String username, String password, int orderCount) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.orderCount = orderCount;
 	}
 
 	public int getId() {
@@ -37,9 +39,17 @@ public class Account {
 		this.password = password;
 	}
 
+	public int getOrderCount() {
+		return orderCount;
+	}
+
+	public void setOrderCount(int count) {
+		this.orderCount = count;
+	}
+	
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", orderCount=" + orderCount + "]";
 	}
 	
 }

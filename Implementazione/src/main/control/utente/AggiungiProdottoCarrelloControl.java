@@ -38,7 +38,7 @@ public class AggiungiProdottoCarrelloControl extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		
-		if (request.getSession().getAttribute("clienteRoles")!="true") { 
+		if (request.getSession().getAttribute("clienteRoles") != "true") { 
 			ProdottoDAO prodottoModel = new ProdottoDAO(ds);
 			Prodotto p = null;
 			try {

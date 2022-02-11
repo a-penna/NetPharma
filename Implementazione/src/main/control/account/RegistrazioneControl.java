@@ -139,7 +139,7 @@ public class RegistrazioneControl extends HttpServlet {
 				return;
 			}
 			
-			Account acc = new Account(0, username, password);
+			Account acc = new Account(0, username, password, 0);
 			UtenteRegistrato user = new UtenteRegistrato(sesso, nome, cognome, email, Utility.toSqlDate(Utility.formatStringToDate(nascita)), 0);
 			Ruoli r = new Ruoli();
 			r.addRuolo(Ruoli.Ruolo.CL);

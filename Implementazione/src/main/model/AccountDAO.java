@@ -41,7 +41,7 @@ public class AccountDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			if (rs.next()) {
-				bean = new Account(rs.getInt("id"),rs.getString("username"), rs.getString("password"));
+				bean = new Account(rs.getInt("id"),rs.getString("username"), rs.getString("password"), rs.getInt("order_count"));
 			}
 			
 			rs.close();
@@ -102,12 +102,13 @@ public class AccountDAO {
 			connection = ds.getConnection();	
 			connection.setAutoCommit(false);		
 			
-			String insertSQL = "INSERT INTO Account(username,password) "
-							 + "VALUES (?,MD5(?))";
+			String insertSQL = "INSERT INTO Account(username,password,order_count) "
+							 + "VALUES (?,MD5(?),?)";
 
 			preparedStatement1 = connection.prepareStatement(insertSQL);
 			preparedStatement1.setString(1, account.getUsername());
 			preparedStatement1.setString(2, account.getPassword());
+			preparedStatement1.setInt(3, account.getOrderCount());
          	if (preparedStatement1.executeUpdate() != 1) {
 				try {
 					connection.rollback();
@@ -179,4 +180,41 @@ public class AccountDAO {
 		return true;
 		
 	}
+	
+	public boolean updateOrderCount(int accountID, int newOrderCount) throws SQLException {
+		System.out.println(accountID + " " +  newOrderCount);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE Account SET order_count=? "
+						 + "WHERE id=?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1, newOrderCount);
+			preparedStatement.setInt(2, accountID);
+
+			int result = preparedStatement.executeUpdate();
+			
+			if (result != 1) 
+				return false;
+			
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+
+		return true;
+	}
+	
 }

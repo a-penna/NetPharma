@@ -32,21 +32,30 @@ public class OrdineDAO implements Model<Ordine>{
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
-			preparedStatement.setInt(1, Integer.parseInt(key));
+			preparedStatement.setString(1, key);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				
-			Ordine ordine = new Ordine();
-			ordine.setCliente(rs.getString("cliente"));
-			ordine.setData_ordine(rs.getDate("data_ordine"));
-			ordine.setDati_spedizione(rs.getInt("dati_spedizione"));
-			ordine.setStato(rs.getString("Stato"));
-			ordine.setId(rs.getInt("id"));
-			ordine.setPrezzo(rs.getBigDecimal("prezzo"));
-			ordine.setData_arrivo(rs.getDate("data_arrivo"));
-			return ordine;
-			
+				Ordine ordine = new Ordine();
+				ordine.setNomeRicevente(rs.getString("nome_ricevente"));
+				ordine.setCognomeRicevente(rs.getString("cognome_ricevente"));
+				ordine.setEmail(rs.getString("email"));
+				ordine.setCellulare(rs.getString("cellulare"));
+				ordine.setCitta(rs.getString("city"));
+				ordine.setNcivico(rs.getInt("ncivico"));
+				ordine.setVia(rs.getString("via"));
+				ordine.setPaese(rs.getString("paese"));
+				ordine.setProvincia(rs.getString("provincia"));
+				ordine.setCAP(rs.getString("cap"));
+				ordine.setCliente(rs.getString("cliente"));
+				ordine.setData_ordine(rs.getDate("data_ordine"));
+				ordine.setStato(rs.getString("Stato"));
+				ordine.setId(rs.getString("id"));
+				ordine.setPrezzo(rs.getBigDecimal("prezzo"));
+				ordine.setData_arrivo(rs.getDate("data_arrivo"));
+				
+				return ordine;
 			}
 		} finally {
 			try {
@@ -77,11 +86,20 @@ public class OrdineDAO implements Model<Ordine>{
 			while (rs.next()) {
 				
 			Ordine ordine = new Ordine();
+			ordine.setNomeRicevente(rs.getString("nome_ricevente"));
+			ordine.setCognomeRicevente(rs.getString("cognome_ricevente"));
+			ordine.setEmail(rs.getString("email"));
+			ordine.setCellulare(rs.getString("cellulare"));
+			ordine.setCitta(rs.getString("city"));
+			ordine.setNcivico(rs.getInt("ncivico"));
+			ordine.setVia(rs.getString("via"));
+			ordine.setPaese(rs.getString("paese"));
+			ordine.setProvincia(rs.getString("provincia"));
+			ordine.setCAP(rs.getString("cap"));
 			ordine.setCliente(rs.getString("cliente"));
 			ordine.setData_ordine(rs.getDate("data_ordine"));
-			ordine.setDati_spedizione(rs.getInt("dati_spedizione"));
 			ordine.setStato(rs.getString("Stato"));
-			ordine.setId(rs.getInt("id"));
+			ordine.setId(rs.getString("id"));
 			ordine.setPrezzo(rs.getBigDecimal("prezzo"));
 			ordine.setData_arrivo(rs.getDate("data_arrivo"));
 			lista.add(ordine);
@@ -120,13 +138,14 @@ public class OrdineDAO implements Model<Ordine>{
 		
 	}
 	
-	public Boolean doSaveCheck(Ordine bean, int id) {
+	public Boolean doSaveCheck(Ordine bean) {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 
-		String insertSQL = "INSERT INTO Ordine(data_ordine,id,prezzo,stato,cliente,dati_spedizione) VALUES (?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO Ordine(id,nome_ricevente,cognome_ricevente,email,cellulare,ncivico,via,city,paese,provincia,cap,data_ordine,prezzo,stato,cliente) "
+						+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 
 		try {
@@ -134,22 +153,30 @@ public class OrdineDAO implements Model<Ordine>{
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setDate(1, bean.getData_ordine());
-			preparedStatement.setInt(2,bean.getId() );
-			preparedStatement.setBigDecimal(3,bean.getPrezzo());
-			preparedStatement.setString(4, bean.getStato());
-			preparedStatement.setString(5,bean.getCliente());
-			preparedStatement.setInt(6, id);
-			
+			preparedStatement.setString(1, bean.getId());
+			preparedStatement.setString(2, bean.getNomeRicevente());
+			preparedStatement.setString(3, bean.getCognomeRicevente());
+			preparedStatement.setString(4, bean.getEmail());
+			preparedStatement.setString(5, bean.getCellulare());
+			preparedStatement.setInt(6, bean.getNcivico());
+			preparedStatement.setString(7, bean.getVia());
+			preparedStatement.setString(8, bean.getCitta());
+			preparedStatement.setString(9, bean.getPaese());
+			preparedStatement.setString(10, bean.getProvincia());
+			preparedStatement.setString(11, bean.getCAP());
+			preparedStatement.setDate(12, bean.getData_ordine());
+			preparedStatement.setBigDecimal(13, bean.getPrezzo());
+			preparedStatement.setString(14, bean.getStato());
+			preparedStatement.setString(15, bean.getCliente());
 	
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
 		} 
-			 catch(SQLException e) {
-				Utility.printSQLException(e);
-				return false;
-					}
+		catch(SQLException e) {
+			Utility.printSQLException(e);
+			return false;
+		}
 		
 		
 		return true;
@@ -159,7 +186,7 @@ public class OrdineDAO implements Model<Ordine>{
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		if(millis>172800000 && millis < 864000000) {
+		if(millis>=172800000 && millis<=864000000) {
 		Date data = new Date(System.currentTimeMillis()+millis); 
 		
 		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ?";
@@ -168,7 +195,7 @@ public class OrdineDAO implements Model<Ordine>{
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setDate(1, data);
-			preparedStatement.setInt(2, bean.getId());
+			preparedStatement.setString(2, bean.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 			
@@ -182,6 +209,51 @@ public class OrdineDAO implements Model<Ordine>{
 	return false;
 	}
 	
+	public Collection<Ordine> doRetrieveAllDaSpedire() throws SQLException {
+		Collection<Ordine> lista = new LinkedList<Ordine>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT * FROM ordine WHERE stato='No'";
 		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				
+			Ordine ordine = new Ordine();
+			ordine.setNomeRicevente(rs.getString("nome_ricevente"));
+			ordine.setCognomeRicevente(rs.getString("cognome_ricevente"));
+			ordine.setEmail(rs.getString("email"));
+			ordine.setCellulare(rs.getString("cellulare"));
+			ordine.setCitta(rs.getString("city"));
+			ordine.setNcivico(rs.getInt("ncivico"));
+			ordine.setVia(rs.getString("via"));
+			ordine.setPaese(rs.getString("paese"));
+			ordine.setProvincia(rs.getString("provincia"));
+			ordine.setCAP(rs.getString("cap"));
+			ordine.setCliente(rs.getString("cliente"));
+			ordine.setData_ordine(rs.getDate("data_ordine"));
+			ordine.setStato(rs.getString("Stato"));
+			ordine.setId(rs.getString("id"));
+			ordine.setPrezzo(rs.getBigDecimal("prezzo"));
+			ordine.setData_arrivo(rs.getDate("data_arrivo"));
+			lista.add(ordine);
+			
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return lista;
+	}
 	
 }

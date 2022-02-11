@@ -54,7 +54,7 @@ public class ModificaQuantityCarrelloControl extends HttpServlet {
 		Carrello c = null;
 		boolean updated = false;
 		
-		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!="true") { 
+		if (request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles") != "true") { 
 			c = (Carrello) request.getSession(false).getAttribute("carrello");
 			c.setItem(p, quantity);
 			updated = true;

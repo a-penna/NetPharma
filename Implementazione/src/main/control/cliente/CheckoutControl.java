@@ -1,10 +1,10 @@
 package main.control.cliente;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +15,12 @@ import javax.sql.DataSource;
 
 import main.bean.Carrello;
 import main.bean.ContenutoCarrello;
-import main.bean.DatiSpedizione;
 import main.bean.Ordine;
+import main.bean.RigaOrdine;
+import main.model.AccountDAO;
 import main.model.CarrelloDAO;
-import main.model.DatiSpedizioneDAO;
 import main.model.OrdineDAO;
+import main.model.RigaOrdineDAO;
 import main.utils.Utility;
 
 
@@ -35,7 +36,6 @@ public class CheckoutControl extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrdineDAO model = new OrdineDAO(ds);
-		DatiSpedizioneDAO model2 = new DatiSpedizioneDAO(ds);
 		
 		String email = request.getParameter("email");
 		String nome = request.getParameter("name");
@@ -54,23 +54,48 @@ public class CheckoutControl extends HttpServlet {
 		}
 		
 		try {
-			DatiSpedizione dati = new DatiSpedizione(nome,cognome,email,cellulare,numeroCivico,citta,indirizzo,paese,provincia,cap,email);
-			model2.doSave(dati);
-			
 			CarrelloDAO carrelloModel = new CarrelloDAO(ds);
-			String username = (String) request.getSession().getAttribute("user");
+			String username = (String) request.getSession(false).getAttribute("user");
 			Carrello carrello = carrelloModel.doRetrieveByUsername(username);
 			
 			//Update carrello e quantit� prodotto
 			Ordine ordine = new Ordine();
+			
+			int orderCount = (int)request.getSession(false).getAttribute("orderCount");
+			System.out.println(orderCount);
+			String ordineID = request.getSession(false).getAttribute("id") + "-" + (orderCount+1);
+			request.getSession(false).setAttribute("orderCount", orderCount+1);
+			ordine.setId(ordineID);
+			
+			ordine.setNomeRicevente(nome);
+			ordine.setCognomeRicevente(cognome);
+			ordine.setEmail(email);
+			ordine.setCellulare(cellulare);
+			ordine.setNcivico(numeroCivico);
+			ordine.setCitta(citta);
+			ordine.setVia(indirizzo);
+			ordine.setPaese(paese);
+			ordine.setProvincia(provincia);
+			ordine.setCAP(cap);
 			ordine.setPrezzo(carrello.getTotale());
 			ordine.setStato("No");
-			ordine.setCliente((String) request.getSession().getAttribute("email"));
+			ordine.setCliente((String) request.getSession(false).getAttribute("email"));
 			ordine.setData_ordine(new Date(System.currentTimeMillis()));
+			model.doSaveCheck(ordine);
+
+			RigaOrdineDAO rigaOrdineModel = new RigaOrdineDAO(ds);
+			Collection<ContenutoCarrello> items = carrello.getItems();
+			Iterator<ContenutoCarrello> it = items.iterator();
+			while(it.hasNext()) {
+				ContenutoCarrello contenuto = it.next();
+				rigaOrdineModel.doSave(new RigaOrdine(contenuto.getProdotto().getId(), ordineID, contenuto.getQuantity(), contenuto.getProdotto().getPrezzo()));
+			}
+			carrelloModel.clearCart(username);
 			
-			model.doSaveCheck(ordine, model2.doRetriveIdByEmail(email).getId());
-			//Clear cart
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/success.jsp"));
+			AccountDAO accountModel = new AccountDAO(ds);
+			accountModel.updateOrderCount((int)request.getSession(false).getAttribute("id"), orderCount + 1);
+			
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 			
 		} catch (SQLException e) {
 			Utility.printSQLException(e);

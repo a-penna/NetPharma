@@ -95,10 +95,12 @@ public class LoginControl extends HttpServlet {
 						isGestore = true;
 					}
 					
-					request.getSession().setAttribute("user", username);	
+					request.getSession().setAttribute("user", username);
+					request.getSession().setAttribute("id", bean.getId());
+					request.getSession().setAttribute("orderCount", bean.getOrderCount());
 					
 					UtenteRegistratoDAO utenteRegistratoModel = new UtenteRegistratoDAO(ds);
-					UtenteRegistrato user = utenteRegistratoModel.doRetrieveByUsername(username);
+					UtenteRegistrato user = utenteRegistratoModel.doRetrieveByAccount(bean.getId());
 					
 					request.getSession().setAttribute("email", user.getEmail());
 					

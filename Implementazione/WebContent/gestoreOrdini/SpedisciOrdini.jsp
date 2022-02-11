@@ -31,56 +31,59 @@
 <table class="table table-dark shadow-lg p-3 mb-5 bg-dark">
   <thead class="thead">
     <tr>
-      <th scope="col">N&ordm; Ordini</th>
+      <th scope="col">N&ordm; Ordine</th>
       <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
       <th scope="col">Dati Spedizione</th>
       <th scope="col">Data ordine</th>
+      <th scope="col">Giorni previsti per l&apos;arrivo</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mario</td>
-      <td>Verdi</td>
-      <td>Data ordine 1</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Francesco</td>
-      <td>Bianchi</td>
-      <td>Data ordine 2</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Alessandro</td>
-      <td>Rossi</td>
-      <td>Data ordine 3</td>
-      <td><button type="button" class="btn btn-outline-light">Invia Conferma Spedizione</button></td>
-    </tr>
+    <%
+Iterator<?> it = ordini.iterator();
+while(it.hasNext()) {
+	Ordine ordine = (Ordine)it.next();
+%>
+		<tr>
+	      <th scope="row"><%=ordine.getId()%></th>
+	      <td>
+	      <%Iterator<?> it2 = ordine.getRigheOrdine().iterator();
+	      while(it2.hasNext()) {
+	    	  RigaOrdine ro = (RigaOrdine)it2.next();
+	    	  %>&lsqb;Codice prodotto&colon; <%=ro.getProdotto()%>&semi;
+	    	  Quantit&agrave;&colon; <%=ro.getQuantity()%> 
+	    	  Prezzo al pezzo&colon; <%=ro.getPrezzoAlPezzo()%> &euro;&rsqb; 
+	   <% } %>
+	      
+	      </td>
+	      <td>Nome ricevente&colon; <%=ordine.getNomeRicevente()%>&semi;
+	     	  Cognome ricevente&colon; <%=ordine.getCognomeRicevente()%>&semi;
+	      	  Email ricevente&colon; <%=ordine.getEmail()%>&semi;
+	      	  Cellulare&colon; <%=ordine.getCellulare()%>&semi;
+			  Via&colon; <%=ordine.getVia()%>&semi;
+			  N&ordm; Civico&colon; <%=ordine.getNcivico()%>&semi;
+			  Citt&agrave;&colon; <%=ordine.getCitta()%>&semi;
+			  Paese&colon; <%=ordine.getPaese()%>&semi;
+			  Provincia&colon; <%=ordine.getProvincia()%>&semi;
+			  Cap&colon; <%=ordine.getCAP()%>&semi;
+			  Account&colon; <%=ordine.getCliente()%>&semi; 
+	      <td><%=ordine.getData_ordine()%></td>
+	      <td>
+		      <form class="form-inline" method="get" action="<%=response.encodeURL("/NetPharma/GestisciOrdini")%>">
+		      	<input type="number" placeholder="0" min="2" max="10" class="form-control" name="giorni"> 
+		      	<input type="hidden" id="scelta" name="scelta" value=<%=ordine.getId()%>>
+		      	<button type="submit" class="btn btn-outline-light">Invia Conferma Spedizione</button>
+		    </form>
+	     </td>
+	    </tr>
+<%
+}
+%>
   </tbody>
 </table>
 </div>
 
-<form method="get" action="<%=response.encodeURL("/NetPharma/GestisciOrdini")%>">
-<%
-Iterator<?> it = ordini.iterator();
-while(it.hasNext()) {
-	Ordine ordine = (Ordine)it.next();
-	if(ordine.getStato().equals("No")) {
-%>
-<h3><%=ordine.getCliente()%> </h3>
-<h3><%=ordine.getPrezzo()%> </h3>
-<h3><%=ordine.getData_ordine() %></h3>
-<input type="text" placeholder="Giorni" class="form-control" id="giorni" value="<%=request.getAttribute("giorni")%>" name="giorni"> <!-- Rimuovere i valori dal placeholder -->
-<input type="submit" class="custom-control-input mb-3" id="scelta" name="scelta" value=<%=ordine.getId()%>>
 
-<%
-	}
-}
-%>
-</form>
 </body>
 </html>

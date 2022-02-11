@@ -1,8 +1,7 @@
-package main.control.prodotto;
+package main.control.utente;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,38 +15,37 @@ import main.bean.Prodotto;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
-@WebServlet("/ProdottiControl")
-public class ListaProdottiControl extends HttpServlet {
+@WebServlet("/Prodotto")
+public class ProdottoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String categoria = request.getParameter("categoria");
 		
-		if (categoria == null) {
-		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottiControl"));
-		 	return;
-		}
-		
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		ProdottoDAO model = new ProdottoDAO(ds);
-		
-		try {
-			Collection<Prodotto> prodotti = model.doRetrieveAllByCategoria(categoria);
-
-			request.setAttribute("prodotti", prodotti); 
-			request.setAttribute("categoria", categoria);
-		} catch (SQLException e) {
-			Utility.printSQLException(e);
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+		if (request.getParameter("id") == null) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Prodotto"));
 			return;
 		}
-
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/listaProdotti.jsp"));
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoDAO prodottoDAO = new ProdottoDAO(ds);
+		
+		try {
+			Prodotto prodotto = prodottoDAO.doRetrieveByKey(id);
+			
+			request.setAttribute("prodotto", prodotto); 
+		} catch (SQLException e) {
+			Utility.printSQLException(e);
+			return;
+		}
+		
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/prodotto.jsp"));
 		dispatcher.forward(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+	
 }
