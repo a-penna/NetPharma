@@ -8,6 +8,7 @@
     <UTENTE_REGISTRATO genere='F' nome='Gaia' cognome='Nappi' email='g@nappi.com' nascita='2001-03-11' account='1'/>
     <DATI_SPEDIZIONE id='1' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' cliente='g@nappi.com'/>
 	<ORDINE data_ordine='2022-02-10' data_arrivo='2022-02-13' id='5' prezzo='50' stato='Si' cliente='g@nappi.com' dati_spedizione='1' /> 
-
+	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35'/>
+	
 </dataset>
 
