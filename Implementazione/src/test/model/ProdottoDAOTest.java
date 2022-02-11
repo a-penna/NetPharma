@@ -1,10 +1,9 @@
 package test.model;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -20,8 +19,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 import javax.sql.DataSource;
 
-import main.bean.Categoria;
-import main.bean.Ordine;
+
+
 import main.bean.Prodotto;
 import main.model.ProdottoDAO;
 
@@ -108,20 +107,9 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     
     @Test
     public void doRetrieveAllNotExisting()  throws SQLException {
-    	Collection<Prodotto> expected = new LinkedList<Prodotto>();
-    	Prodotto bean = new Prodotto();
-    	bean.setId(887);
-    	bean.setNome("prodotto2");
-    	bean.setMarchio("marchio2");
-    	bean.setProduttore("prodottore2");
-    	bean.setFormato("formato2");
-    	bean.setDescrizione("descrizione2");
-    	bean.setDisponibilita(10);
-    	bean.setPrezzo(new BigDecimal(5));
-    	expected.add(bean);
     	Collection<Prodotto> actual = prodottoDAO.doRetrieveAll("");
-    	assertEquals(1,actual.size());
-    	assertArrayEquals(expected.toArray(), actual.toArray());
+    	assertEquals(null,actual.size());
+    	assertArrayEquals(null, actual.toArray());
     }
     
 
