@@ -21,13 +21,13 @@
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active pt-3">
-	      <img src="./imgs/illustr-1.png" class="d-block w-100" alt="...">
+	      <img src="./imgs/illustr_1.jpeg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
 	      <img src="./imgs/illustr-2.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="./imgs/illustr-3.jpg" class="d-block w-100" alt="...">
+	      <img src="./imgs/illustr-1.png" class="d-block w-100" alt="...">
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -40,7 +40,7 @@
 	  </a>
 	</div>
 	
-	<h3>Mamma&Bambino</h3>
+	<h3>Mamma&amp;Bambino</h3>
 	
 	<div class="row row-cols-1 row-cols-md-5">
   <div class="col mb-4">
@@ -105,16 +105,6 @@
         <p class="card-text">Curasept Biosmalto Junior è un dentifricio pensato per ragazzi dai 7 ai 12 anni che inibisce la formazione della placca nei denti da latte e permanenti.</p>
       </div>
     </div>
-  </div>
-</div>
-
-<h6>Cosa Pensano di NetPharma.it</h6>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Recensioni</h5>
-    <img src="./imgs/logo.jpg" alt="NetPharma" width="60" height="60" class="rounded-circle alt="NetPharma" >
-    <p class="card-text">Inserire Grafica</p>
-    <p class="card-text">Votazioni derivanti</p>
   </div>
 </div>
 
