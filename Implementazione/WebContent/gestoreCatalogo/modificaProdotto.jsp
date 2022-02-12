@@ -23,8 +23,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>
 		$(document).ready(function() {
-			$(".my-tablist-element").removeClass("active");
-			$("#modificaProdotto").addClass("active");
+			$(".my-tablist-element").removeClass("bg-dark text-white");
+			$("#modificaProdotto").addClass("bg-dark text-white");
 			
 			$('#prodotto').change(function() {
 				var id = $(this).val();
@@ -191,7 +191,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 				        <%} %>
 				        
 				       
-				        <button type="submit" class="btn btn-primary">Modifica</button>
+				        <button type="submit" class="btn btn-dark">Modifica</button>
 				</form>
 		</div>
 	</div>

@@ -14,8 +14,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function() {
-			$(".my-tablist-element").removeClass("active");
-			$("#rimuoviProdotto").addClass("active");
+			$(".my-tablist-element").removeClass("bg-dark text-white");
+			$("#rimuoviProdotto").addClass("bg-dark text-white");
 		});
 	</script>
 </head>            
@@ -33,7 +33,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 					        	<label for="id">Codice Prodotto&colon;</label>
 								<input id="id" type="text" class="form-control" name="id" placeholder="Codice prodotto">
 				   			</div>
-					        <button type="submit" class="btn btn-primary">Elimina</button>
+					        <button type="submit" class="btn btn-dark">Elimina</button>
 					   </fieldset>
 				</form> 
 			</div>

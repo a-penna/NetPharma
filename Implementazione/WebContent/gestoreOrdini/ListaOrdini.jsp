@@ -21,62 +21,74 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%@ include file="/commonSources.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+		$(document).ready(function() {
+			$(".my-list-element").removeClass("bg-dark text-white");
+			$("#storico-ordini").addClass("bg-dark text-white");
+		});
+	</script>
 </head>
 
 <body class="pt-5">
 <%@ include file="/headerGestori.jsp"%>
-<div class="container-ordini py-4 px-4">
-<table class="table table-dark shadow-lg p-3 mb-5 bg-dark">
-  <thead class="thead">
-    <tr>
-      <th scope="col">N&ordm; Ordine</th>
-      <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
-      <th scope="col">Dati Spedizione</th>
-      <th scope="col">Data ordine</th>
-      <th scope="col">Data arrivo</th>
-    </tr>
-  </thead>
-  <tbody>
-        <%
-Iterator<?> it = ordini.iterator();
-while(it.hasNext()) {
-	Ordine ordine = (Ordine)it.next();
-%>
-		<tr>
-	      <th scope="row"><%=ordine.getId()%></th>
-	      <td>
-	      <%Iterator<?> it2 = ordine.getRigheOrdine().iterator();
-	      while(it2.hasNext()) {
-	    	  RigaOrdine ro = (RigaOrdine)it2.next();
-	    	  %>&lsqb;Codice prodotto&colon; <%=ro.getProdotto()%>&semi;
-	    	  Quantit&agrave;&colon; <%=ro.getQuantity()%> 
-	    	  Prezzo al pezzo&colon; <%=ro.getPrezzoAlPezzo()%> &euro;&rsqb; 
-	   <% } %>
-	      
-	      </td>
-	      <td>Nome ricevente&colon; <%=ordine.getNomeRicevente()%>&semi;
-	     	  Cognome ricevente&colon; <%=ordine.getCognomeRicevente()%>&semi;
-	      	  Email ricevente&colon; <%=ordine.getEmail()%>&semi;
-	      	  Cellulare&colon; <%=ordine.getCellulare()%>&semi;
-			  Via&colon; <%=ordine.getVia()%>&semi;
-			  N&ordm; Civico&colon; <%=ordine.getNcivico()%>&semi;
-			  Citt&agrave;&colon; <%=ordine.getCitta()%>&semi;
-			  Paese&colon; <%=ordine.getPaese()%>&semi;
-			  Provincia&colon; <%=ordine.getProvincia()%>&semi;
-			  Cap&colon; <%=ordine.getCAP()%>&semi;
-			  Account&colon; <%=ordine.getCliente()%>&semi; 
-	      <td><%=ordine.getData_ordine()%></td>
-	      <%if (ordine.getData_arrivo()!=null) {%>
-				<td><%=ordine.getData_arrivo()%></td>
-			<% } else {%>
-				<td>Data non disponibile</td>
-			<% }%>
-	    </tr>
-<%
-}
-%>
-  </tbody>
-</table>
+<div class="container-fluid py-5">
+		<div class="row">
+			<%@ include file="gestoreOrdiniMenu.jsp"%>
+			<div class="col-md-10">
+				<table class="table shadow-lg p-3 mb-5 bg-dark">
+				  <thead class="thead">
+				    <tr class="table-dark text-dark">
+				      <th scope="col">N&ordm; Ordine</th>
+				      <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
+				      <th scope="col">Dati Spedizione</th>
+				      <th scope="col">Data ordine</th>
+				      <th scope="col">Data arrivo</th>
+				    </tr>
+				  </thead>
+				  <tbody class="table-light text-dark">
+				        <%
+				Iterator<?> it = ordini.iterator();
+				while(it.hasNext()) {
+					Ordine ordine = (Ordine)it.next();
+				%>
+						<tr>
+					      <th scope="row"><%=ordine.getId()%></th>
+					      <td>
+					      <%Iterator<?> it2 = ordine.getRigheOrdine().iterator();
+					      while(it2.hasNext()) {
+					    	  RigaOrdine ro = (RigaOrdine)it2.next();
+					    	  %>&lsqb;Codice prodotto&colon; <%=ro.getProdotto()%>&semi;
+					    	  Quantit&agrave;&colon; <%=ro.getQuantity()%> 
+					    	  Prezzo al pezzo&colon; <%=ro.getPrezzoAlPezzo()%> &euro;&rsqb; 
+					   <% } %>
+					      
+					      </td>
+					      <td>Nome ricevente&colon; <%=ordine.getNomeRicevente()%>&semi;
+					     	  Cognome ricevente&colon; <%=ordine.getCognomeRicevente()%>&semi;
+					      	  Email ricevente&colon; <%=ordine.getEmail()%>&semi;
+					      	  Cellulare&colon; <%=ordine.getCellulare()%>&semi;
+							  Via&colon; <%=ordine.getVia()%>&semi;
+							  N&ordm; Civico&colon; <%=ordine.getNcivico()%>&semi;
+							  Citt&agrave;&colon; <%=ordine.getCitta()%>&semi;
+							  Paese&colon; <%=ordine.getPaese()%>&semi;
+							  Provincia&colon; <%=ordine.getProvincia()%>&semi;
+							  Cap&colon; <%=ordine.getCAP()%>&semi;
+							  Account&colon; <%=ordine.getCliente()%>&semi; 
+					      <td><%=ordine.getData_ordine()%></td>
+					      <%if (ordine.getData_arrivo()!=null) {%>
+								<td><%=ordine.getData_arrivo()%></td>
+							<% } else {%>
+								<td>Data non disponibile</td>
+							<% }%>
+					    </tr>
+				<%
+				}
+				%>
+				  </tbody>
+				</table>
+			</div>
+		</div>
 </div>
+
 </body>
 </html>

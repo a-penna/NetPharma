@@ -22,8 +22,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function() {
-			$(".my-tablist-element").removeClass("active");
-			$("#rimuoviCategoria").addClass("active");
+			$(".my-tablist-element").removeClass("bg-dark text-white");
+			$("#rimuoviCategoria").addClass("bg-dark text-white");
 		});
 	</script>
 </head>            
@@ -52,7 +52,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 							     </select> 
 							     <div class="invalid-feedback">Seleziona la categoria da eliminare&excl;</div>
 				   			</div>
-					        <button type="submit" class="btn btn-primary">Elimina</button>
+					        <button type="submit" class="btn btn-dark">Elimina</button>
 					   </fieldset>
 				</form> 
 			</div>

@@ -22,12 +22,12 @@ if(isGestoreOrdini || isGestoreCatalogo) {
 	      </li>
 	      <%if (isGestoreCatalogo) {%>
 		      <li class="nav-item">
-		        <a class="nav-link" href="<%=response.encodeURL(request.getContextPath() + "/gestoreCatalogo/gestoreCatalogoHomePage.jsp")%>">Gestione Catalogo<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="<%=response.encodeURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp")%>">Gestione Catalogo<span class="sr-only">(current)</span></a>
 		      </li>
 		  <%} %>
 		   <%if (isGestoreOrdini) {%>
 	      <li class="nav-item">
-	        <a class="nav-link" href="<%=response.encodeURL(request.getContextPath() + "/gestoreOrdini/gestoreOrdiniHomePage.jsp")%>">Ordini<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="<%=response.encodeURL(request.getContextPath() + "/gestoreOrdini/ListaOrdini.jsp")%>">Ordini<span class="sr-only">(current)</span></a>
 	      </li>
 	      <%} %>
 	    </ul>

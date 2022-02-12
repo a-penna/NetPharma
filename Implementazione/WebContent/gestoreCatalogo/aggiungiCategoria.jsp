@@ -23,8 +23,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>   
 	<script>
 		$(document).ready(function() {
-			$(".my-tablist-element").removeClass("active");
-			$("#creaCategoria").addClass("active");
+			$(".my-tablist-element").removeClass("bg-dark text-white");
+			$("#creaCategoria").addClass("bg-dark text-white");
 		});
 	</script>
 </head>            
@@ -59,7 +59,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 								</select>
 				        </fieldset>
 				        
-				        <button type="submit" class="btn btn-primary">Aggiungi</button>
+				        <button type="submit" class="btn btn-dark">Aggiungi</button>
 				</form>
 		</div>
 	</div>

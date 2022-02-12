@@ -15,8 +15,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>
 	    $(document).ready(function() {
-			$(".my-tablist-element").removeClass("active");
-			$("#inserisciProdotto").addClass("active");
+			$(".my-tablist-element").removeClass("bg-dark text-white");
+			$("#inserisciProdotto").addClass("bg-dark text-white");
 		});
     </script>
 </head>            
@@ -152,7 +152,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 					        </div>
 				        </fieldset>
 				       
-				        <button type="submit" class="btn btn-primary">Aggiungi</button>
+				        <button type="submit" class="btn btn-dark">Aggiungi</button>
 				</form>
 		</div>
 	</div>
