@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 
 <%	
 boolean isCliente = request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!= null;
@@ -24,11 +24,7 @@ boolean isGestore = request.getSession(false) != null && (request.getSession(fal
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Categorie
         </a>
-        <div class="dropdown-menu mydark-dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item mydark-dropdown-item" href="#">Mamma&Bambino</a>
-          <a class="dropdown-item mydark-dropdown-item" href="#">Cosmetici</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item mydark-dropdown-item" href="#">Prevenzione Antivirale</a>
+        <div class="dropdown-menu mydark-dropdown-menu bg-dark" id="categorie" aria-labelledby="navbarDropdown">
         </div>
       </li>
 	    <form class="form-inline my-2 my-lg-0" action="<%=response.encodeURL(request.getContextPath() + "/RicercaProdotto")%>" method="post">

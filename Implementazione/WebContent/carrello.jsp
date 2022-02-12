@@ -21,6 +21,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%@ include file="/commonSources.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+	<script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 
 	<script>
 		function updateQuantity(prodotto) {
 				var quantity = document.getElementsByName("quantity"+prodotto)[0];

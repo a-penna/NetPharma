@@ -11,8 +11,8 @@
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">    
     <title>NetPharma &dash; Successo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">						
 	<%@ include file="/commonSources.jsp"%>
+	<script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 
 </head>             
 
 <body>

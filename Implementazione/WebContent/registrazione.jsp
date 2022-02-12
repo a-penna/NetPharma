@@ -26,7 +26,7 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
     <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
 	<%@ include file="/commonSources.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
+	<script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 
 	 
 	<script>
 	    function validate(obj) {	

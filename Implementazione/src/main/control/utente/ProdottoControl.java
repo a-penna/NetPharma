@@ -22,7 +22,7 @@ public class ProdottoControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (request.getParameter("id") == null) {
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Prodotto"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 			return;
 		}
 		

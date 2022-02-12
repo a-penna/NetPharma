@@ -5,7 +5,7 @@
     Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 
     if (prodotti == null) {
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottiControl"));
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
         return;
     }
 %>    
@@ -20,13 +20,11 @@
     <title>NetPharma &dash; Prodotti</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="/commonSources.jsp"%>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">						
+    <script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 						
 </head>            
 
 <body class="bg-light">
-
-	
-    
+     <%@ include file="/header.jsp"%>
     <div class="container py-5"> 
 		<div class="row">
 			<div class="col-md">
@@ -49,9 +47,9 @@
 					  %>		
 						  <tr>
 								<th scope="row">
-								<img class="rounded-corners" src="FotoControl?type=prodotto&id=<%=prodotto.getNome()%>" height=50 width=50 onerror="this.src='./imgs/nologo.png'">
+								<img class="rounded-corners" src="FotoControl?type=prodotto&id=<%=prodotto.getNome()%>" height=50 width=50 onerror="this.src='./imgs/noPhoto.png'">
 								</th>
-								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?nome=" + prodotto.getNome())%>"><%=prodotto.getNome()%></a></td>
+								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
 										  <td>&dash;</td>
 							  <% } %>
 						  </tr>

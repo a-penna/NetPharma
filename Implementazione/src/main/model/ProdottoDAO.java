@@ -281,25 +281,26 @@ public class ProdottoDAO {
 	}
 
 	
-	public Collection<Prodotto> doRetrieveAllByCategoria(String categoria) throws SQLException{
+	public Collection<Prodotto> doRetrieveAllByCategoria(int categoria) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		Collection<Prodotto> prodotti = new LinkedList<Prodotto>();
 	
-		String selectSQL = "SELECT * FROM prodotto WHERE categoria=(SELECT id FROM categoria WHERE nome=?)";
-	
+		String selectSQL = "SELECT * FROM prodotto WHERE categoria=?";
+		
 		try {
 			connection = ds.getConnection();
 		
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, categoria);
+			preparedStatement.setInt(1, categoria);
 	
 			ResultSet rs = preparedStatement.executeQuery();
 	
 			while (rs.next()) {
 				Prodotto bean = new Prodotto();
 				
+				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
 				bean.setProduttore(rs.getString("produttore"));
@@ -307,7 +308,6 @@ public class ProdottoDAO {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(categoria);
 				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
 				
 				prodotti.add(bean);

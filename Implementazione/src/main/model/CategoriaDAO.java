@@ -113,7 +113,7 @@ public class CategoriaDAO {
 
 			while (rs.next()) {
 				Categoria bean = new Categoria();
-				bean.setId(Integer.parseInt(rs.getString("id")));
+				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 
 				categorie.add(bean);

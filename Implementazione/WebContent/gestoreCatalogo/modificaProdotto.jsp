@@ -19,7 +19,6 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<title>NetPharma &dash; Modifica Prodotto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%@ include file="/commonSources.jsp"%>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>

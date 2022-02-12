@@ -16,33 +16,40 @@ import main.bean.Prodotto;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
-@WebServlet("/ProdottiControl")
-public class ListaProdottiControl extends HttpServlet {
+@WebServlet("/ProdottiCategoria")
+public class ListaProdottiCategoriaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoria = request.getParameter("categoria");
 		
 		if (categoria == null) {
-		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProdottiControl"));
+		 	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 		 	return;
 		}
+		
+		int categoriaID = -1;
+		try {
+			categoriaID = Integer.parseInt(categoria);
+		}catch(NumberFormatException e) {
+			
+		}
+		
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		ProdottoDAO model = new ProdottoDAO(ds);
 		
 		try {
-			Collection<Prodotto> prodotti = model.doRetrieveAllByCategoria(categoria);
+			Collection<Prodotto> prodotti = model.doRetrieveAllByCategoria(categoriaID);
 
 			request.setAttribute("prodotti", prodotti); 
-			request.setAttribute("categoria", categoria);
 		} catch (SQLException e) {
 			Utility.printSQLException(e);
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
 			return;
 		}
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/listaProdotti.jsp"));
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/listaProdottiCategoria.jsp"));
 		dispatcher.forward(request, response);
 	}
 

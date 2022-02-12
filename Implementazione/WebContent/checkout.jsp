@@ -11,7 +11,7 @@
     <title>NetPharma &dash; Checkout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="/commonSources.jsp"%>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">						
+    <script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 					
 	<script>
 	$(document).ready(function(){
 

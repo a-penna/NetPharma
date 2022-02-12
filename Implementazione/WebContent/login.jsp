@@ -24,7 +24,7 @@
     <title>NetPharma &dash; Login</title>
 	<%@ include file="/commonSources.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
+	<script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 
 	
 	<script>
         function validate(obj) {	
