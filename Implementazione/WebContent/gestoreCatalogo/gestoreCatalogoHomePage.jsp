@@ -15,6 +15,7 @@
 
 <body class="pt-5">
 <%@ include file="/headerGestori.jsp"%>
+<%@ include file="/gestoreCatalogo/gestoreCatalogoMenu.jsp"%>
 <a href="<%=request.getContextPath()%>/gestoreCatalogo/aggiungiProdotto.jsp">Inserisci Prodotto</a>
 <a href="<%=request.getContextPath()%>/gestoreCatalogo/rimuoviProdotto.jsp">Rimuovi Prodotto</a>
 <a href="<%=request.getContextPath()%>/gestoreCatalogo/modificaProdotto.jsp">Modifica Prodotto</a>

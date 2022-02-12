@@ -23,6 +23,9 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>
 		$(document).ready(function() {
+			$(".my-tablist-element").removeClass("active");
+			$("#modificaProdotto").addClass("active");
+			
 			$('#prodotto').change(function() {
 				var id = $(this).val();
 				$.ajax({
