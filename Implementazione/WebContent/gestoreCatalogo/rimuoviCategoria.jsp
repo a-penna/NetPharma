@@ -27,8 +27,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<%@ include file="/headerGestori.jsp"%>
 	<div class="container-fluid py-5">
 		<div class="row">
-
-			<div class="col-md-10">
+			<%@ include file="gestoreCatalogoMenu.jsp"%>
+			<div class="col-md-8">
 				<form action="<%=response.encodeURL(request.getContextPath() + "/RimuoviCategoria")%>" method="post"> 
 					    <fieldset>
 					        <legend>Inserisci informazioni sulla categoria&colon; </legend>

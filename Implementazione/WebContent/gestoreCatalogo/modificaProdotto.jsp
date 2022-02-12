@@ -60,7 +60,8 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<%@ include file="/headerGestori.jsp"%>
 	<div class="container-fluid py-5">
 		<div class="row">
-			<div class="col-md-10">
+			<%@ include file="gestoreCatalogoMenu.jsp"%>
+			<div class="col-md-8">
 				<p>Inserisci i dati nel seguente form per modificare un nuovo prodotto&colon; <p>
 				<form action="<%=response.encodeURL(request.getContextPath() + "/ModificaProdotto")%>" method="post" enctype="multipart/form-data"> 
 				        <fieldset>

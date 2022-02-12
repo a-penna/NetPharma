@@ -25,9 +25,12 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 
 <body class="bg-light">
 	<%@ include file="/headerGestori.jsp"%>
+	
+
 	<div class="container-fluid py-5">
 		<div class="row">
-			<div class="col-md-10">
+			<%@ include file="gestoreCatalogoMenu.jsp"%>
+			<div class="col-md-8">
 				<p>Inserisci i dati nel seguente form per aggiungere una nuova categoria&colon; <p>
 				<form action="<%=response.encodeURL(request.getContextPath() + "/SettaCategoria")%>" method="post"> 
 				        <fieldset>
@@ -54,7 +57,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 				</form>
 		</div>
 	</div>
-	</div> 
+	</div>
 
 </body>
 </html> 
