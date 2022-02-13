@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 
 import org.dbunit.Assertion;
 import org.dbunit.DataSourceBasedDBTestCase;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.SortedTable;
@@ -106,7 +108,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     @Test
     public void doRetrieveAllExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("Mamma e bambino"));
+    	expected.add(new Categoria("Mamma&bambino"));
     	expected.add(new Categoria("Cosmetici"));
     	expected.add(new Categoria("Prevenzione antivirale"));
     	
@@ -119,7 +121,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     @Test
     public void doRetrieveAllNotExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("Mamma e bambino"));
+    	expected.add(new Categoria("Mamma&bambino"));
     	expected.add(new Categoria("Vestiti"));
     	
     	Collection<Categoria> actual =
@@ -130,52 +132,148 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     
 
     @Test
-    public void doSaveTrue()  throws SQLException {
-/*
+    public void doSaveTrue()  throws Exception {
+
+        IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream(“Database/expected/doSaveTest.xml”))
-    	 .getTable(CategoriaDAO.TABLE);
+    	 .getResourceAsStream("/test/resources/doSaveTestTrue.xml"))
+    	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria = new Categoria();
-    	 categoria.setNome("Cosmetici");
+    	 categoria.setNome("cosmetici");
     	 categoriaDAO.doSave(categoria); 
     	 
     	 // Ottieni lo stato post-inserimento
-    	 ITable actual = t.getConnection()
-    	 .createDataSet().getTable(“CATEGORIA”);
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("CATEGORIA");
     	 // Assert di DBUnit (debole all'ordinamento)
     	 Assertion.assertEquals(
     	 new SortedTable(expected),
     	 new SortedTable(actual)
     	 );
-    	 */
+    	 
     }
     
     @Test
-    public void doSaveFalse()  throws SQLException {
-    	/*
-    	Categoria bean = new Categoria();
-    	bean.setNome("Vestiti");
-    
-    	Categoria actual = new Categoria();
-    	actual.setNome("Cosmetici");
-    	categoriaDAO.doSave(actual);
-    	assertEquals(bean,actual);
-    	*/
+    public void doSaveFalse()  throws Exception {
+
+        IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(CategoriaDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("/test/resources/doSaveTestFalse.xml"))
+    	 .getTable("Categoria");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Categoria categoria = new Categoria();
+    	 categoria.setNome("cosmetici");
+    	 categoriaDAO.doSave(categoria); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("CATEGORIA");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
+    	 
     }
     
 
     @Test
-    public void doDeleteTrue()  throws SQLException {
-    	;
+    public void doDeleteTrue()  throws Exception {
+
+        IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(CategoriaDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("/test/resources/doDeleteTestTrue.xml"))
+    	 .getTable("Categoria");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Categoria categoria1 = new Categoria();
+    	 categoria1.setNome("cosmetici");
+    	 Categoria categoria2 = new Categoria();
+    	 categoria2.setNome("farmaci");
+    	 categoriaDAO.doDelete(categoria2); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("CATEGORIA");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
+    	 
     }
     
     @Test
-    public void doDeleteFalse()  throws SQLException {
-    	;
+    public void doDeleteFalse()  throws Exception {
+
+        IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(CategoriaDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("/test/resources/doDeleteTestFalse.xml"))
+    	 .getTable("Categoria");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Categoria categoria1 = new Categoria();
+    	 categoria1.setNome("cosmetici");
+    	 Categoria categoria2 = new Categoria();
+    	 categoria2.setNome("farmaci");
+    	 categoriaDAO.doDelete(categoria2); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("CATEGORIA");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
+    	 
     }
     
 }
