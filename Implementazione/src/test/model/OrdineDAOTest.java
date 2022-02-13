@@ -75,7 +75,7 @@ private JdbcDataSource dataSource;
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
-		int id = 1;
+		
 		
         boolean actual = ordine.doSaveCheck(bean);
         
@@ -89,11 +89,11 @@ private JdbcDataSource dataSource;
 		bean.setCliente("m@rossi.com");
 		bean.setData_ordine(new Date(System.currentTimeMillis()));
 		
-		bean.setId("5");
+		bean.setId("1000");
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
-		int id = 100;
+		
 		
         boolean actual = ordine.doSaveCheck(bean);
         
@@ -150,10 +150,10 @@ private JdbcDataSource dataSource;
     @Test
     public void doRetriveByIDFalse() throws SQLException {
     
-    	Ordine bean = new Ordine();
-    	bean.setId("1000");
-    	Ordine actual = ordine.doRetrieveByKey("5");
-    	assertEquals(bean.getId(),actual.getId());
+    	
+    	
+    	Ordine actual = ordine.doRetrieveByKey("1000");
+    	assertEquals(null,actual);
     	
     	
     }
@@ -168,7 +168,17 @@ private JdbcDataSource dataSource;
     	bean.setData_arrivo(new Date(2022,2,13));
     	bean.setPrezzo(new BigDecimal(50));
     	bean.setStato("Si");
-    	//Inserire dati spedizione
+    	bean.setCognomeRicevente("Nappi");
+    	bean.setNomeRicevente("Gaia");
+    	bean.setNcivico(31);
+    	bean.setVia("vvv");
+    	bean.setCitta("a");
+    	bean.setEmail("g@nappi.com");
+    	bean.setProvincia("b");
+    	bean.setCAP("80000");
+    	
+    
+    
     	bean.setCliente("g@nappi.com");
     	lista.add(bean);
     	Collection<Ordine> actual = ordine.doRetrieveAll("");
@@ -176,6 +186,15 @@ private JdbcDataSource dataSource;
     	assertArrayEquals(lista.toArray(),actual.toArray());
     	
     }
+    
+    @Test
+    public void doRetriveAllDaSpedire() throws SQLException {
+    	
+    	
+    	//TODO
+    	
+    }
+    
     
     
 }
