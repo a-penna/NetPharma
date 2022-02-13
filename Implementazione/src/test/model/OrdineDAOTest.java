@@ -71,13 +71,13 @@ private JdbcDataSource dataSource;
 		bean.setCliente("m@rossi.com");
 		bean.setData_ordine(new Date(System.currentTimeMillis()));
 		
-		bean.setId(5);
+		bean.setId("5");
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
 		int id = 1;
 		
-        boolean actual = ordine.doSaveCheck(bean,id);
+        boolean actual = ordine.doSaveCheck(bean);
         
         assertEquals(true, actual);
         
@@ -89,13 +89,13 @@ private JdbcDataSource dataSource;
 		bean.setCliente("m@rossi.com");
 		bean.setData_ordine(new Date(System.currentTimeMillis()));
 		
-		bean.setId(5);
+		bean.setId("5");
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
 		int id = 100;
 		
-        boolean actual = ordine.doSaveCheck(bean,id);
+        boolean actual = ordine.doSaveCheck(bean);
         
         assertEquals(false, actual);
         
@@ -106,7 +106,7 @@ private JdbcDataSource dataSource;
     	Ordine bean = new Ordine();
 		//bean.setCliente("m@rossi.com"); Serve altro utente
 		
-		bean.setId(2); //Id dell'altro ordine
+		bean.setId("2"); //Id dell'altro ordine
 		
 		
 		
@@ -123,7 +123,7 @@ private JdbcDataSource dataSource;
     	Ordine bean = new Ordine();
 		//bean.setCliente("m@rossi.com"); Serve altro utente
 		
-		bean.setId(3); //Id dell'altro ordine
+		bean.setId("3"); //Id dell'altro ordine
 		
 		
 		
@@ -138,7 +138,7 @@ private JdbcDataSource dataSource;
     public void doRetriveByIDTrue() throws SQLException {
     
     	Ordine bean = new Ordine();
-    	bean.setId(5);
+    	bean.setId("5");
     	Ordine actual = ordine.doRetrieveByKey("5");
     	assertEquals(bean.getId(),actual.getId());
     	
@@ -151,7 +151,7 @@ private JdbcDataSource dataSource;
     public void doRetriveByIDFalse() throws SQLException {
     
     	Ordine bean = new Ordine();
-    	bean.setId(1000);
+    	bean.setId("1000");
     	Ordine actual = ordine.doRetrieveByKey("5");
     	assertEquals(bean.getId(),actual.getId());
     	
@@ -163,12 +163,12 @@ private JdbcDataSource dataSource;
     
     	Collection<Ordine> lista = new LinkedList<Ordine>();
     	Ordine bean = new Ordine();
-    	bean.setId(5);
+    	bean.setId("5");
     	bean.setData_ordine(new Date(2022,2,10));
     	bean.setData_arrivo(new Date(2022,2,13));
     	bean.setPrezzo(new BigDecimal(50));
     	bean.setStato("Si");
-    	bean.setDati_spedizione(1);
+    	//Inserire dati spedizione
     	bean.setCliente("g@nappi.com");
     	lista.add(bean);
     	Collection<Ordine> actual = ordine.doRetrieveAll("");
