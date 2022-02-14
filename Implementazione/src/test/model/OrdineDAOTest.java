@@ -70,8 +70,18 @@ private JdbcDataSource dataSource;
     	Ordine bean = new Ordine();
 		bean.setCliente("m@rossi.com");
 		bean.setData_ordine(new Date(System.currentTimeMillis()));
+		bean.setNomeRicevente("Mario");
+		bean.setCognomeRicevente("Rossi");
+		bean.setEmail("m@rossi.com");
+		bean.setCellulare("333333");
+		bean.setNcivico(11);
+		bean.setVia("Via");
+		bean.setCitta("Città1");
+		bean.setPaese("Paese1");
+		bean.setProvincia("Provincia1");
+		bean.setCAP("80001");
 		
-		bean.setId("5");
+		bean.setId("1");
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
@@ -86,10 +96,20 @@ private JdbcDataSource dataSource;
     @Test
     public void doSaveCheckFalseChecking() throws SQLException {
     	Ordine bean = new Ordine();
-		bean.setCliente("m@rossi.com");
+    	bean.setCliente("m@rossi.com");
 		bean.setData_ordine(new Date(System.currentTimeMillis()));
+		bean.setNomeRicevente("Mario");
+		bean.setCognomeRicevente("Rossi");
+		bean.setEmail("m@rossi.com");
+		bean.setCellulare("333333");
+		bean.setNcivico(11);
+		bean.setVia("Via");
+		bean.setCitta("Città1");
+		bean.setPaese("Paese1");
+		bean.setProvincia("Provincia1");
+		bean.setCAP("80001");
 		
-		bean.setId("1000");
+		bean.setId("5");
 		bean.setStato("Si");
 		bean.setPrezzo(new BigDecimal(30));
 		
@@ -163,6 +183,7 @@ private JdbcDataSource dataSource;
     
     	Collection<Ordine> lista = new LinkedList<Ordine>();
     	Ordine bean = new Ordine();
+    	Ordine bean2 = new Ordine();
     	bean.setId("5");
     	bean.setData_ordine(new Date(2022,2,10));
     	bean.setData_arrivo(new Date(2022,2,13));
@@ -178,11 +199,33 @@ private JdbcDataSource dataSource;
     	bean.setCAP("80000");
     	
     
+    	
+    	
     
     	bean.setCliente("g@nappi.com");
+    	
+    	
+    	bean2.setId("3");
+    	bean2.setData_ordine(new Date(2022,2,10));
+    	bean2.setData_arrivo(new Date(2022,2,13));
+    	bean2.setPrezzo(new BigDecimal(50));
+    	bean2.setStato("No");
+    	bean2.setCognomeRicevente("Nappi");
+    	bean2.setNomeRicevente("Gaia");
+    	bean2.setNcivico(31);
+    	bean2.setVia("vvv");
+    	bean2.setCitta("a");
+    	bean2.setEmail("g@nappi.com");
+    	bean2.setProvincia("b");
+    	bean2.setCAP("80000");
+    	bean2.setCliente("g@nappi.com");
+    	bean2.setCellulare("33353");
+    	bean2.setPaese("a");
     	lista.add(bean);
+    	
+    	lista.add(bean2);
     	Collection<Ordine> actual = ordine.doRetrieveAll("");
-    	assertEquals(1,actual.size());
+    	assertEquals(2,actual.size());
     	assertArrayEquals(lista.toArray(),actual.toArray());
     	
     }
@@ -206,6 +249,8 @@ private JdbcDataSource dataSource;
     	bean.setProvincia("b");
     	bean.setCAP("80000");
     	bean.setCliente("g@nappi.com");
+    	bean.setCellulare("33353");
+    	bean.setPaese("a");
     	lista.add(bean);
     	Collection<Ordine> actual = ordine.doRetrieveAllDaSpedire();
     	assertEquals(1,actual.size());
