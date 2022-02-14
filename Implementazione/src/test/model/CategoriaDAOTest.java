@@ -88,18 +88,18 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     @Test
     public void doRetrieveByNameExisting()  throws SQLException {
-    	String nome = "Cosmetici";
+    	String nome = "Raffreddore";
     	Categoria bean = new Categoria();
-    	bean.setNome("Cosmetici");
+    	bean.setNome("Raffreddore");
      	Categoria actual = categoriaDAO.doRetrieveByName(nome);
     	assertEquals(bean,actual);
     }
     
     @Test
     public void doRetrieveByNameNotExisting()  throws SQLException {
-    	String nome = "Vestiti";
+    	String nome = "Raffreddore";
     	Categoria bean = new Categoria();
-    	bean.setNome("Cosmetici");
+    	bean.setNome("Protezione Antivirale");
      	Categoria actual = categoriaDAO.doRetrieveByName(nome);
     	assertEquals(bean,actual);
     }
@@ -110,7 +110,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
     	expected.add(new Categoria("Mamma&bambino"));
     	expected.add(new Categoria("Cosmetici"));
-    	expected.add(new Categoria("Prevenzione antivirale"));
+    	expected.add(new Categoria("Protezione antivirale"));
     	
     	Collection<Categoria> actual =
     	categoriaDAO.doRetrieveAll("");
@@ -121,8 +121,10 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     @Test
     public void doRetrieveAllNotExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("Mamma&bambino"));
-    	expected.add(new Categoria("Vestiti"));
+    	expected.add(new Categoria("Mamma & bambino"));
+    	expected.add(new Categoria("Raffreddore"));
+       	expected.add(new Categoria("Protezione Antivirale"));
+    	
     	
     	Collection<Categoria> actual =
     	categoriaDAO.doRetrieveAll("");
@@ -152,7 +154,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria = new Categoria();
-    	 categoria.setNome("cosmetici");
+    	 categoria.setNome("raffreddore");
     	 categoriaDAO.doSave(categoria); 
     	 
     	 // Ottieni lo stato post-inserimento
@@ -187,7 +189,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria = new Categoria();
-    	 categoria.setNome("cosmetici");
+    	 categoria.setNome("raffreddore");
     	 categoriaDAO.doSave(categoria); 
     	 
     	 // Ottieni lo stato post-inserimento
@@ -223,9 +225,9 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria1 = new Categoria();
-    	 categoria1.setNome("cosmetici");
+    	 categoria1.setNome("raffreddore");
     	 Categoria categoria2 = new Categoria();
-    	 categoria2.setNome("farmaci");
+    	 categoria2.setNome("protezione antivirale");
     	 categoriaDAO.doDelete(categoria2); 
     	 
     	 // Ottieni lo stato post-inserimento
@@ -260,9 +262,9 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria1 = new Categoria();
-    	 categoria1.setNome("cosmetici");
+    	 categoria1.setNome("raffreddore");
     	 Categoria categoria2 = new Categoria();
-    	 categoria2.setNome("farmaci");
+    	 categoria2.setNome("protezione antivirale");
     	 categoriaDAO.doDelete(categoria2); 
     	 
     	 // Ottieni lo stato post-inserimento
