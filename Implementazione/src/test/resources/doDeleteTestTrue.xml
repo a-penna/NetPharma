@@ -6,7 +6,7 @@
     <ACCOUNT id='1' username='us2' password='pw'/>
     <RUOLI account='1' ruolo='CL'/>
 	<CATEGORIA id='1' nome='cosmetici'/>
-	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' categoria='cosmetici' disponibilita='100' prezzo='4.35'/>
+	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35' categoria='cosmetici' />
 	
 </dataset>
 
