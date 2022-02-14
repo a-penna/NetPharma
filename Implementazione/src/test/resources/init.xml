@@ -6,7 +6,7 @@
     <ACCOUNT id='1' username='us2' password='pw'/>
     <RUOLI account='1' ruolo='CL'/>
     <UTENTE_REGISTRATO genere='F' nome='Gaia' cognome='Nappi' email='g@nappi.com' nascita='2001-03-11' account='1'/>
-  
+  	<ORDINE data_ordine='2022-02-10' id='3' prezzo='50' stato='No' cliente='g@nappi.com' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' />
 	<ORDINE data_ordine='2022-02-10' data_arrivo='2022-02-13' id='5' prezzo='50' stato='Si' cliente='g@nappi.com' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' /> 
 	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35'/>
 	

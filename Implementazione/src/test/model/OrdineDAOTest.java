@@ -104,9 +104,9 @@ private JdbcDataSource dataSource;
     @Test
     public void doUpdateStatusTrue() throws SQLException {
     	Ordine bean = new Ordine();
-		//bean.setCliente("m@rossi.com"); Serve altro utente
+		bean.setCliente("g@nappi.com"); 
 		
-		bean.setId("2"); //Id dell'altro ordine
+		bean.setId("3"); 
 		
 		
 		
@@ -121,9 +121,9 @@ private JdbcDataSource dataSource;
     @Test
     public void doUpdateStatusFalse() throws SQLException {
     	Ordine bean = new Ordine();
-		//bean.setCliente("m@rossi.com"); Serve altro utente
 		
-		bean.setId("3"); //Id dell'altro ordine
+		
+		bean.setId("100"); 
 		
 		
 		
@@ -190,12 +190,30 @@ private JdbcDataSource dataSource;
     @Test
     public void doRetriveAllDaSpedire() throws SQLException {
     	
-    	
-    	//TODO
+    	Collection<Ordine> lista = new LinkedList<Ordine>();
+    	Ordine bean = new Ordine();
+    	bean.setId("3");
+    	bean.setData_ordine(new Date(2022,2,10));
+    	bean.setData_arrivo(new Date(2022,2,13));
+    	bean.setPrezzo(new BigDecimal(50));
+    	bean.setStato("No");
+    	bean.setCognomeRicevente("Nappi");
+    	bean.setNomeRicevente("Gaia");
+    	bean.setNcivico(31);
+    	bean.setVia("vvv");
+    	bean.setCitta("a");
+    	bean.setEmail("g@nappi.com");
+    	bean.setProvincia("b");
+    	bean.setCAP("80000");
+    	bean.setCliente("g@nappi.com");
+    	lista.add(bean);
+    	Collection<Ordine> actual = ordine.doRetrieveAllDaSpedire();
+    	assertEquals(1,actual.size());
+    	assertArrayEquals(lista.toArray(),actual.toArray());
     	
     }
-    
-    
+   
+
     
 }
 	
