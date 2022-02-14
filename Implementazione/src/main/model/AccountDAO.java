@@ -182,7 +182,6 @@ public class AccountDAO {
 	}
 	
 	public boolean updateOrderCount(int accountID, int newOrderCount) throws SQLException {
-		System.out.println(accountID + " " +  newOrderCount);
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

@@ -240,7 +240,7 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
 									%><input type="date" class="form-control" id="nascita" name="nascita"><% 
 								}
 							%>
-		                <div class="invalid-feedback">Inserire una data valida&excl;</div> 
+		                <div class="invalid-feedback">Devi avere almeno 14 anni per poterti registrare al sito&excl;</div> 
 			        </div>
 			        <div class="form-group col-md-4">
 			            <label for="password">Password&ast;</label>

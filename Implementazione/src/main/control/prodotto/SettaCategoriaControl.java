@@ -3,6 +3,7 @@ package main.control.prodotto;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,10 @@ public class SettaCategoriaControl extends HttpServlet {
 		String nome= request.getParameter("nome");
 		String idProdotti[] = request.getParameterValues("idProdotti");
 		
+		if(nome == null) {
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiCategoria.jsp"));
+			return;
+		}
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		ProdottoDAO model = new ProdottoDAO(ds);
@@ -44,12 +49,19 @@ public class SettaCategoriaControl extends HttpServlet {
 		
 		try {
 			Categoria categoria = new Categoria();
-			
+			if (categoriaModel.checkCategoria(nome)) {
+				request.setAttribute("nomeEsistente", "true");
+				request.setAttribute("nome", nome);
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/aggiungiCategoria.jsp"));
+				dispatcher.forward(request, response);
+				return;
+			}
 			categoria.setNome(nome);
 			categoriaModel.doSave(categoria);
-			
-			for (int i = 0; i < idProdotti.length; i++) {
-				model.updateCategoria(Integer.parseInt(idProdotti[i]), nome);
+			if (idProdotti != null) {
+				for (int i = 0; i < idProdotti.length; i++) {
+					model.updateCategoria(Integer.parseInt(idProdotti[i]), nome);
+				}
 			}
 			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));

@@ -9,11 +9,10 @@ $(document).ready(function() {
 					for (c in categorie) {
 							$("#categorie").append('<a class="dropdown-item mydark-dropdown-item" href="/NetPharma/ProdottiCategoria?categoria='+ categorie[c][0] + '">' + categorie[c][1] + '</a>');
 						}
-					})
-					.fail(function(xhr, textStatus) {
+				})
+				.fail(function(xhr, textStatus) {
 						alert("Errore");
-					});	
-					
+				});
 });
 	
 

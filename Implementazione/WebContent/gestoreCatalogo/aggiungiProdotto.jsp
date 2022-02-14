@@ -34,17 +34,20 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 				        	<div class="form-group">
 					            <label for="id">Codice Prodotto&ast;&colon;</label>
 					            	<%
-										if ((request.getAttribute("erroreCodice") != null)) {
+										if ((request.getAttribute("erroreCodice") != null) || (request.getAttribute("codiceEsistente") != null)) {
 											%><input type="text" class="form-control is-invalid" id="id" value="<%=request.getAttribute("codice")%>" name="id"><% 
 										} else if (request.getAttribute("codice") != null) {
 											%><input type="text" class="form-control" id="id" value="<%=request.getAttribute("codice")%>" name="id"><% 
 										} else {
 											%><input type="text" class="form-control" id="id" name="id" placeholder="Codice"><% 
 										}
-					            	%>
-					            		
+					            	
+					            	if ((request.getAttribute("codiceEsistente") != null)) {%>
+										<div class="invalid-feedback">Attenzione&excl; Esiste gi&agrave; un prodotto nel catalogo con il codice specificato</div> 
+									<%}else { %>
 										<div class="invalid-feedback">Questo codice non sembra essere valido&excl;</div> 
-										 
+								
+									<%} %>	 
 					        </div>
 					        <div class="form-group">
 					            <label for="nome">Nome&ast;&colon;</label>

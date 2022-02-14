@@ -33,7 +33,15 @@ boolean isGestore = request.getSession(false) != null && (request.getSession(fal
         <div class="dropdown-menu mydark-dropdown-menu bg-dark" id="categorie" aria-labelledby="navbarDropdown">
         </div>
       </li>
-	    <form class="form-inline my-2 my-lg-0" action="<%=response.encodeURL(request.getContextPath() + "/RicercaProdotto")%>" method="post">
+      <script>
+	      function validateSearch(obj) {
+				var searchBar = document.getElementsByName("cerca-per-prodotto")[0];
+				if (searchBar.value.trim() != "") {
+					obj.submit();
+				}
+			}	
+      </script>
+	    <form class="form-inline my-2 my-lg-0" action="<%=response.encodeURL(request.getContextPath() + "/RicercaProdotto")%>" method="post" onsubmit="event.preventDefault(); validateSearch(this)">
 	      <input class="form-control mr-sm-2" type="cerca-per-prodotto" name="cerca-per-prodotto" placeholder="Cerca per prodotto" aria-label="Cerca per prodotto">
 	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Cerca</button>
 	    </form>

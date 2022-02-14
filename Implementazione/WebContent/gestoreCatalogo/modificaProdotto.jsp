@@ -22,6 +22,21 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>
     <script>
+	    function validate(obj) {	
+	    	var valid = true;
+	    	
+	        var p = document.getElementsByName("prodotto")[0];
+	        if(p.value == "Seleziona Prodotto") {
+	            valid = false;
+	            p.classList.add("is-invalid");
+	            p.focus();
+	        } else {
+	        	p.classList.remove("is-invalid");
+	        }
+	       
+	        if(valid) obj.submit();
+	    }
+	    
 		$(document).ready(function() {
 			$(".my-tablist-element").removeClass("bg-dark text-white");
 			$("#modificaProdotto").addClass("bg-dark text-white");
@@ -34,6 +49,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 				})
 				.done(function(msg) {
 					var prodotti = msg.prodotto;
+					$("#prodotto").removeClass("is-invalid");
 					$("#nome").val(prodotti[0]);
 					$("#nome").removeClass("is-invalid");
 					$("#marchio").val(prodotti[1]);
@@ -48,7 +64,6 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 					$("#disponibilita").removeClass("is-invalid");
 					$("#prezzo").val(prodotti[6]);
 					$("#prezzo").removeClass("is-invalid");
-					$("#id").val(prodotti[7]);
 					})
 				.fail(function(xhr, textStatus) {
 					alert("Errore");
@@ -66,11 +81,11 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 			<%@ include file="gestoreCatalogoMenu.jsp"%>
 			<div class="col-md-8">
 				<p>Inserisci i dati nel seguente form per modificare un nuovo prodotto&colon; <p>
-				<form action="<%=response.encodeURL(request.getContextPath() + "/ModificaProdotto")%>" method="post" enctype="multipart/form-data"> 
+				<form action="<%=response.encodeURL(request.getContextPath() + "/ModificaProdotto")%>" method="post" enctype="multipart/form-data" onsubmit="event.preventDefault(); validate(this)"> 
 				        <fieldset>
 				        	<legend>Informazioni sul prodotto&colon; </legend>
 				        	<div class="form-group">
-						        <select class="custom-select" id="prodotto" name="prodotto">
+						        	<select class="custom-select" id="prodotto" name="prodotto">
 						        		<option disabled selected>Seleziona Prodotto</option>
 							            <%
 							            String oldValue = (String)request.getAttribute("codice");
@@ -184,12 +199,6 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 					        	<br>
 					        </div>
 				        </fieldset>
-				        <%if(oldValue != null) {%>
-				        	<input id="id" name="id" type="hidden" value="<%=oldValue%>">
-				        <%} else { %>
-				        	<input id="id" name="id" type="hidden">
-				        <%} %>
-				        
 				       
 				        <button type="submit" class="btn btn-dark">Modifica</button>
 				</form>

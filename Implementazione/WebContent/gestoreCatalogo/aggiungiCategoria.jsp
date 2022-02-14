@@ -22,6 +22,21 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/script.js"></script>   
 	<script>
+		function validate(obj) {	
+	    	var valid = true;
+	    	
+	        var n = document.getElementsByName("nome")[0];
+	        if(n.value.trim() == "") {
+	            valid = false;
+	            n.classList.add("is-invalid");
+	            n.focus();
+	        } else {
+	        	n.classList.remove("is-invalid");
+	        }
+	       
+	        if(valid) obj.submit();
+	    }
+	
 		$(document).ready(function() {
 			$(".my-tablist-element").removeClass("bg-dark text-white");
 			$("#creaCategoria").addClass("bg-dark text-white");
@@ -38,12 +53,24 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 			<%@ include file="gestoreCatalogoMenu.jsp"%>
 			<div class="col-md-8">
 				<p>Inserisci i dati nel seguente form per aggiungere una nuova categoria&colon; <p>
-				<form action="<%=response.encodeURL(request.getContextPath() + "/SettaCategoria")%>" method="post"> 
+				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiCategoria")%>" method="post" onsubmit="event.preventDefault(); validate(this)"> 
 				        <fieldset>
 				        	<legend>Informazioni sulla categoria&colon; </legend>
 							<div class="form-group">
 					        	<label for="nome">Nome&colon;</label>
-								 <input id="nome" type="text" class="form-control" name="nome" placeholder="Nome categoria">
+					        	<%
+										if ((request.getAttribute("nomeEsistente") != null)) {
+											%><input type="text" class="form-control is-invalid" id="nome" value="<%=request.getAttribute("nome")%>" name="nome"><% 
+										} else {
+											%><input id="nome" type="text" class="form-control" name="nome" placeholder="Nome categoria"><% 
+										}
+					            
+					            		if((request.getAttribute("nomeEsistente") != null))	{ %>
+								 			<div class="invalid-feedback">Attenzione&excl; Esiste gi&agrave; una categoria di prodotti con il nome specificato</div> 
+								 		<%}else{ %>
+								 			<div class="invalid-feedback">Inserisci un nome per la categoria&excl;</div> 
+								 		<%} %>
+										
 				    		</div>
 					    		<select class="custom-select" name="idProdotti" multiple>
 							        	<option disabled selected>Seleziona prodotti da aggiungere&colon;</option>

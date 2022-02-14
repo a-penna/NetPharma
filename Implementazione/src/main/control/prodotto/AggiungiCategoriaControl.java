@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import main.bean.Categoria;
 import main.bean.Prodotto;
+import main.model.CategoriaDAO;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
@@ -37,10 +39,45 @@ public class AggiungiCategoriaControl extends HttpServlet {
 		try {
 			Collection<Prodotto> prodotti = prodottoModel.doRetrieveSvincolati();
 			request.setAttribute("listaProdotti", prodotti);
-			
+		} catch(SQLException e) {
+			Utility.printSQLException(e);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+			return;
+		}
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String nome= request.getParameter("nome");
+		String idProdotti[] = request.getParameterValues("idProdotti");
+		
+		if(nome == null) {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/aggiungiCategoria.jsp"));
 			dispatcher.forward(request, response);
 			return;
+		}
+		
+		ProdottoDAO model = new ProdottoDAO(ds);
+		CategoriaDAO categoriaModel = new CategoriaDAO(ds);
+		
+		try {
+			Categoria categoria = new Categoria();
+			if (categoriaModel.checkCategoria(nome)) {
+				request.setAttribute("nomeEsistente", "true");
+				request.setAttribute("nome", nome);
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/aggiungiCategoria.jsp"));
+				dispatcher.forward(request, response);
+				return;
+			}
+			categoria.setNome(nome);
+			categoriaModel.doSave(categoria);
+			if (idProdotti != null) {
+				for (int i = 0; i < idProdotti.length; i++) {
+					model.updateCategoria(Integer.parseInt(idProdotti[i]), nome);
+				}
+			}
+			
+		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
+		    return;
 
 		} catch(SQLException e) {
 			Utility.printSQLException(e);

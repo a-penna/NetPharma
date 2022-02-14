@@ -27,7 +27,6 @@ public class GestisciOrdiniControl extends HttpServlet {
 		try {
 			Ordine ordine = model.doRetrieveByKey(request.getParameter("scelta"));
 			long giorni = Long.parseLong(request.getParameter("giorni")) * 86400000;
-			System.out.println(giorni);
 			if(model.doUpdateStatus(ordine,giorni)) {
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreOrdini/SpedisciOrdini.jsp"));
 				dispatcher.forward(request, response);

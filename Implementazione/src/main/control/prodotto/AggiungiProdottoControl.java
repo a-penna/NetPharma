@@ -58,11 +58,22 @@ public class AggiungiProdottoControl extends HttpServlet {
 		
 		boolean error = false;
 		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoDAO model = new ProdottoDAO(ds);
+
 		try {
 			id = Integer.parseInt(idStr);
+			if (model.checkProdotto(id)) {
+				request.setAttribute("codiceEsistente", "true");
+				error = true;
+			}
 		} catch (NumberFormatException e) {
 			request.setAttribute("erroreCodice", "true");
 			error = true;
+		} catch (SQLException e) {
+			Utility.printSQLException(e);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+			return;
 		}
 		
 		try {
@@ -133,8 +144,6 @@ public class AggiungiProdottoControl extends HttpServlet {
 			return;
 		}
 
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		ProdottoDAO model = new ProdottoDAO(ds);
 
 		try {
 			Prodotto prodotto = new Prodotto();

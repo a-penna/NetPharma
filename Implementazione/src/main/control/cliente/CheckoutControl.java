@@ -62,7 +62,6 @@ public class CheckoutControl extends HttpServlet {
 			Ordine ordine = new Ordine();
 			
 			int orderCount = (int)request.getSession(false).getAttribute("orderCount");
-			System.out.println(orderCount);
 			String ordineID = request.getSession(false).getAttribute("id") + "-" + (orderCount+1);
 			request.getSession(false).setAttribute("orderCount", orderCount+1);
 			ordine.setId(ordineID);

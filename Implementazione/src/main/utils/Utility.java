@@ -11,7 +11,8 @@ import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
 public class Utility {
-
+	private static final long MILLIS_IN_YEAR = 1000L * 60 * 60 * 24 * 365;
+	
 	public static Date formatStringToDate(String data) {
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
 		 try {
@@ -112,7 +113,7 @@ public class Utility {
 			return false;
 		
 		Date nascita = Utility.formatStringToDate(n);
-		return !nascita.after(new Date());
+		return !nascita.after(new Date(System.currentTimeMillis()-(MILLIS_IN_YEAR * 14)));
 	}
 	
 	public static boolean checkEmail(String e) {

@@ -28,6 +28,13 @@
 	
     <%@ include file="/header.jsp"%>
     <div class="container py-5"> 
+    <% if (prodotti.isEmpty()) { %>
+    	<div class="row">
+			<div class="col-md">
+			    <h3 class="display-5 text-center pt-5">Nessun risultato trovato&excl;</h3>
+			</div>
+		</div>
+	<% } else { %>
 		<div class="row">
 			<div class="col-md">
 			    <h2 class="display-5 text-center pt-5">Ecco il risultato della ricerca&colon;</h2>
@@ -59,7 +66,7 @@
 						</tbody>
 						</table>
 				</div>
-    
+    <%} %>
 
 </body>
 </html>

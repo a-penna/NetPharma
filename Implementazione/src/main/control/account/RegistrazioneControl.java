@@ -82,7 +82,7 @@ public class RegistrazioneControl extends HttpServlet {
 			
 			try {
 				if (usernameIsValid && accountModel.checkUsername(username)) {
-					request.setAttribute("usernamePresente", "true");
+					request.setAttribute("usernameEsistente", "true");
 					error = true;
 				}
 			} catch(SQLException e) {

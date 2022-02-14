@@ -59,16 +59,17 @@ public class ModificaProdottoControl extends HttpServlet {
 		String formato = request.getParameter("formato");
 		String descrizione = request.getParameter("descrizione");
 		String disponibilitaStr= request.getParameter("disponibilita");
-		String idStr = request.getParameter("id");
+		String idStr = request.getParameter("prodotto");
 		String prezzoStr = request.getParameter("prezzo");
 		int disponibilita=0;
-		
+
 		if (nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || prezzoStr == null || idStr == null) {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/modificaProdotto.jsp"));
 			dispatcher.forward(request, response);
 			return;
 		}
-
+	
+		
 		boolean error = false;
 		int id = 0;
 		try {

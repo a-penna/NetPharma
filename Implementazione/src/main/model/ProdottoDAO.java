@@ -423,4 +423,36 @@ public class ProdottoDAO {
 		return prodotti;
 	}	
 	
+	public boolean checkProdotto(int codice) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String selectSQL = "SELECT * FROM Prodotto "
+						 + "WHERE id = ?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, codice);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+			
+			rs.close();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return false;
+	}
+	
 }

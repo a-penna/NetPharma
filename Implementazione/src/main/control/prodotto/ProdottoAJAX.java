@@ -28,12 +28,21 @@ public class ProdottoAJAX extends HttpServlet {
 		ProdottoDAO model = new ProdottoDAO(ds);
 
 		JSONObject json = new JSONObject();
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = -1;
+		try {
+			id = Integer.parseInt(request.getParameter("id"));
+		} catch(NumberFormatException e) {
+			return;
+		}
 		
 		try {
-			JSONArray jsArray = new JSONArray();
 			Prodotto prodotto = model.doRetrieveByKey(id);
-
+			if (prodotto.getNome() == null) {
+				return;
+			}
+			
+			JSONArray jsArray = new JSONArray();
+			
 			jsArray.put(prodotto.getNome());
 			jsArray.put(prodotto.getMarchio());
 			jsArray.put(prodotto.getProduttore());
