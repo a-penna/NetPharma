@@ -1,15 +1,20 @@
 package test.model;
 
 import static org.junit.Assert.assertArrayEquals;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.dbunit.Assertion;
 import org.dbunit.DataSourceBasedDBTestCase;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.SortedTable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.h2.jdbcx.JdbcDataSource;
@@ -18,8 +23,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import javax.sql.DataSource;
-
-
 
 import main.bean.Prodotto;
 import main.model.ProdottoDAO;
@@ -114,54 +117,60 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     
 
     @Test
-    public void doSaveTrue()  throws SQLException {
-    	Prodotto bean = new Prodotto();
-    	bean.setId(883);
-    	bean.setNome("prodotto1");
-    	bean.setMarchio("marchio1");
-    	bean.setProduttore("prodottore1");
-    	bean.setFormato("formato1");
-    	bean.setDescrizione("descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1");
-    	bean.setDisponibilita(100);
-    	bean.setPrezzo(new BigDecimal(4));
-    
-    	Prodotto actual = new Prodotto();
-    	actual.setId(883);
-    	actual.setNome("prodotto1");
-    	actual.setMarchio("marchio1");
-    	actual.setProduttore("prodottore1");
-    	actual.setFormato("formato1");
-    	actual.setDescrizione("descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1");
-    	actual.setDisponibilita(100);
-    	actual.setPrezzo(new BigDecimal(4));
-    	prodottoDAO.doSave(actual);
-    	assertEquals(bean,actual);
+    public void doSaveTrue()  throws Exception {
+    	IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(ProdottoDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("/test/resources/doSaveTestTrue.xml"))
+    	 .getTable("Prodotto");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Prodotto prodotto = new Prodotto();
+    	 prodotto.setId(883);
+     	 prodotto.setNome("prodotto1");
+     	 prodotto.setMarchio("marchio1");
+     	 prodotto.setProduttore("prodottore1");
+     	 prodotto.setFormato("formato1");
+     	 prodotto.setDescrizione("descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1");
+     	 prodotto.setDisponibilita(100);
+     	 prodotto.setPrezzo(new BigDecimal(4));
+    	 prodottoDAO.doSave(prodotto); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("PRODOTTO");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
     }
     
     @Test
     public void doSaveFalse()  throws SQLException {
+    	    	
     	Prodotto bean = new Prodotto();
-    	bean.setId(887);
-    	bean.setNome("prodotto2");
-    	bean.setMarchio("marchio2");
-    	bean.setProduttore("prodottore2");
-    	bean.setFormato("formato2");
-    	bean.setDescrizione("descrizione2");
-    	bean.setDisponibilita(1);
-    	bean.setPrezzo(new BigDecimal(4));
-    
-    	Prodotto actual = new Prodotto();
-    	actual.setId(883);
-    	actual.setNome("prodotto1");
-    	actual.setMarchio("marchio1");
-    	actual.setProduttore("prodottore1");
-    	actual.setFormato("formato1");
-    	actual.setDescrizione("descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1");
-    	actual.setDisponibilita(100);
-    	actual.setPrezzo(new BigDecimal(4));
-    	prodottoDAO.doSave(actual);
-    	prodottoDAO.doSave(actual);
-    	assertEquals(bean,actual);
+		bean.setId(883);
+		bean.setNome("prodotto1");
+		bean.setMarchio("marchio1");
+		bean.setProduttore("prodottore1");
+		bean.setFormato("formato1");
+		bean.setDescrizione("descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1");
+		bean.setDisponibilita(100);
+		bean.setPrezzo(new BigDecimal(4));
+		
+		assertThrows(SQLException.class,
+			      () -> prodottoDAO.doSave(bean));
     }
     
     @Test
@@ -186,10 +195,38 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     }
 
     @Test
-    public void doDeleteTrue()  throws SQLException {
-    	;
-    }
-    
+    public void doDeleteTrue() throws Exception {
+    	
+        IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(ProdottoDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("/test/resources/doDeleteTestTrue.xml"))
+    	 .getTable("Prodotto");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Prodotto prodotto2 = new Prodotto();
+    	 prodotto2.setId(883);
+    	 prodottoDAO.doDelete(prodotto2); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("PRODOTTO");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
+    }    
 
     @Test
     public void doRetrieveAllByCategoriaExisting()  throws SQLException {
@@ -201,11 +238,6 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     	;
     }
     
-    @Test
-    public void doDeleteFalse()  throws SQLException {
-    	;
-    }
-    
     
     @Test
     public void doRicercaTrue()  throws SQLException {
@@ -214,7 +246,23 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     
     @Test
     public void doRicercaFalse()  throws SQLException {
-    	;
+    	
+    	String nome = "prodotto";
+    	
+    	Collection<Prodotto> expected = new LinkedList<Prodotto>();
+    	Prodotto bean = new Prodotto();
+    	bean.setId(884);
+    	bean.setNome("prodotto2");
+    	bean.setMarchio("marchio2");
+    	bean.setProduttore("prodottore2");
+    	bean.setFormato("formato2");
+    	bean.setDescrizione("descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2");
+    	bean.setDisponibilita(50);
+    	bean.setPrezzo(new BigDecimal(4));
+    	expected.add(bean);
+    	Collection<Prodotto> actual = prodottoDAO.doRicerca("",nome);
+    	assertEquals(expected, actual);
+    	
     }
     
     @Test
