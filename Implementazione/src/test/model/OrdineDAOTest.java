@@ -1,6 +1,7 @@
 package test.model;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -119,7 +120,8 @@ private JdbcDataSource dataSource;
         boolean actual = ordine.doSaveCheck(bean);
         
         assertEquals(false, actual);
-        
+        assertThrows(SQLException.class,
+			      () -> ordine.doSaveCheck(bean));
     }
    
     @Test
@@ -152,6 +154,8 @@ private JdbcDataSource dataSource;
         boolean actual = ordine.doUpdateStatus(bean,System.currentTimeMillis());
         
         assertEquals(false, actual);
+        assertThrows(SQLException.class,
+			      () -> ordine.doUpdateStatus(bean,System.currentTimeMillis()));
         
     }
     
