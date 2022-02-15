@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import main.bean.Ordine;
 
 import main.model.OrdineDAO;
+import main.utils.Utility;
 
 
 public class OrdineDAOTest extends DataSourceBasedDBTestCase {
@@ -133,7 +134,7 @@ private JdbcDataSource dataSource;
 		
         boolean actual = ordine.doUpdateStatus(bean,System.currentTimeMillis());
         
-        assertEquals(true, actual);
+        assertEquals(true, actual); //Problema errore sql
         
     }
     
@@ -185,15 +186,16 @@ private JdbcDataSource dataSource;
     	Ordine bean = new Ordine();
     	Ordine bean2 = new Ordine();
     	bean.setId("5");
-    	bean.setData_ordine(new Date(2022,2,10));
-    	bean.setData_arrivo(new Date(2022,2,13));
-    	bean.setPrezzo(new BigDecimal(50));
+    	bean.setData_ordine(Utility.toSqlDate(Utility.formatStringToDate("2022-2-10")));
+    	bean.setData_arrivo(Utility.toSqlDate(Utility.formatStringToDate("2022-2-13")));
+    	bean.setPrezzo(new BigDecimal(50.00)); //Float problema sul prezzo
     	bean.setStato("Si");
     	bean.setCognomeRicevente("Nappi");
     	bean.setNomeRicevente("Gaia");
     	bean.setNcivico(31);
     	bean.setVia("vvv");
     	bean.setCitta("a");
+    	bean.setCellulare("33353");
     	bean.setEmail("g@nappi.com");
     	bean.setProvincia("b");
     	bean.setCAP("80000");
@@ -206,8 +208,8 @@ private JdbcDataSource dataSource;
     	
     	
     	bean2.setId("3");
-    	bean2.setData_ordine(new Date(2022,2,10));
-    	bean2.setData_arrivo(new Date(2022,2,13));
+    	bean2.setData_ordine(Utility.toSqlDate(Utility.formatStringToDate("2022-2-10")));
+    	
     	bean2.setPrezzo(new BigDecimal(50));
     	bean2.setStato("No");
     	bean2.setCognomeRicevente("Nappi");
@@ -221,9 +223,9 @@ private JdbcDataSource dataSource;
     	bean2.setCliente("g@nappi.com");
     	bean2.setCellulare("33353");
     	bean2.setPaese("a");
-    	lista.add(bean);
-    	
     	lista.add(bean2);
+    	
+    	lista.add(bean);
     	Collection<Ordine> actual = ordine.doRetrieveAll("");
     	assertEquals(2,actual.size());
     	assertArrayEquals(lista.toArray(),actual.toArray());
@@ -236,9 +238,9 @@ private JdbcDataSource dataSource;
     	Collection<Ordine> lista = new LinkedList<Ordine>();
     	Ordine bean = new Ordine();
     	bean.setId("3");
-    	bean.setData_ordine(new Date(2022,2,10));
-    	bean.setData_arrivo(new Date(2022,2,13));
-    	bean.setPrezzo(new BigDecimal(50));
+    	bean.setData_ordine(Utility.toSqlDate(Utility.formatStringToDate("2022-2-10")));
+    	
+    	bean.setPrezzo(new BigDecimal(50)); //Problema prezzo float
     	bean.setStato("No");
     	bean.setCognomeRicevente("Nappi");
     	bean.setNomeRicevente("Gaia");
