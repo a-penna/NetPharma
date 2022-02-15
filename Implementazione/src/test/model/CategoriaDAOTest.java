@@ -88,9 +88,9 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     @Test
     public void doRetrieveByNameExisting()  throws SQLException {
-    	String nome = "Raffreddore";
+    	String nome = "raffreddore";
     	Categoria bean = new Categoria();
-    	bean.setNome("Raffreddore");
+    	bean.setNome("raffreddore");
      	Categoria actual = categoriaDAO.doRetrieveByName(nome);
     	assertEquals(bean,actual);
     }
@@ -108,27 +108,22 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     @Test
     public void doRetrieveAllExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("Mamma&bambino"));
-    	expected.add(new Categoria("Cosmetici"));
-    	expected.add(new Categoria("Protezione antivirale"));
+    	expected.add(new Categoria("mammaebambino"));
+    	expected.add(new Categoria("protezione antivirale"));
     	
-    	Collection<Categoria> actual =
-    	categoriaDAO.doRetrieveAll("");
-    	assertEquals(3, actual.size());
+    	Collection<Categoria> actual = categoriaDAO.doRetrieveAll("");
+    	assertEquals(2, actual.size());
     	assertArrayEquals(expected.toArray(), actual.toArray());
     }
     
     @Test
     public void doRetrieveAllNotExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("Mamma & bambino"));
-    	expected.add(new Categoria("Raffreddore"));
-       	expected.add(new Categoria("Protezione Antivirale"));
+    	expected.add(new Categoria("protezione antivirale"));
+    	expected.add(new Categoria("raffreddore"));
     	
-    	
-    	Collection<Categoria> actual =
-    	categoriaDAO.doRetrieveAll("");
-    	assertEquals(3, actual.size());
+    	Collection<Categoria> actual = categoriaDAO.doRetrieveAll("");
+    	assertEquals(2, actual.size());
     	assertArrayEquals(expected.toArray(), actual.toArray());
     }
     
@@ -137,7 +132,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     public void doSaveTrue()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
-                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
                 "sa",
                 ""
         );
@@ -172,7 +167,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     public void doSaveFalse()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
-                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
                 "sa",
                 ""
         );
@@ -208,7 +203,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     public void doDeleteTrue()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
-                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
                 "sa",
                 ""
         );
@@ -245,7 +240,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     public void doDeleteFalse()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
-                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
                 "sa",
                 ""
         );
@@ -279,7 +274,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     
     @Test
     public void checkCategoriaTrue() throws SQLException {
-    	String nome = "Raffreddore";
+    	String nome = "raffreddore";
     	boolean actual = categoriaDAO.checkCategoria(nome);
     	assertEquals(true, actual);
     }
