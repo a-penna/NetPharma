@@ -4,6 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
+
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -18,7 +19,7 @@ import org.dbunit.dataset.SortedTable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.h2.jdbcx.JdbcDataSource;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -131,7 +132,7 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(ProdottoDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doSaveTestTrue.xml"))
+    	 .getResourceAsStream("test/resources/Prodotto.xml"))
     	 .getTable("Prodotto");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -174,24 +175,82 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     }
     
     @Test
-    public void doUpdateTrue()  throws SQLException {
-    	;
+    public void doUpdate()  throws Exception {
+    	IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(ProdottoDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("test/resources/Prodotto.xml"))
+    	 .getTable("Prodotto");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 Prodotto prodotto = new Prodotto();
+    	 prodotto.setId(883);
+     	 prodotto.setNome("prodotto");
+     	 prodotto.setMarchio("marchio");
+     	 prodotto.setProduttore("prodottore");
+     	 prodotto.setFormato("formato");
+     	 prodotto.setDescrizione("descrizione");
+     	 prodotto.setDisponibilita(100);
+     	 prodotto.setPrezzo(new BigDecimal(4));
+    	 prodottoDAO.doUpdate(prodotto); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("PRODOTTO");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
+    }
+    
+    
+    @Test
+    public void updateCategoriaTrue()  throws Exception {
+    	IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:db/init/schema.sql'",
+                "sa",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+        
+    	 // Prepara stato atteso sottoforma di ITable
+    	 ITable expected = new FlatXmlDataSetBuilder()
+    	 .build(ProdottoDAOTest.class.getClassLoader()
+    	 .getResourceAsStream("test/resources/Prodotto.xml"))
+    	 .getTable("Prodotto");
+
+    	 // (omesso) Prepara e lancia metodo sotto test
+    	 prodottoDAO.updateCategoria(891,"antivirale"); 
+    	 
+    	 // Ottieni lo stato post-inserimento
+    	 ITable actual = tester.getConnection()
+    	 .createDataSet().getTable("PRODOTTO");
+    	 // Assert di DBUnit (debole all'ordinamento)
+    	 Assertion.assertEquals(
+    	 new SortedTable(expected),
+    	 new SortedTable(actual)
+    	 );
     }
     
     @Test
-    public void doUpdateFalse()  throws SQLException {
-    	;
-    }
-    
-    
-    @Test
-    public void doUpdateCategoriaTrue()  throws SQLException {
-    	;
-    }
-    
-    @Test
-    public void doUpdateCategoriaFalse()  throws SQLException {
-    	;
+    public void updateCategoriaFalse()  throws SQLException {
+
+		assertThrows(SQLException.class,
+			      () -> prodottoDAO.updateCategoria(880, "antivirale"));
     }
 
     @Test
@@ -210,7 +269,7 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(ProdottoDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doDeleteTestTrue.xml"))
+    	 .getResourceAsStream("test/resources/Prodotto.xml"))
     	 .getTable("Prodotto");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -229,24 +288,26 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     }    
 
     @Test
-    public void doRetrieveAllByCategoriaExisting()  throws SQLException {
-    	;
+    public void doRetrieveAllByCategoria()  throws SQLException {
+    	
+    	Collection<Prodotto> expected = new LinkedList<Prodotto>();
+    	Prodotto bean = new Prodotto();
+    	bean.setId(891);
+    	bean.setNome("prodotto10");
+    	bean.setMarchio("marchio10");
+    	bean.setProduttore("prodottore10");
+    	bean.setFormato("formato10");
+    	bean.setDescrizione("descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10");
+    	bean.setDisponibilita(40);
+    	bean.setPrezzo(new BigDecimal(7));
+    	expected.add(bean);
+    	Collection<Prodotto> actual = prodottoDAO.doRetrieveAllByCategoria(1);
+    	assertEquals(1,actual.size());
+    	assertArrayEquals(expected.toArray(),actual.toArray());
     }
-    
-    @Test
-    public void doRetrieveAllByCategoriaNotExisting()  throws SQLException {
-    	;
-    }
-    
     
     @Test
     public void doRicercaTrue()  throws SQLException {
-    	;
-    }
-    
-    @Test
-    public void doRicercaFalse()  throws SQLException {
-    	
     	String nome = "prodotto";
     	
     	Collection<Prodotto> expected = new LinkedList<Prodotto>();
@@ -260,19 +321,49 @@ public class ProdottoDAOTest extends DataSourceBasedDBTestCase {
     	bean.setDisponibilita(50);
     	bean.setPrezzo(new BigDecimal(4));
     	expected.add(bean);
-    	Collection<Prodotto> actual = prodottoDAO.doRicerca("",nome);
+    	Collection<Prodotto> actual = prodottoDAO.doRicerca(nome,"");
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRicercaFalse()  throws SQLException {
+    	
+    	String nome = "articolo2";
+    	
+    	Collection<Prodotto> expected = new LinkedList<Prodotto>();
+    	Prodotto bean = new Prodotto();
+    	bean.setId(884);
+    	bean.setNome("prodotto2");
+    	bean.setMarchio("marchio2");
+    	bean.setProduttore("prodottore2");
+    	bean.setFormato("formato2");
+    	bean.setDescrizione("descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2");
+    	bean.setDisponibilita(50);
+    	bean.setPrezzo(new BigDecimal(4));
+    	expected.add(bean);
+    	Collection<Prodotto> actual = prodottoDAO.doRicerca(nome,"");
     	assertEquals(expected, actual);
     	
     }
     
     @Test
-    public void doRetrieveSvincolatiTrue()  throws SQLException {
-    	;
+    public void doRetrieveSvincolati()  throws SQLException {
+    	
+    	Collection<Prodotto> expected = new LinkedList<Prodotto>();
+    	Prodotto bean = new Prodotto();
+    	bean.setId(884);
+    	bean.setNome("prodotto2");
+    	bean.setMarchio("marchio2");
+    	bean.setProduttore("prodottore2");
+    	bean.setFormato("formato2");
+    	bean.setDescrizione("descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2");
+    	bean.setDisponibilita(50);
+    	bean.setPrezzo(new BigDecimal(4));
+    	bean.setCategoria(null);
+    	expected.add(bean);
+    	Collection<Prodotto> actual = prodottoDAO.doRetrieveSvincolati();
+    	assertEquals(1,actual.size());
+    	assertArrayEquals(expected.toArray(),actual.toArray());
     }
-    
-    @Test
-    public void doRetrieveSvincolatiFalse()  throws SQLException {
-    	;
-    } 
     
 }

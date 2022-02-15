@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35' categoria='cosmetici'/>
+	<PRODOTTO id='891' nome='prodotto10' marchio='marchio10' produttore='produttore10' formato='formato10' descrizione='descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione1 descrizione10' disponibilita='40' prezzo='7' categoria='1'/>
+	<CATEGORIA id='1' nome='cosmetici'/>
+	<PRODOTTO id='884' nome='prodotto2' marchio='marchio2' produttore='produttore2' formato='formato2' descrizione='descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2' disponibilita='50' prezzo='4' categoria='cosmetici'/>
+	
+</dataset>
