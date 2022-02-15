@@ -149,7 +149,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doSaveTestTrue.xml"))
+    	 .getResourceAsStream("test/resources/doSaveTestTrue.xml"))
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -184,7 +184,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doSaveTestFalse.xml"))
+    	 .getResourceAsStream("test/resources/doSaveTestFalse.xml"))
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -220,7 +220,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doDeleteTestTrue.xml"))
+    	 .getResourceAsStream("test/resources/doDeleteTestTrue.xml"))
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -257,7 +257,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("/test/resources/doDeleteTestFalse.xml"))
+    	 .getResourceAsStream("test/resources/doDeleteTestFalse.xml"))
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
@@ -274,8 +274,21 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 Assertion.assertEquals(
     	 new SortedTable(expected),
     	 new SortedTable(actual)
-    	 );
-    	 
+    	 );	 
+    }
+    
+    @Test
+    public void checkCategoriaTrue() throws SQLException {
+    	String nome = "Raffreddore";
+    	boolean actual = categoriaDAO.checkCategoria(nome);
+    	assertEquals(true, actual);
+    }
+    
+    @Test
+    public void checkCategoriaFalse() throws SQLException {
+    	String nome = "Vestiti";
+    	boolean actual = categoriaDAO.checkCategoria(nome);
+    	assertEquals(false, actual);
     }
     
 }

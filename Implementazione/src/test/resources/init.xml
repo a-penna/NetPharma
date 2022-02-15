@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <ACCOUNT id='0' username='us' password='pw'/>
+    <ACCOUNT id='0' username='us' password='pw' order_count='0'/>
     <RUOLI account='0' ruolo='CL'/>
     <UTENTE_REGISTRATO genere='M' nome='Mario' cognome='Rossi' email='m@rossi.com' nascita='1999-07-25' account='0'/>
-    <ACCOUNT id='1' username='us2' password='pw'/>
+    <ACCOUNT id='1' username='us2' password='pw' order_count='2'/>
     <RUOLI account='1' ruolo='CL'/>
     <UTENTE_REGISTRATO genere='F' nome='Gaia' cognome='Nappi' email='g@nappi.com' nascita='2001-03-11' account='1'/>
   	<ORDINE data_ordine='2022-02-10' id='3' prezzo='50' stato='No' cliente='g@nappi.com' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' />
