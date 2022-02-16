@@ -21,13 +21,14 @@ import main.utils.Utility;
 @WebServlet("/Registrazione")
 public class RegistrazioneControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private AccountDAO modelTest;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			
 			boolean loggedIn = request.getSession(false) != null && (request.getSession(false).getAttribute("clienteRoles")!= null 
@@ -71,9 +72,14 @@ public class RegistrazioneControl extends HttpServlet {
 				error = true;
 			}
 
-			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-			AccountDAO accountModel = new AccountDAO(ds);
+			AccountDAO accountModel;
 			
+			if(modelTest != null) {
+				accountModel = modelTest;
+			}else {
+				DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+				accountModel = new AccountDAO(ds);
+			}
 			boolean usernameIsValid = Utility.checkUsername(username);
 			if (!usernameIsValid) {
 				request.setAttribute("erroreUsername", "true");
@@ -159,6 +165,10 @@ public class RegistrazioneControl extends HttpServlet {
 			request.getSession().setAttribute("clienteRoles", "true");
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
 			return;
-	}	
+	}
+
+	public void setAccountDAO(AccountDAO model) {
+		this.modelTest = model;
+	}
 
 }

@@ -1,6 +1,8 @@
 package main.bean;
 
 public class Categoria {
+
+
 	private int id;
 	private String nome;
 
@@ -31,5 +33,19 @@ public class Categoria {
 		return "Categoria [id=" + id + " nome=" + nome + "]";
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		if (id != other.id)
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
 }
 

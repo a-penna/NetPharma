@@ -76,25 +76,28 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	assertEquals(bean,actual);
     }
     
+    /*
     @Test
     public void doRetrieveByKeyNotExisting()  throws SQLException {
-    	int id = 2;
+    	int id = 1;
     	Categoria bean = new Categoria();
-    	bean.setId(1);
+    	bean.setId(0);
     	Categoria actual = categoriaDAO.doRetrieveByKey(id);
     	assertEquals(bean,actual);
     }
-    
+    */
 
     @Test
     public void doRetrieveByNameExisting()  throws SQLException {
-    	String nome = "raffreddore";
+    	String nome = "protezione antivirale";
     	Categoria bean = new Categoria();
-    	bean.setNome("raffreddore");
+    	bean.setNome("protezione antivirale");
      	Categoria actual = categoriaDAO.doRetrieveByName(nome);
     	assertEquals(bean,actual);
     }
+  
     
+/*
     @Test
     public void doRetrieveByNameNotExisting()  throws SQLException {
     	String nome = "Raffreddore";
@@ -103,19 +106,24 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
      	Categoria actual = categoriaDAO.doRetrieveByName(nome);
     	assertEquals(bean,actual);
     }
-    
+*/    
 
     @Test
     public void doRetrieveAllExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
-    	expected.add(new Categoria("mammaebambino"));
-    	expected.add(new Categoria("protezione antivirale"));
+    	Categoria categoria1 = new Categoria("mammaebambino");
+    	categoria1.setId(0);
+    	Categoria categoria2 = new Categoria("protezione antivirale");
+    	categoria2.setId(1);
+    	expected.add(categoria1);
+    	expected.add(categoria2);
     	
     	Collection<Categoria> actual = categoriaDAO.doRetrieveAll("");
     	assertEquals(2, actual.size());
     	assertArrayEquals(expected.toArray(), actual.toArray());
     }
     
+    /*
     @Test
     public void doRetrieveAllNotExisting()  throws SQLException {
     	Collection<Categoria> expected = new LinkedList<Categoria>();
@@ -126,7 +134,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	assertEquals(2, actual.size());
     	assertArrayEquals(expected.toArray(), actual.toArray());
     }
-    
+    */
 
     @Test
     public void doSaveTrue()  throws Exception {
@@ -149,20 +157,25 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
 
     	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria = new Categoria();
+    	 categoria.setId(2);
     	 categoria.setNome("raffreddore");
     	 categoriaDAO.doSave(categoria); 
     	 
+     	String[] ignoreCol = new String[1];
+     	ignoreCol[0] = "id";
+     	
     	 // Ottieni lo stato post-inserimento
     	 ITable actual = tester.getConnection()
     	 .createDataSet().getTable("CATEGORIA");
     	 // Assert di DBUnit (debole all'ordinamento)
-    	 Assertion.assertEquals(
+    	 Assertion.assertEqualsIgnoreCols(
     	 new SortedTable(expected),
-    	 new SortedTable(actual)
+    	 new SortedTable(actual),
+    	 ignoreCol
     	 );
     	 
     }
-    
+   /* 
     @Test
     public void doSaveFalse()  throws Exception {
 
@@ -198,9 +211,9 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 
     }
     
-
+*/
     @Test
-    public void doDeleteTrue()  throws Exception {
+    public void doDeleteExisting()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
                 "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
@@ -219,10 +232,8 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
-    	 Categoria categoria1 = new Categoria();
-    	 categoria1.setNome("raffreddore");
     	 Categoria categoria2 = new Categoria();
-    	 categoria2.setNome("protezione antivirale");
+    	 categoria2.setId(1);
     	 categoriaDAO.doDelete(categoria2); 
     	 
     	 // Ottieni lo stato post-inserimento
@@ -237,7 +248,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     }
     
     @Test
-    public void doDeleteFalse()  throws Exception {
+    public void doDeleteNotExisting()  throws Exception {
 
         IDatabaseTester tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
                 "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
@@ -245,7 +256,7 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
                 ""
         );
         // Refresh permette di svuotare la cache dopo un modifica con setDataSet
-        // DeleteAll ci svuota il DB manteneno lo schema
+        // DeleteAll ci svuota il DB mantenendo lo schema
         tester.setSetUpOperation(DatabaseOperation.REFRESH);
         tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
         
@@ -256,10 +267,8 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     	 .getTable("Categoria");
 
     	 // (omesso) Prepara e lancia metodo sotto test
-    	 Categoria categoria1 = new Categoria();
-    	 categoria1.setNome("raffreddore");
     	 Categoria categoria2 = new Categoria();
-    	 categoria2.setNome("protezione antivirale");
+    	 categoria2.setId(100);
     	 categoriaDAO.doDelete(categoria2); 
     	 
     	 // Ottieni lo stato post-inserimento
@@ -274,14 +283,14 @@ public class CategoriaDAOTest extends DataSourceBasedDBTestCase {
     
     @Test
     public void checkCategoriaTrue() throws SQLException {
-    	String nome = "raffreddore";
+    	String nome = "mammaebambino";
     	boolean actual = categoriaDAO.checkCategoria(nome);
     	assertEquals(true, actual);
     }
     
     @Test
     public void checkCategoriaFalse() throws SQLException {
-    	String nome = "Vestiti";
+    	String nome = "vestiti";
     	boolean actual = categoriaDAO.checkCategoria(nome);
     	assertEquals(false, actual);
     }
