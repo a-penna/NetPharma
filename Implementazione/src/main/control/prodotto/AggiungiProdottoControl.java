@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import main.bean.Prodotto;
+import main.model.AccountDAO;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 
@@ -30,7 +31,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 		doPost(request,response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		boolean loggedIn = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null;
 		if(!loggedIn) {
@@ -159,7 +160,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 			prodotto.setFoto(streamFoto.readAllBytes());
 
 			model.doSave(prodotto);
-			
+			request.setAttribute("id", id);
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
 
@@ -169,6 +170,14 @@ public class AggiungiProdottoControl extends HttpServlet {
 			return;
 		}
 	}
+	
+	
+	public void setProdottoDAO(ProdottoDAO model) {
+		this.modelTest = model;
+	}
+	
+	private ProdottoDAO modelTest;
+	
 }
 
 
