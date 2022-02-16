@@ -13,13 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
 	<classpathentry kind="lib" path="dbunit-2.7.2.jar"/>
 	<classpathentry kind="lib" path="h2-2.0.202.jar"/>
-	<classpathentry kind="lib" path="junit-4.13.2.jar"/>
-	<classpathentry kind="lib" path="junit-platform-suite-api-1.8.2.jar"/>
-	<classpathentry kind="lib" path="junit-vintage-engine-5.8.2.jar"/>
-	<classpathentry kind="lib" path="junit-jupiter-5.8.2.jar"/>
-	<classpathentry kind="lib" path="junit-jupiter-api-5.8.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="slf4j-api-1.7.32.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4/selenium-api-4.1.2.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4/selenium-api-4.1.2-sources.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4/selenium-chrome-driver-4.1.2.jar"/>
@@ -102,9 +95,12 @@
 	<classpathentry kind="lib" path="selenium-java-4/lib/opentelemetry-sdk-trace-1.10.1.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4/lib/opentelemetry-semconv-1.10.1-alpha.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4/lib/reactive-streams-1.0.3.jar"/>
-	<classpathentry kind="lib" path="selenium-java-4/lib/slf4j-api-1.7.35.jar"/>
 	<classpathentry kind="lib" path="/NetPharmaGit/byte-buddy-agent-1.12.7.jar"/>
 	<classpathentry kind="lib" path="/NetPharmaGit/mockito-core-4.3.1.jar"/>
 	<classpathentry kind="lib" path="/NetPharmaGit/objenesis-3.2.jar"/>
+	<classpathentry kind="lib" path="junit-jupiter-5.8.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="slf4j-api-1.7.32.jar"/>
+	<classpathentry kind="lib" path="selenium-java-4/lib/slf4j-api-1.7.35.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

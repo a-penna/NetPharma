@@ -11,7 +11,8 @@ import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
 public class Utility {
-	private static final long MILLIS_IN_YEAR = 1000L * 60 * 60 * 24 * 365;
+	public static final long MILLIS_IN_YEAR = 1000L * 60 * 60 * 24 * 365;
+	public static final long MILLIS_IN_DAY = 1000L * 60 * 60 * 24;
 	
 	public static Date formatStringToDate(String data) {
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 

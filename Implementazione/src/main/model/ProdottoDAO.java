@@ -107,7 +107,6 @@ public class ProdottoDAO {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));
 				bean.setPrezzo(rs.getBigDecimal("prezzo"));
-				bean.setCategoria(rs.getString("categoria"));
 				bean.setFoto(rs.getBytes("foto"));  //gestiamo foto come array di byte
 
 				prodotti.add(bean);

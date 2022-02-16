@@ -138,7 +138,6 @@ public class CategoriaDAO {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO Categoria (nome) VALUES (?)";
-
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);

@@ -10,25 +10,30 @@ import org.mockito.Mockito;
 import main.control.account.LoginControl;
 import main.model.AccountDAO;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class LoginControlTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
-
+    private LoginControl spy;
 
     @BeforeEach
     void setUp() throws Exception {
     	request = Mockito.mock(HttpServletRequest.class) ;
 		response = Mockito.mock(HttpServletResponse.class);
+		spy = Mockito.spy(new LoginControl());
+		Mockito.when(spy.getServletConfig()).thenReturn(Mockito.mock(ServletConfig.class));
+		ServletContext context = Mockito.mock(ServletContext.class); 
+		Mockito.when(context.getRequestDispatcher(response.encodeURL(""))).thenReturn(Mockito.mock(RequestDispatcher.class));
+		Mockito.when(spy.getServletContext()).thenReturn(context);
     }
 
     @Test
@@ -39,12 +44,16 @@ public class LoginControlTest {
 		Mockito.when(request.getParameter("username")).thenReturn(user);
 		Mockito.when(request.getParameter("password")).thenReturn(pass);
 		
-		LoginControl serv = new LoginControl();
 		AccountDAO model = Mockito.mock(AccountDAO.class);
 		Mockito.when(model.checkUsername(user)).thenReturn(false);
-		serv.setAccountDAO(model);
-		serv.doPost(request,response);
-		assertEquals("true", request.getAttribute("erroreUser"));
+		spy.setAccountDAO(model);
+		spy.doPost(request,response);
+
+		Mockito.verify(request).setAttribute("erroreUser", "true");
+		Mockito.verify(request).setAttribute("errorePass", "true");
+		Mockito.verify(request).setAttribute("username", user);
+		Mockito.verify(request).setAttribute("password", pass);
+		Mockito.verify(response).encodeURL("/login.jsp");
 	}
 
     @AfterEach

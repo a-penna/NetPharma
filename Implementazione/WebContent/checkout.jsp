@@ -282,15 +282,15 @@
 						<!-- Da mettere in altra sezione della pagina tramite la grafica a sezioni -->
 				</div>
 				<input type="submit" name="next" class="next action-button" value="Confirm"/>	
-				</fieldset>
-				<fieldset>
+				 </fieldset>
+				<!-- <fieldset>
 	                   <div class="form-card">
 	                         <h2 class="fs-title text-center ">Il tuo ordine è andato a buon fine!</h2> <br>
 	                             <div class="row justify-content-center">
 	                                  <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
 	                             </div>
 	                   </div>
-	            </fieldset>
+	            </fieldset>-->
 
 				</div>
                     </form>

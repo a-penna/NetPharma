@@ -51,5 +51,15 @@ public class Account {
 	public String toString() {
 		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", orderCount=" + orderCount + "]";
 	}
+
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		Account other = (Account)otherObject; 
+		return id == (other.id)
+				&& username.equals(other.username)
+				&& password.equals(other.password)
+				&& orderCount == other.orderCount; 
+	}
 	
 }

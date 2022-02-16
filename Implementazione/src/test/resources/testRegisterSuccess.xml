@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <ACCOUNT id='0' username='us' password='pw' order_count='0'/>
+    <RUOLI account='0' ruolo='CL'/>
+    <UTENTE_REGISTRATO genere='M' nome='Mario' cognome='Rossi' email='m@rossi.com' nascita='1999-07-25' account='0'/>
+	<ACCOUNT id='1' username='gmagenta' password = "P4ssword!" order_count='0'/>
+    <RUOLI account='1' ruolo='CL'/>
+    <UTENTE_REGISTRATO genere='M' nome='Gianni' cognome='Magenta' email='gmagenta@gmail.com' nascita='1980-12-12' account='1'/>
+</dataset>
+

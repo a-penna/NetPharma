@@ -76,4 +76,27 @@ public class UtenteRegistrato {
 				", email=" + email + ", nascita=" + nascita + ", account=" + account
 				+ "]";
 	} 
+	
+	public boolean isEmpty() {
+		return (genere == null) 
+				&& (nome == null)
+				&& (cognome == null)
+				&& (email == null)
+				&& (email == null)
+				&& (nascita == null)
+				&& (account == 0);
+	}
+	
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		UtenteRegistrato other = (UtenteRegistrato)otherObject; 
+		if(this.isEmpty() && other.isEmpty()) return true;
+		return genere.equals(other.genere)
+				&& nome.equals(other.nome)
+				&& cognome.equals(other.cognome)
+				&& email.equals(other.email)
+				&& (nascita.toString().equals(other.nascita.toString()))
+				&& (account == other.account);
+	}
 }

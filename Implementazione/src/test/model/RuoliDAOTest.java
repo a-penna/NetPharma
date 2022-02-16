@@ -1,60 +1,65 @@
 package test.model;
 
-import org.dbunit.DataSourceBasedDBTestCase;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import main.bean.Ruoli;
 import main.model.RuoliDAO;
 
 import javax.sql.DataSource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.SQLException;
 
-public class RuoliDAOTest extends DataSourceBasedDBTestCase {
+public class RuoliDAOTest {
     private RuoliDAO ruoliDAO;
-    private JdbcDataSource dataSource;
+    private static IDatabaseTester tester;
     
-    @Override
-    protected DataSource getDataSource() {
-        dataSource = new JdbcDataSource();
-        dataSource.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'");
-        dataSource.setUser("sa");
-        dataSource.setPassword("");
-        return dataSource;
-    }
-
-    @Override
-    protected IDataSet getDataSet() throws Exception {
-        return new FlatXmlDataSetBuilder().build(this.getClass().getClassLoader().getResourceAsStream("test/resources/init.xml"));
-    }
-
-    @Override
-    protected DatabaseOperation getSetUpOperation() {
-        return DatabaseOperation.REFRESH;
-    }
-
-    @Override
-    protected DatabaseOperation getTearDownOperation() {
-        return DatabaseOperation.DELETE_ALL;
-    }
-
-    @BeforeEach
-    public void setUp() throws Exception {
-        // setUp del padre serve a (1) chiamare il nostro getSetUpOperation, e (2) il nostro getDataSet() per inizializzare il DB
-        super.setUp();
-        ruoliDAO = new RuoliDAO(dataSource);
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-        // tearDown del padre serve a chiamare il nostro getTearDownOperation
-        super.tearDown();
-    }
+    @BeforeAll
+	static void setUpAll() throws ClassNotFoundException {
+	    // mem indica che il DB deve andare in memoria
+	    // test indica il nome del DB
+	    // DB_CLOSE_DELAY=-1 impone ad H2 di eliminare il DB solo quando il processo della JVM termina
+	    tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+	            "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:test/resources/schema.sql'",
+	            "sa",
+	            ""
+	    );
+	    // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+	    // DeleteAll ci svuota il DB manteneno lo schema
+	    tester.setSetUpOperation(DatabaseOperation.REFRESH);
+	    tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+	}
+	
+	private static void refreshDataSet(String filename) throws Exception {
+	    IDataSet initialState = new FlatXmlDataSetBuilder()
+	            .build(CategoriaDAOTest.class.getClassLoader().getResourceAsStream(filename));
+	    tester.setDataSet(initialState);
+	    tester.onSetup();
+	}
+	
+	@BeforeEach
+	public void setUp() throws Exception {
+	    // Prepara lo stato iniziale di default
+	    refreshDataSet("test/resources/init.xml");
+	    DataSource ds = Mockito.mock(DataSource.class);
+	    Mockito.when(ds.getConnection()).thenReturn(tester.getConnection().getConnection());
+	    ruoliDAO = new RuoliDAO(ds);
+	}
+	
+	@AfterEach
+	public void tearDown() throws Exception {
+	    tester.onTearDown();
+	}
 
     @Test
     public void testDoRetrieveByAccountExisting() throws SQLException {

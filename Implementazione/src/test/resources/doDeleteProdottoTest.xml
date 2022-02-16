@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>	
+	<CATEGORIA id='0' nome='mammaebambino'/>
+	<CATEGORIA id='1' nome='protezione antivirale'/>
+	<PRODOTTO id='884' nome='prodotto2' marchio='marchio2' produttore='produttore2' formato='formato2' descrizione='descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2' disponibilita='50' prezzo='4' categoria='1'/>
+	<PRODOTTO id='891' nome='prodotto10' marchio='marchio10' produttore='produttore10' formato='formato10' descrizione='descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10' disponibilita='40' prezzo='7'/>
+</dataset>

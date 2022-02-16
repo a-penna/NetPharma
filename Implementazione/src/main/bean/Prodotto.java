@@ -117,5 +117,57 @@ public class Prodotto {
 				+ ", formato=" + formato + ", descrizione=" + descrizione + ", disponibilita=" + disponibilita
 				+ ", prezzo=" + prezzo + ", categoria=" + categoria + ", foto=" + Arrays.toString(foto) + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prodotto other = (Prodotto) obj;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (descrizione == null) {
+			if (other.descrizione != null)
+				return false;
+		} else if (!descrizione.equals(other.descrizione))
+			return false;
+		if (disponibilita != other.disponibilita)
+			return false;
+		if (formato == null) {
+			if (other.formato != null)
+				return false;
+		} else if (!formato.equals(other.formato))
+			return false;
+		if (id != other.id)
+			return false;
+		if (marchio == null) {
+			if (other.marchio != null)
+				return false;
+		} else if (!marchio.equals(other.marchio))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (prezzo == null) {
+			if (other.prezzo != null)
+				return false;
+		} else if (prezzo.compareTo(other.prezzo) != 0)
+			return false;
+		if (produttore == null) {
+			if (other.produttore != null)
+				return false;
+		} else if (!produttore.equals(other.produttore))
+			return false;
+		return true;
+	}
+	
 	
 }

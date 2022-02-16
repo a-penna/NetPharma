@@ -1,4 +1,4 @@
-package main.model;
+package test.model.stub;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,13 +14,14 @@ import main.bean.Ruoli;
 import main.bean.UtenteRegistrato;
 import main.utils.Utility;
 
-public class AccountDAO {
+public class AccountDAOStub {
 
 	private DataSource ds = null;
 	
-	public AccountDAO(DataSource ds) {
+	public AccountDAOStub(DataSource ds) {
 		this.ds = ds;
 	}
+	
 	
 	public Account authenticate(String username, String password) throws SQLException {
 		Connection connection = null;
@@ -29,7 +30,7 @@ public class AccountDAO {
 		Account bean = null;
 		
 		String selectSQL = "SELECT * FROM Account "
-						 + "WHERE username = ? AND password = MD5(?)";
+						 + "WHERE username = ? AND password = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -58,39 +59,6 @@ public class AccountDAO {
 	}
 
 	
-	public boolean checkUsername(String username) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		String selectSQL = "SELECT * FROM Account "
-						 + "WHERE username = ?";
-		
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, username);
-			
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			if (rs.next()) {
-				return true;
-			}
-			
-			rs.close();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
-		return false;
-	}	
-	
-	
 	public boolean register(Account account, UtenteRegistrato user, Ruoli r) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement1 = null;
@@ -102,7 +70,7 @@ public class AccountDAO {
 			connection.setAutoCommit(false);		
 			
 			String insertSQL = "INSERT INTO Account(username,password,order_count) "
-							 + "VALUES (?,MD5(?),?)";
+							 + "VALUES (?,?,?)";
 
 			preparedStatement1 = connection.prepareStatement(insertSQL);
 			preparedStatement1.setString(1, account.getUsername());
@@ -179,40 +147,4 @@ public class AccountDAO {
 		return true;
 		
 	}
-	
-	public boolean updateOrderCount(int accountID, int newOrderCount) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		String updateSQL = "UPDATE Account SET order_count=? "
-						 + "WHERE id=?";
-
-		try {
-			connection = ds.getConnection();
-			connection.setAutoCommit(false);
-			
-			preparedStatement = connection.prepareStatement(updateSQL);
-			preparedStatement.setInt(1, newOrderCount);
-			preparedStatement.setInt(2, accountID);
-
-			int result = preparedStatement.executeUpdate();
-			
-			if (result != 1) 
-				return false;
-			
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
-
-		return true;
-	}
-	
 }

@@ -186,10 +186,10 @@ public class OrdineDAO implements Model<Ordine>{
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		if(millis>=172800000 && millis<=864000000) {
+		if(millis>=Utility.MILLIS_IN_DAY * 2 && millis <= Utility.MILLIS_IN_DAY * 10) {
 		Date data = new Date(System.currentTimeMillis()+millis); 
 		
-		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ? AND stato='No'";
+		String insertSQL = "UPDATE Ordine SET stato='Si', data_arrivo = ? WHERE id = ?";
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);

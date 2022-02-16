@@ -2,7 +2,6 @@ package main.bean;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class Ordine {
@@ -174,4 +173,104 @@ public class Ordine {
 				+ ", data_arrivo=" + data_arrivo + ", id=" + id + ", prezzo=" + prezzo + ", stato=" + stato
 				+ ", cliente=" + cliente + "]";
 	}
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ordine other = (Ordine) obj;
+		if (CAP == null) {
+			if (other.CAP != null)
+				return false;
+		} else if (!CAP.equals(other.CAP))
+			return false;
+		if (cellulare == null) {
+			if (other.cellulare != null)
+				return false;
+		} else if (!cellulare.equals(other.cellulare))
+			return false;
+		if (citta == null) {
+			if (other.citta != null)
+				return false;
+		} else if (!citta.equals(other.citta))
+			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (cognomeRicevente == null) {
+			if (other.cognomeRicevente != null)
+				return false;
+		} else if (!cognomeRicevente.equals(other.cognomeRicevente))
+			return false;
+		if (data_arrivo == null) {
+			if (other.data_arrivo != null)
+				return false;
+		} else if (other.data_arrivo == null) {
+			return false;
+		} else if (!data_arrivo.toString().equals(other.data_arrivo.toString()))
+			return false;
+		if (data_ordine == null) {
+			if (other.data_ordine != null)
+				return false;
+		} else if (other.data_ordine == null) {
+			return false;
+		} else if (!data_ordine.toString().equals(other.data_ordine.toString()))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (ncivico != other.ncivico)
+			return false;
+		if (nomeRicevente == null) {
+			if (other.nomeRicevente != null)
+				return false;
+		} else if (!nomeRicevente.equals(other.nomeRicevente))
+			return false;
+		if (paese == null) {
+			if (other.paese != null)
+				return false;
+		} else if (!paese.equals(other.paese))
+			return false;
+		if (prezzo == null) {
+			if (other.prezzo != null)
+				return false;
+		} else if (prezzo.compareTo(other.prezzo) != 0)
+			return false;
+		if (provincia == null) {
+			if (other.provincia != null)
+				return false;
+		} else if (!provincia.equals(other.provincia))
+			return false;
+		if (righeOrdine == null) {
+			if (other.righeOrdine != null)
+				return false;
+		} else if (!righeOrdine.equals(other.righeOrdine))
+			return false;
+		if (stato == null) {
+			if (other.stato != null)
+				return false;
+		} else if (!stato.equals(other.stato))
+			return false;
+		if (via == null) {
+			if (other.via != null)
+				return false;
+		} else if (!via.equals(other.via))
+			return false;
+		return true;
+	}
+	
 }
