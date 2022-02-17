@@ -25,7 +25,7 @@ public class GestoreOrdiniFilter implements Filter{
 		boolean loggedIn = session != null && session.getAttribute("gestoreOrdiniRoles")!= null;
 		
 		if(!loggedIn) { 
-			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/login.jsp"));
+			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/Logout"));
 		} else {
 			chain.doFilter(request, response);
 		}

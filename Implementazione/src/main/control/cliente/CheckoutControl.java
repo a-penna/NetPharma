@@ -28,15 +28,38 @@ import main.utils.Utility;
 @WebServlet("/Checkout")
 public class CheckoutControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private AccountDAO accountModelTest;
+	private OrdineDAO ordineModelTest;
+	private CarrelloDAO carrelloModelTest;
+	private RigaOrdineDAO rigaModelTest;
+	
+	public void setAccountDAO(AccountDAO model) {
+		this.accountModelTest = model;
+	}
+	
+	public void setOrdineDAO(OrdineDAO model) {
+		this.ordineModelTest = model;
+	}
+	
+	public void setCarrelloDAO(CarrelloDAO model) {
+		this.carrelloModelTest = model;
+	}
+	
+	public void setRigaOrdineDAO(RigaOrdineDAO model) {
+		this.rigaModelTest = model;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		OrdineDAO model = new OrdineDAO(ds);
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean isCliente = request.getSession(false) != null && request.getSession(false).getAttribute("clienteRoles")!= null;
+
+		if (!isCliente) { 
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Logout"));
+			return;
+		}
 		
 		String email = request.getParameter("email");
 		String nome = request.getParameter("name");
@@ -64,10 +87,10 @@ public class CheckoutControl extends HttpServlet {
 		}
 		
 		if(email.trim().equals("") || email.length() > 20) {
-			request.setAttribute("erroreFormatoEmail", "true");
-			error = true;
-		}if (!Utility.checkEmail(email)) {
 			request.setAttribute("erroreEmail", "true");
+			error = true;
+		} else if (!Utility.checkEmail(email)) {
+			request.setAttribute("erroreFormatoEmail", "true");
 			error = true;
 		}
 		
@@ -115,8 +138,11 @@ public class CheckoutControl extends HttpServlet {
 			error = true;
 		}
 		
-		if (!Utility.checkCellulare(cellulare)) {
+		if(cellulare.trim().equals("") || cellulare.length() > 15) {
 			request.setAttribute("erroreCellulare", "true");
+			error = true;
+		} else if (!Utility.checkCellulare(cellulare)) {
+			request.setAttribute("erroreFormatoCellulare", "true");
 			error = true;
 		}
 		
@@ -145,9 +171,24 @@ public class CheckoutControl extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
+
+		DataSource ds = null;
+		OrdineDAO model = null;
+		if (ordineModelTest == null) {
+			ds = (DataSource) getServletContext().getAttribute("DataSource");
+			model = new OrdineDAO(ds);
+		} else {
+			model = ordineModelTest;
+		}
 		
 		try {
-			CarrelloDAO carrelloModel = new CarrelloDAO(ds);
+			CarrelloDAO carrelloModel = null;
+			if (carrelloModelTest == null) {
+				carrelloModel = new CarrelloDAO(ds);
+			} else {
+				carrelloModel = carrelloModelTest;
+			}
+
 			String username = (String) request.getSession(false).getAttribute("user");
 			Carrello carrello = carrelloModel.doRetrieveByUsername(username);
 			
@@ -175,7 +216,12 @@ public class CheckoutControl extends HttpServlet {
 			ordine.setData_ordine(new Date(System.currentTimeMillis()));
 			model.doSaveCheck(ordine);
 
-			RigaOrdineDAO rigaOrdineModel = new RigaOrdineDAO(ds);
+			RigaOrdineDAO rigaOrdineModel = null;
+			if (rigaModelTest == null) {
+				rigaOrdineModel = new RigaOrdineDAO(ds);
+			} else {
+				rigaOrdineModel = rigaModelTest;
+			}
 			Collection<ContenutoCarrello> items = carrello.getItems();
 			Iterator<ContenutoCarrello> it = items.iterator();
 			while(it.hasNext()) {
@@ -184,7 +230,12 @@ public class CheckoutControl extends HttpServlet {
 			}
 			carrelloModel.clearCart(username);
 			
-			AccountDAO accountModel = new AccountDAO(ds);
+			AccountDAO accountModel = null;
+			if (accountModelTest == null) {
+				accountModel = new AccountDAO(ds);
+			} else {
+				accountModel = accountModelTest;
+			}
 			accountModel.updateOrderCount((int)request.getSession(false).getAttribute("id"), orderCount + 1);
 			
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));

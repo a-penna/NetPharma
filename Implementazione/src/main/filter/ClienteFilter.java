@@ -25,7 +25,7 @@ public class ClienteFilter implements Filter{
 		boolean loggedIn = session != null && session.getAttribute("clienteRoles")!= null;
 		
 		if(!loggedIn) { 
-			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/login.jsp"));
+			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/Logout"));
 		} else {
 			chain.doFilter(request, response);
 		}

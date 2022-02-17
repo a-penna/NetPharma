@@ -25,7 +25,7 @@ public class GestoreCatalogoFilter implements Filter{
 		boolean loggedIn = session != null && session.getAttribute("gestoreCatalogoRoles")!= null;
 		
 		if(!loggedIn) { 
-			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/login.jsp"));
+			hresponse.sendRedirect(hresponse.encodeRedirectURL("/NetPharma/Logout"));
 		} else {
 			chain.doFilter(request, response);
 		}
