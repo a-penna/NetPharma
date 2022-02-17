@@ -146,7 +146,7 @@
 	  			<div class="card-body">
 	   				  	<p id="prezzoTotale">Totale <%=cart.getTotale()%> &euro;</p>
 	   				  	<%if (cart.getNProdotti() > 0) { %>
-	    					<a href="<%=response.encodeURL(request.getContextPath() + "/checkout.jsp")%>" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
+	    					<a href="<%=response.encodeURL(request.getContextPath() + "/cliente/checkout.jsp")%>" class="btn btn-dark text-center btn-block">Vai alla Cassa</a>
 						<%} else { %>
 							<a href="" class="btn btn-dark text-center btn-block disabled">Vai alla Cassa</a>
 						<%} %>

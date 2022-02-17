@@ -6,7 +6,7 @@ boolean isAuthorized = request.getSession(false) != null && (request.getSession(
 														|| request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null);
 
 if (!isAuthorized) {
-	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/unauthorized.jsp"));
+	response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/Logout"));
  	return;
 }
 %>

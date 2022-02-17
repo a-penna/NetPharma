@@ -60,6 +60,15 @@ public class AggiungiProdottoControl extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		ProdottoDAO model = new ProdottoDAO(ds);
+		
+		
+		if(modelTest != null) {
+			model = modelTest;
+		}else {
+			ds = (DataSource) getServletContext().getAttribute("DataSource");
+			model = new ProdottoDAO(ds);
+		}
+		
 
 		try {
 			id = Integer.parseInt(idStr);
@@ -153,10 +162,11 @@ public class AggiungiProdottoControl extends HttpServlet {
 			prodotto.setDescrizione(descrizione);
 			prodotto.setDisponibilita(disponibilita);
 			prodotto.setPrezzo(prezzo);
+			if(streamFoto!=null) {
 			prodotto.setFoto(streamFoto.readAllBytes());
-
+			}
 			model.doSave(prodotto);
-			request.setAttribute("id", id);
+			
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
 
