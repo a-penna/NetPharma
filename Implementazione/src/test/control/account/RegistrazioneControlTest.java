@@ -57,11 +57,11 @@ public class RegistrazioneControlTest {
 		
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		Mockito.when(accountModel.checkUsername(username)).thenReturn(false);
+		Mockito.when(accountModel.checkUsername(username)).thenReturn(true);
 		spy.setAccountDAO(accountModel);
 		spy.setUtenteRegistratoDAO(utenteModel);
 		spy.doPost(request,response);
-		Mockito.verify(request).setAttribute("userNameEsistente", "true");
+		Mockito.verify(request).setAttribute("usernameEsistente", "true");
 		Mockito.verify(request).setAttribute("sesso", sesso);
 		Mockito.verify(request).setAttribute("nome", nome);
 		Mockito.verify(request).setAttribute("cognome", cognome);
@@ -69,7 +69,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
     @Test
@@ -103,7 +103,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
 
     @Test
@@ -137,7 +137,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
 
@@ -161,7 +161,7 @@ public class RegistrazioneControlTest {
 		
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		Mockito.when(utenteModel.checkEmail(email)).thenReturn(false);
+		Mockito.when(utenteModel.checkEmail(email)).thenReturn(true);
 		spy.setAccountDAO(accountModel);
 		spy.setUtenteRegistratoDAO(utenteModel);
 		spy.doPost(request,response);
@@ -173,7 +173,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
     @Test
@@ -207,7 +207,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
     @Test
@@ -241,7 +241,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
     @Test
@@ -275,7 +275,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
 	
 	public void testPasswordValid() throws ServletException, IOException, SQLException {
