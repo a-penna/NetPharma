@@ -2,11 +2,12 @@
 package test.control.account;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,12 +24,17 @@ import main.model.UtenteRegistratoDAO;
 public class RegistrazioneControlTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
-
+    private RegistrazioneControl spy;
 
     @BeforeEach
     void setUp() throws Exception {
     	request = Mockito.mock(HttpServletRequest.class) ;
 		response = Mockito.mock(HttpServletResponse.class);
+		spy = Mockito.spy(new RegistrazioneControl());
+		Mockito.when(spy.getServletConfig()).thenReturn(Mockito.mock(ServletConfig.class));
+		ServletContext context = Mockito.mock(ServletContext.class); 
+		Mockito.when(context.getRequestDispatcher(response.encodeURL(""))).thenReturn(Mockito.mock(RequestDispatcher.class));
+		Mockito.when(spy.getServletContext()).thenReturn(context);
     }
 
     @Test
@@ -49,14 +55,21 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
 		Mockito.when(accountModel.checkUsername(username)).thenReturn(false);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("true", request.getAttribute("usernameEsistente"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("userNameEsistente", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
     @Test
@@ -77,13 +90,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("erroreUser"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("erroreUser", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
 
     @Test
@@ -104,13 +124,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("erroreEmail"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("erroreEmail", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
 
@@ -132,14 +159,21 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
 		Mockito.when(utenteModel.checkEmail(email)).thenReturn(false);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("true", request.getAttribute("emailEsistente"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("emailEsistente", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
     @Test
@@ -160,13 +194,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("erroreNome"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("erroreNome", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
     @Test
@@ -187,13 +228,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("erroreCognome"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("erroreCognome", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
     @Test
@@ -214,13 +262,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("erroreCognome"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("erroreData", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
 	
 	public void testPasswordValid() throws ServletException, IOException, SQLException {
@@ -240,13 +295,20 @@ public class RegistrazioneControlTest {
 		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
 		Mockito.when(request.getParameter("password")).thenReturn(password);
 		
-		RegistrazioneControl serv = new RegistrazioneControl();
 		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
 		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
-		serv.setAccountDAO(accountModel);
-		serv.setUtenteRegistratoDAO(utenteModel);
-		serv.doPost(request,response);
-		assertEquals("false", request.getAttribute("errorePassword"));
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("errorePassword", "true");
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
 	}
     
     
