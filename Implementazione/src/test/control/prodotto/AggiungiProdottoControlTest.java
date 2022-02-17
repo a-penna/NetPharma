@@ -8,19 +8,19 @@ import org.mockito.Mockito;
 import org.mockito.MockitoSession;
 
 import main.bean.Prodotto;
-import main.control.account.LoginControl;
+
 import main.control.prodotto.AggiungiProdottoControl;
-import main.model.AccountDAO;
+
 import main.model.ProdottoDAO;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doCallRealMethod;
+
 import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -34,13 +34,17 @@ public class AggiungiProdottoControlTest {
 	
 	private HttpServletRequest request;
     private HttpServletResponse response;
-    @InjectMocks
-    private MockitoSession session;
+    private AggiungiProdottoControl spy;
 
     @BeforeEach
     void setUp() throws Exception {
     	request = Mockito.mock(HttpServletRequest.class) ;
 		response = Mockito.mock(HttpServletResponse.class);
+		spy = Mockito.spy(new AggiungiProdottoControl());
+		Mockito.when(spy.getServletConfig()).thenReturn(Mockito.mock(ServletConfig.class));
+		ServletContext context = Mockito.mock(ServletContext.class); 
+		Mockito.when(context.getRequestDispatcher(response.encodeURL(""))).thenReturn(Mockito.mock(RequestDispatcher.class));
+		Mockito.when(spy.getServletContext()).thenReturn(context);
     }
     
     @AfterEach
@@ -76,11 +80,13 @@ public class AggiungiProdottoControlTest {
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
-		ServletContext servletContext = mock(ServletContext.class);
+		
 		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
 		Mockito.when(request.getSession(false)).thenReturn(session);
-		Mockito.when(request.getSession(false).getAttribute("gestoreCatalogoRoles")).thenReturn("true");
-		//Mockito.when();
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
 		Mockito.when(request.getParameter("id")).thenReturn(idStr);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
 		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
@@ -90,16 +96,20 @@ public class AggiungiProdottoControlTest {
 		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
 		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
 		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
 		id = Integer.parseInt(idStr);
 		disponibilita = Integer.parseInt(disponibilitaStr);
 		
-		AggiungiProdottoControl serv = new AggiungiProdottoControl();
-		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
-		doCallRealMethod().when(model).doSave(prodotto);
 		
-		serv.setProdottoDAO(model);
-		serv.doPost(request,response);
-		assertEquals(""+id, request.getAttribute("id"));
+		
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		Mockito.verify(response).sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		
     }
 	
