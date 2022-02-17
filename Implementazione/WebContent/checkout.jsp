@@ -110,7 +110,21 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci e-mail" name="email">
+				        <%
+								if (request.getAttribute("erroreEmail") != null || request.getAttribute("erroreFormatoEmail") != null) {
+									%> <input type="text" class="form-control is-invalid" id="email" value="<%=request.getAttribute("email")%>" aria-describedby="inputGroupPrepend1" placeholder="Inserisci email" name="email"><% 
+								} else if (request.getAttribute("email") != null) {
+									%><input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" value="<%=request.getAttribute("email")%>" placeholder="Inserisci email" name="email"><%
+								} else {
+									%><input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend1" placeholder="Inserisci email" name="email"><% 
+								}
+			            	
+			            		if(request.getAttribute("erroreEmail") != null) {%>
+		               				 <div class="invalid-feedback">Inserisci un&apos;indirizzo email &lpar;max&period; 40 caratteri&rpar;</div> 
+			       			<%  } else {  %>
+			       					<div class="invalid-feedback">Il formato deve essere del tipo&colon; x&commat;x</div> 
+			       			<% } %>
+						
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -123,7 +137,20 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" name="name">
+			            	<%
+								if (request.getAttribute("erroreNome") != null || request.getAttribute("erroreFormatoNome") != null) {
+									%> <input type="text" class="form-control is-invalid" id="name" value="<%=request.getAttribute("name")%>" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" name="name"><% 
+								} else if (request.getAttribute("name") != null) {
+									%><input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" value="<%=request.getAttribute("name")%>" placeholder="Inserisci nome" name="name"><%
+								} else {
+									%><input type="text" class="form-control" id="name" aria-describedby="inputGroupPrepend2" placeholder="Inserisci nome" name="name"><% 
+								}
+			            	
+			            		if(request.getAttribute("erroreNome") != null) {%>
+		               				 <div class="invalid-feedback">Inserisci un nome &lpar;max&period; 20 caratteri&rpar;</div> 
+			       			<%  } else {  %>
+			       					<div class="invalid-feedback">Sono ammesse solo lettere</div> 
+			       			<% } %>
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -136,7 +163,20 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" name="surname">
+				        <%
+								if (request.getAttribute("erroreCognome") != null || request.getAttribute("erroreFormatoCognome") != null) {
+									%> <input type="text" class="form-control is-invalid" id="surname" value="<%=request.getAttribute("name")%>" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" name="surname"><% 
+								} else if (request.getAttribute("surname") != null) {
+									%><input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" value="<%=request.getAttribute("surname")%>" placeholder="Inserisci cognome" name="surname"><%
+								} else {
+									%><input type="text" class="form-control" id="surname" aria-describedby="inputGroupPrepend3" placeholder="Inserisci cognome" name="surname"><% 
+								}
+			            	
+			            		if(request.getAttribute("erroreCognome") != null) {%>
+		               				 <div class="invalid-feedback">Inserisci un cognome &lpar;max&period; 20 caratteri&rpar;</div> 
+			       			<%  } else {  %>
+			       					<div class="invalid-feedback">Sono ammesse solo lettere</div> 
+			       			<% } %>
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -149,7 +189,15 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci città" name="city">
+				        <%if (request.getAttribute("erroreCity") != null) {
+							%> <input type="text" class="form-control is-invalid" id="city" value="<%=request.getAttribute("city")%>" aria-describedby="inputGroupPrepend4" placeholder="Inserisci citt&agrave;" name="city"><% 
+						} else if (request.getAttribute("surname") != null) {
+							%><input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" value="<%=request.getAttribute("city")%>" placeholder="Inserisci citt&agrave;" name="city"><%
+						} else {
+							%><input type="text" class="form-control" id="city" aria-describedby="inputGroupPrepend4" placeholder="Inserisci citt&agrave;" name="city"><% 
+						} %>
+					  
+					  <div class="invalid-feedback">Inserisci una citt&agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
 					  </div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -162,7 +210,15 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" name="country">
+				         <%if (request.getAttribute("errorePaese") != null) {
+							%> <input type="text" class="form-control is-invalid" id="country" value="<%=request.getAttribute("country")%>" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" name="country"> <% 
+						} else if (request.getAttribute("country") != null) {
+							%><input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" value="<%=request.getAttribute("country")%>" placeholder="Inserisci paese" name="country" ><%
+						} else {
+							%><input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" name="country"><% 
+						} %>
+					  
+					  <div class="invalid-feedback">Inserisci un paese &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
 					  </div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -175,7 +231,15 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" name="provincia">
+				         <%if (request.getAttribute("erroreProvincia") != null) {
+							%> <input type="text" class="form-control is-invalid" id="provincia" value="<%=request.getAttribute("provincia")%>" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" name="provincia"><% 
+						} else if (request.getAttribute("provincia") != null) {
+							%><input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" value="<%=request.getAttribute("provincia")%>" placeholder="Inserisci provincia" name="provincia"><%
+						} else {
+							%><input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" name="provincia"><% 
+						} %>
+					  
+					  <div class="invalid-feedback">Inserisci una provincia &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -188,7 +252,20 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" name="cap">
+				        <%
+								if (request.getAttribute("erroreCAP") != null || request.getAttribute("erroreFormatoCAP") != null) {
+									%> <input type="text" class="form-control is-invalid" id="cap" value="<%=request.getAttribute("cap")%>" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" name="cap"><% 
+								} else if (request.getAttribute("cap") != null) {
+									%><input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" value="<%=request.getAttribute("cap")%>" placeholder="Inserisci cap" name="cap"><%
+								} else {
+									%><input type="text" class="form-control" id="cap" aria-describedby="inputGroupPrepend7" placeholder="Inserisci cap" name="cap"><% 
+								}
+			            	
+			            		if(request.getAttribute("erroreCAP") != null) {%>
+		               				 <div class="invalid-feedback">Inserisci CAP &lpar;max&period; 5 caratteri&rpar;</div> 
+			       			<%  } else {  %>
+			       					<div class="invalid-feedback">Sono permessi solo numeri</div> 
+			       			<% } %>
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -201,7 +278,15 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci address" name="address">
+				         <%if (request.getAttribute("erroreIndirizzo") != null) {
+							%> <input type="text" class="form-control is-invalid" id="address" value="<%=request.getAttribute("address")%>" aria-describedby="inputGroupPrepend8" placeholder="Inserisci indirizzo" name="address"><% 
+						} else if (request.getAttribute("address") != null) {
+							%><input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" value="<%=request.getAttribute("address")%>" placeholder="Inserisci indirizzo" name="address"><%
+						} else {
+							%><input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci indirizzo" name="address"><% 
+						} %>
+					  
+					  <div class="invalid-feedback">Inserisci un indirizzo &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -214,7 +299,16 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" name="number">
+				         <%if (request.getAttribute("erroreCivico") != null) {
+							%> <input type="text" class="form-control is-invalid" id="number" value="<%=request.getAttribute("number")%>" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" name="number"><% 
+						} else if (request.getAttribute("number") != null) {
+							%><input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" value="<%=request.getAttribute("number")%>" placeholder="Inserisci numero civico" name="number"><%
+						} else {
+							%><input type="text" class="form-control" id="number" aria-describedby="inputGroupPrepend9" placeholder="Inserisci numero civico" name="number"><% 
+						} %>
+					  
+					  <div class="invalid-feedback">Sono permessi solo numeri</div> 
+						
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -227,7 +321,20 @@
 							</svg>
 						  </span>
 				        </div>
-				        <input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" name="cellulare">
+				         <%
+								if (request.getAttribute("erroreCellulare") != null || request.getAttribute("erroreFormatoCellulare") != null) {
+									%> <input type="text" class="form-control is-invalid" id="cellulare" value="<%=request.getAttribute("cap")%>" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" name="cellulare"><% 
+								} else if (request.getAttribute("cap") != null) {
+									%><input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" value="<%=request.getAttribute("cellulare")%>" placeholder="Inserisci cellulare" name="cellulare"><%
+								} else {
+									%><input type="text" class="form-control" id="cellulare" aria-describedby="inputGroupPrepend10" placeholder="Inserisci cellulare" name="cellulare"><% 
+								}
+			            	
+			            		if(request.getAttribute("erroreCellulare") != null) {%>
+		               				 <div class="invalid-feedback">Inserisci un numero di cellulare &lpar;max&period; 15 caratteri&rpar;</div> 
+			       			<%  } else {  %>
+			       					<div class="invalid-feedback">Sono permessi solo numeri</div> 
+			       			<% } %>
 					  </div>
 			    </div>
 			    <br>

@@ -85,7 +85,7 @@ public class Utility {
 	
 	
 	public static boolean checkNomeCognome(String s) {
-		if(s.length() == 0)
+		if(s.length() == 0 || s.length() > 20)
 			return false;
 		
 		int i = 0;
@@ -103,6 +103,30 @@ public class Utility {
 		int i = 0;
 		for (; i < s.length(); i++) {
 			if (!Character.isLetter(s.charAt(i)) && !Character.isDigit(s.charAt(i)))
+				return false;
+		}
+		return true;
+	}
+	
+	public static boolean checkCAP(String s) {
+		if(s.length() == 0 || s.length() > 5)
+			return false;
+		
+		int i = 0;
+		for (; i < s.length(); i++) {
+			if (!Character.isDigit(s.charAt(i)))
+				return false;
+		}
+		return true;
+	}
+	
+	public static boolean checkCellulare(String s) {
+		if(s.length() == 0 || s.length() > 15)
+			return false;
+		
+		int i = 0;
+		for (; i < s.length(); i++) {
+			if (!Character.isDigit(s.charAt(i)))
 				return false;
 		}
 		return true;
