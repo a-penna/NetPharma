@@ -134,20 +134,6 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 							%>		
 								<div class="invalid-feedback">Il prezzo inserito non &egrave; valido&excl;</div>			            	
 					        </div>
-					        <div class="form-group">
-					            <label for="categoria">Categoria&colon;</label>
-					            	<%
-										if ((request.getAttribute("erroreCategoria") != null)) {
-											%><input type="text" class="form-control is-invalid" id="categoria" value="<%=request.getAttribute("categoria")%>" name="categoria"><% 
-										} else if (request.getAttribute("categoria") != null) {
-											%><input type="text" class="form-control" id="categoria" value="<%=request.getAttribute("categoria")%>" name="categoria"><% 
-										} else {
-											%><input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoria"><% 
-										} 
-					            	%>
-										<div class="invalid-feedback">Inserire il nome di una categoria esistente&excl;</div>
-										 
-					        </div>
 							<div class="form-group">
 					        	<label for="foto">Carica Foto&lpar;Max&period; size&equals;10MB&rpar;&colon;</label>
 					       	    <input id="foto" type="file" accept="image/*" name="foto"> 

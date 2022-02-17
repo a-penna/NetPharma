@@ -47,12 +47,11 @@ public class AggiungiProdottoControl extends HttpServlet {
 		String formato = request.getParameter("formato");
 		String descrizione = request.getParameter("descrizione");
 		String disponibilitaStr = request.getParameter("disponibilita");
-		String categoria = request.getParameter("categoria");
 		String prezzoStr = request.getParameter("prezzo");
 		int id = 0, disponibilita = 0;
 		
 		
-		if (idStr == null || nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || categoria == null || prezzoStr == null) {
+		if (idStr == null || nome == null || marchio == null || produttore == null || formato == null || descrizione == null || disponibilitaStr == null || prezzoStr == null) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/gestoreCatalogo/aggiungiProdotto.jsp"));
 			return;
 		}
@@ -105,7 +104,6 @@ public class AggiungiProdottoControl extends HttpServlet {
 		descrizione = Utility.filter(descrizione);
 		produttore = Utility.filter(produttore);
 		formato = Utility.filter(formato);
-		categoria = Utility.filter(categoria);
 
 		
 		if(nome.trim().equals("")) {
@@ -138,7 +136,6 @@ public class AggiungiProdottoControl extends HttpServlet {
 			request.setAttribute("produttore", produttore);
 			request.setAttribute("formato", formato);
 			request.setAttribute("codice", idStr);
-			request.setAttribute("categoria", categoria);
 			request.setAttribute("disponibilita", disponibilitaStr);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/gestoreCatalogo/aggiungiProdotto.jsp"));
 			dispatcher.forward(request, response);
@@ -155,7 +152,6 @@ public class AggiungiProdottoControl extends HttpServlet {
 			prodotto.setFormato(formato);
 			prodotto.setDescrizione(descrizione);
 			prodotto.setDisponibilita(disponibilita);
-			prodotto.setCategoria(categoria);
 			prodotto.setPrezzo(prezzo);
 			prodotto.setFoto(streamFoto.readAllBytes());
 

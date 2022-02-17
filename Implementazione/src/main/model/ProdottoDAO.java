@@ -130,7 +130,7 @@ public class ProdottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM categoria WHERE nome=?), ?)";
+		String insertSQL = "INSERT INTO Prodotto (id, nome, marchio, produttore, formato, descrizione, disponibilita, prezzo, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -145,8 +145,7 @@ public class ProdottoDAO {
 			preparedStatement.setString(6, prodotto.getDescrizione());
 			preparedStatement.setInt(7, prodotto.getDisponibilita());
 			preparedStatement.setBigDecimal(8, prodotto.getPrezzo());
-			preparedStatement.setString(9, prodotto.getCategoria());
-            preparedStatement.setBytes(10, prodotto.getFoto());
+            preparedStatement.setBytes(9, prodotto.getFoto());
 
             int result = preparedStatement.executeUpdate();
             if (result != 1) {

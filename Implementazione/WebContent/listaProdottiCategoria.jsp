@@ -33,12 +33,6 @@
 		</div>
 				<br>
 				<table class="table text-center">
-						<thead class="bg-secondary text-white">
-						    <tr>
-						      <th scope="col">Prodotto</th>
-						      <th class="text-center" scope="col">Nome Prodotto</th>
-						    </tr>
-						  </thead>
 						  <tbody> 
 					  <%
 					        Iterator<?> it = prodotti.iterator();
@@ -46,11 +40,11 @@
 					            Prodotto prodotto = (Prodotto)it.next(); 
 					  %>		
 						  <tr>
-								<th scope="row">
-								<img class="rounded-corners" src="FotoControl?type=prodotto&id=<%=prodotto.getNome()%>" height=50 width=50 onerror="this.src='./imgs/noPhoto.png'">
-								</th>
-								           <td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
-										  <td>&dash;</td>
+								<td><img src="FotoControl?id=<%=prodotto.getId()%>" class ="rounded float-left" height="50" width="50" onerror="this.src='./imgs/noPhoto.png'" onerror="this.src='./imgs/noPhoto.png' alt="foto"></td>
+								<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
+								<td><p class="h6 text-right font-weight-normal"><%=prodotto.getPrezzo()%> &euro;</p></td>
+								<td><a class="btn btn-dark"href="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello?prodotto=" + prodotto.getId())%>&quantity=1">Aggiungi al carrello</a></td>
+							  
 							  <% } %>
 						  </tr>
 					
