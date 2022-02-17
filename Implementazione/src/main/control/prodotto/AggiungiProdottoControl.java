@@ -106,12 +106,12 @@ public class AggiungiProdottoControl extends HttpServlet {
 		formato = Utility.filter(formato);
 
 		
-		if(nome.trim().equals("")) {
+		if(nome.trim().equals("") || nome.length() > 100) {
 			request.setAttribute("erroreNome", "true");
 			error = true;
 		}
 		
-		if(marchio.trim().equals("")) {
+		if(marchio.trim().equals("") || marchio.length() > 50) {
 			request.setAttribute("erroreMarchio", "true");
 			error = true;
 		}

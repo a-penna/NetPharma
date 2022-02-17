@@ -52,7 +52,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 		<div class="row">
 			<%@ include file="gestoreCatalogoMenu.jsp"%>
 			<div class="col-md-8">
-				<p>Inserisci i dati nel seguente form per aggiungere una nuova categoria&colon; <p>
+				<p>Inserisci i dati nel seguente form per aggiungere una nuova categoria&colon;<p>
 				<form action="<%=response.encodeURL(request.getContextPath() + "/AggiungiCategoria")%>" method="post" onsubmit="event.preventDefault(); validate(this)"> 
 				        <fieldset>
 				        	<legend>Informazioni sulla categoria&colon; </legend>
@@ -68,7 +68,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 					            		if((request.getAttribute("nomeEsistente") != null))	{ %>
 								 			<div class="invalid-feedback">Attenzione&excl; Esiste gi&agrave; una categoria di prodotti con il nome specificato</div> 
 								 		<%}else{ %>
-								 			<div class="invalid-feedback">Inserisci un nome per la categoria&excl;</div> 
+								 			<div class="invalid-feedback">Inserisci un nome per la categoria&lpar;max&period; 50 caratteri&rpar;</div> 
 								 		<%} %>
 										
 				    		</div>

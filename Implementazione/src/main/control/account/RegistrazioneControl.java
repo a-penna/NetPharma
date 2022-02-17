@@ -21,8 +21,17 @@ import main.utils.Utility;
 @WebServlet("/Registrazione")
 public class RegistrazioneControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AccountDAO modelTest;
+	private AccountDAO accountModelTest;
+	private UtenteRegistratoDAO utenteModelTest;
 
+	public void setAccountDAO(AccountDAO model) {
+		this.accountModelTest = model;
+	}
+	
+	public void setUtenteRegistratoDAO(UtenteRegistratoDAO model) {
+		this.utenteModelTest = model;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			doPost(request, response);
@@ -73,11 +82,12 @@ public class RegistrazioneControl extends HttpServlet {
 			}
 
 			AccountDAO accountModel;
+			DataSource ds = null;
 			
-			if(modelTest != null) {
-				accountModel = modelTest;
+			if(accountModelTest != null) {
+				accountModel = accountModelTest;
 			}else {
-				DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+				ds = (DataSource) getServletContext().getAttribute("DataSource");
 				accountModel = new AccountDAO(ds);
 			}
 			boolean usernameIsValid = Utility.checkUsername(username);
@@ -104,7 +114,13 @@ public class RegistrazioneControl extends HttpServlet {
 			}
 			
 			try {
-				UtenteRegistratoDAO userModel = new UtenteRegistratoDAO(ds);
+				UtenteRegistratoDAO userModel;
+				if(utenteModelTest != null) {
+					userModel = utenteModelTest;
+				}else {
+					userModel = new UtenteRegistratoDAO(ds);
+				}
+				
 				if (emailIsValid && userModel.checkEmail(email)) {
 					request.setAttribute("emailEsistente", "true");
 					error = true;
@@ -165,10 +181,6 @@ public class RegistrazioneControl extends HttpServlet {
 			request.getSession().setAttribute("clienteRoles", "true");
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/homepage.jsp"));
 			return;
-	}
-
-	public void setAccountDAO(AccountDAO model) {
-		this.modelTest = model;
 	}
 
 }
