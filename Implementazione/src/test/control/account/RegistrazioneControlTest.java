@@ -38,14 +38,47 @@ public class RegistrazioneControlTest {
     }
 
     @Test
+    public void testRegistrazioneValid() throws SQLException, ServletException, IOException {
+		String sesso = "M";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
+		
+		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("cognome")).thenReturn(cognome);
+		Mockito.when(request.getParameter("username")).thenReturn(username);
+		Mockito.when(request.getParameter("email")).thenReturn(email);
+		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
+		Mockito.when(request.getParameter("password")).thenReturn(password);
+		
+		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
+		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		spy.doPost(request,response);
+		Mockito.verify(request).setAttribute("sesso", sesso);
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("cognome", cognome);
+		Mockito.verify(request).setAttribute("username", username);
+		Mockito.verify(request).setAttribute("email", email);
+		Mockito.verify(request).setAttribute("nascita", nascita);
+		Mockito.verify(request).setAttribute("password", password);
+		Mockito.verify(response).encodeURL("/homepage.jsp");
+    }
+    
+    @Test
 	public void testUsernameExisting() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -73,14 +106,14 @@ public class RegistrazioneControlTest {
 	}
     
     @Test
-	public void testUsernameValid() throws ServletException, IOException, SQLException {
+	public void testUsernameInvalid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta@";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -95,7 +128,7 @@ public class RegistrazioneControlTest {
 		spy.setAccountDAO(accountModel);
 		spy.setUtenteRegistratoDAO(utenteModel);
 		spy.doPost(request,response);
-		Mockito.verify(request).setAttribute("erroreUser", "true");
+		Mockito.verify(request).setAttribute("erroreUsername", "true");
 		Mockito.verify(request).setAttribute("sesso", sesso);
 		Mockito.verify(request).setAttribute("nome", nome);
 		Mockito.verify(request).setAttribute("cognome", cognome);
@@ -107,14 +140,14 @@ public class RegistrazioneControlTest {
 	}
 
     @Test
-	public void testEmailValid() throws ServletException, IOException, SQLException {
+	public void testEmailInvalid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagentagmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -144,12 +177,12 @@ public class RegistrazioneControlTest {
     @Test
 	public void testEmailExisting() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -177,14 +210,14 @@ public class RegistrazioneControlTest {
 	}
     
     @Test
-	public void testNomeValid() throws ServletException, IOException, SQLException {
+	public void testNomeInvalid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni1";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -213,12 +246,12 @@ public class RegistrazioneControlTest {
     @Test
 	public void testCognomeValid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta1";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -247,12 +280,12 @@ public class RegistrazioneControlTest {
     @Test
 	public void testEtaValid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "pw";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "2020-12-12";
+		String password = "P4ssw0rd!";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -278,14 +311,15 @@ public class RegistrazioneControlTest {
 		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
 	
-	public void testPasswordValid() throws ServletException, IOException, SQLException {
+    @Test
+	public void testPasswordInvalid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
-		String nome = "Riccardo";
-		String cognome = "Rossi";
-		String username = "rrossi";
-		String email = "rrossi@gmail.com";
-		String nascita = "1980-06-21";
-		String password = "P4ssword!";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "pw";
 		
 		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
 		Mockito.when(request.getParameter("nome")).thenReturn(nome);
@@ -308,7 +342,7 @@ public class RegistrazioneControlTest {
 		Mockito.verify(request).setAttribute("email", email);
 		Mockito.verify(request).setAttribute("nascita", nascita);
 		Mockito.verify(request).setAttribute("password", password);
-		Mockito.verify(response).encodeURL("/homepage.jsp");
+		Mockito.verify(response).encodeURL("/registrazione.jsp");
 	}
     
     
