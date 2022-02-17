@@ -119,7 +119,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 										}
 					            	%>
 					            		
-										<div class="invalid-feedback">Inserisci un nome&excl;</div>
+										<div class="invalid-feedback">Inserisci un nome &lpar;max&period; 100 caratteri&rpar;</div>
 					        </div>
 				   			<div class="form-group">
 					            <label for="marchio">Marchio&ast;&colon;</label>
@@ -132,7 +132,7 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*, main.bean.*"%>
 											%><input type="text" class="form-control" id="marchio" name="marchio" placeholder="Nome marchio"><% 
 										}
 					            		%>
-										<div class="invalid-feedback">Inserisci un marchio&excl;</div>
+										<div class="invalid-feedback">Inserisci un marchio &lpar;max&period; 50 caratteri&rpar;</div>
 					        </div>
 				    		<div class="form-group">
 					            <label for="produttore">Produttore&colon;</label>
