@@ -167,7 +167,7 @@ public class CheckoutControl extends HttpServlet {
 			request.setAttribute("address", indirizzo);
 			request.setAttribute("number", nCivicoStr);
 			request.setAttribute("cellulare", cellulare);
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/checkout.jsp"));
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/cliente/checkout.jsp"));
 			dispatcher.forward(request, response);
 			return;
 		}

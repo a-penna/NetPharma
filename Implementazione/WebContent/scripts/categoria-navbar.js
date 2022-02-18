@@ -1,6 +1,6 @@
 $(document).ready(function() {
 				$.ajax({
-					url:"ListaCategorie",
+					url:"/NetPharma/ListaCategorie",
 					method:"GET",
 				})
 				.done(function(msg) {

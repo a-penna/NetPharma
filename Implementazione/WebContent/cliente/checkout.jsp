@@ -218,7 +218,7 @@
 							%><input type="text" class="form-control" id="country" aria-describedby="inputGroupPrepend5" placeholder="Inserisci paese" name="country"><% 
 						} %>
 					  
-					  <div class="invalid-feedback">Inserisci un paese &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
+					  <div class="invalid-feedback">Inserisci un paese  &lpar;max&period; 50 caratteri&rpar;</div> 
 					  </div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -239,7 +239,7 @@
 							%><input type="text" class="form-control" id="provincia" aria-describedby="inputGroupPrepend6" placeholder="Inserisci provincia" name="provincia"><% 
 						} %>
 					  
-					  <div class="invalid-feedback">Inserisci una provincia &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
+					  <div class="invalid-feedback">Inserisci una provincia  &lpar;max&period; 50 caratteri&rpar;</div> 
 						</div>
 				</div>
 				<div class="form-group text-left px-2">
@@ -286,7 +286,7 @@
 							%><input type="text" class="form-control" id="address" aria-describedby="inputGroupPrepend8" placeholder="Inserisci indirizzo" name="address"><% 
 						} %>
 					  
-					  <div class="invalid-feedback">Inserisci un indirizzo &agrave; &lpar;max&period; 50 caratteri&rpar;</div> 
+					  <div class="invalid-feedback">Inserisci un indirizzo  &lpar;max&period; 50 caratteri&rpar;</div> 
 						</div>
 				</div>
 				<div class="form-group text-left px-2">

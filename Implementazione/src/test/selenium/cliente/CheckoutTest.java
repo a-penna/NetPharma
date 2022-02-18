@@ -1,0 +1,715 @@
+package test.selenium.cliente;
+
+
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import org.openqa.selenium.Dimension;
+
+
+import org.openqa.selenium.JavascriptExecutor;
+
+import java.util.*;
+
+public class CheckoutTest {
+	private WebDriver driver;
+	private Map<String, Object> vars;
+	JavascriptExecutor js;
+	@Before
+	public void setUp() {
+	if(System.getProperty("os.name").startsWith("Mac")) {
+		System.setProperty("webdriver.chrome.driver", "chromedriverMac");
+	} else if(System.getProperty("os.name").startsWith("Windows")) {
+		System.setProperty("webdriver.chrome.driver", "chromedriverWin.exe");
+	}
+	driver = new ChromeDriver();
+	js = (JavascriptExecutor) driver;
+	vars = new HashMap<String, Object>();
+	
+	}
+	@After
+	public void tearDown() {
+	driver.quit();
+	}
+  @Test
+  public void checkout1() {
+	driver.get("http://localhost/NetPharma/login.jsp");
+	driver.manage().window().setSize(new Dimension(966, 702));
+	driver.findElement(By.cssSelector(".container-login")).click();
+	driver.findElement(By.id("username")).click();
+	driver.findElement(By.id("username")).sendKeys("mrossi");
+	driver.findElement(By.cssSelector("fieldset")).click();
+	driver.findElement(By.cssSelector(".container-login")).click();
+	driver.findElement(By.id("password")).click();
+	driver.findElement(By.id("password")).sendKeys("pw");
+	driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+	driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+	
+	driver.findElement(By.linkText("Carrello")).click();
+	driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".alert-heading")).getText(), is("SUCCESSO!"));
+  }
+  @Test
+  public void checkout2() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys(" ");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(1) .invalid-feedback")).getText(), is("Inserisci un\\\'indirizzo email (max. 40 caratteri)"));
+  }
+  @Test
+  public void checkout5() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("M4rio");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(2) .invalid-feedback")).getText(), is("Sono ammesse solo lettere"));
+  }
+  @Test
+  public void checkout6() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys(" ");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(3) .invalid-feedback")).getText(), is("Inserisci un cognome (max. 20 caratteri)"));
+  }
+  @Test
+  public void checkout8() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys(" ");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(4) .invalid-feedback")).getText(), is("Inserisci una città (max. 50 caratteri)"));
+  }
+  @Test
+  public void checkout7() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Ross1");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(3) .invalid-feedback")).getText(), is("Sono ammesse solo lettere"));
+  }
+  @Test
+  public void checkout9() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys(" ");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(5) .invalid-feedback")).getText(), is("Inserisci un paese (max. 50 caratteri)"));
+  }
+  @Test
+  public void checkout10() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys(" ");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(6) .invalid-feedback")).getText(), is("Inserisci una provincia (max. 50 caratteri)"));
+  }
+  @Test
+  public void checkout11() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("840844");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(7) .invalid-feedback")).getText(), is("Inserisci CAP (max. 5 caratteri)"));
+  }
+  @Test
+  public void checkout12() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("8408A");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(7) .invalid-feedback")).getText(), is("Sono permessi solo numeri"));
+  }
+  @Test
+  public void checkout13() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84088");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys(" ");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(8) .invalid-feedback")).getText(), is("Inserisci un indirizzo (max. 50 caratteri)"));
+  }
+  @Test
+  public void checkout14() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84088");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("A");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(9) .invalid-feedback")).getText(), is("Sono permessi solo numeri"));
+  }
+  @Test
+  public void checkout15() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84088");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("1234567891234567");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(10) .invalid-feedback")).getText(), is("Inserisci un numero di cellulare (max. 15 caratteri)"));
+  }
+  @Test
+  public void checkout16() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84088");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123A56789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(10) .invalid-feedback")).getText(), is("Sono permessi solo numeri"));
+  }
+  @Test
+  public void checkout3() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys(" mrossi");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys("Mario");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(1) .invalid-feedback")).getText(), is("Il formato deve essere del tipo: x@x"));
+  }
+  @Test
+  public void checkout4() {
+		driver.get("http://localhost/NetPharma/login.jsp");
+		driver.manage().window().setSize(new Dimension(966, 702));
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("username")).click();
+		driver.findElement(By.id("username")).sendKeys("mrossi");
+		driver.findElement(By.cssSelector("fieldset")).click();
+		driver.findElement(By.cssSelector(".container-login")).click();
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pw");
+		driver.findElement(By.cssSelector(".container-accesso > .btn")).click();
+		driver.findElement(By.cssSelector(".navbar-toggler-icon")).click();
+		driver.findElement(By.linkText("Carrello")).click();
+		driver.findElement(By.linkText("Vai alla Cassa")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("mrossi@mail.com");
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).sendKeys(" ");
+    driver.findElement(By.id("surname")).click();
+    driver.findElement(By.id("surname")).sendKeys("Rossi");
+    driver.findElement(By.id("city")).click();
+    driver.findElement(By.id("city")).sendKeys("Fisciano");
+    driver.findElement(By.id("country")).click();
+    driver.findElement(By.id("country")).sendKeys("Italia");
+    driver.findElement(By.id("provincia")).click();
+    driver.findElement(By.id("provincia")).sendKeys("Salerno");
+    driver.findElement(By.id("cap")).click();
+    driver.findElement(By.id("cap")).sendKeys("84084");
+    driver.findElement(By.id("address")).click();
+    driver.findElement(By.id("address")).sendKeys("Indirizzo");
+    driver.findElement(By.id("number")).click();
+    driver.findElement(By.id("number")).sendKeys("0");
+    driver.findElement(By.id("cellulare")).click();
+    driver.findElement(By.id("cellulare")).sendKeys("123456789");
+    driver.findElement(By.cssSelector(".form-check-label:nth-child(5)")).click();
+    driver.findElement(By.name("next")).click();
+    driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.name("make_payment")).click();
+    driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(2) .invalid-feedback")).getText(), is("Inserisci un nome (max. 20 caratteri)"));
+  }
+}
