@@ -207,7 +207,7 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
 									%><input type="text" class="form-control" id="username" name="username"><% 
 								}
 				            	if (request.getAttribute("usernameEsistente") != null) {
-									%><div class="invalid-feedback">Username gi&agrave; utilizzata&comma; si prega di sceglierne un&apos;altra&excl;</div><%
+									%><div class="invalid-feedback">Username gi&agrave; utilizzato&comma; si prega di sceglierne un altro&excl;</div><%
 			            		} else {
 									%><div class="invalid-feedback">Inserire username, puoi usare solo lettere e numeri&excl;</div><% 
 								}%> 
@@ -216,11 +216,11 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
 			            <label for="email">E&dash;mail&ast;</label>
 			            	<%
 								if ((request.getAttribute("erroreEmail") != null) || (request.getAttribute("emailEsistente") != null)) {
-									%><input type="email" class="form-control is-invalid" id="email" value="<%=request.getAttribute("email")%>" name="email"><% 
+									%><input type="text" class="form-control is-invalid" id="email" value="<%=request.getAttribute("email")%>" name="email"><% 
 								} else if (request.getAttribute("email") != null) {
-									%><input type="email" class="form-control" id="email" value="<%=request.getAttribute("email")%>" name="email"><% 
+									%><input type="text" class="form-control" id="email" value="<%=request.getAttribute("email")%>" name="email"><% 
 								} else {
-									%><input type="email" class="form-control" id="email" name="email"><% 
+									%><input type="text" class="form-control" id="email" name="email"><% 
 								}
 			            	
 			            		if (request.getAttribute("emailEsistente") != null) {
