@@ -3,16 +3,13 @@ package test.control.prodotto;
 import org.junit.jupiter.api.AfterEach; 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.MockitoSession;
 
 import main.bean.Prodotto;
 
 import main.control.prodotto.AggiungiProdottoControl;
 
 import main.model.ProdottoDAO;
-
 
 import static org.mockito.Mockito.mock;
 

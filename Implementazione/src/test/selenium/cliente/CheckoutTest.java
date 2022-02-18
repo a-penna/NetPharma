@@ -248,7 +248,7 @@ public class CheckoutTest {
     driver.findElement(By.cssSelector(".form-check:nth-child(2) > .form-check-label")).click();
     driver.findElement(By.name("make_payment")).click();
     driver.findElement(By.cssSelector(".next:nth-child(2)")).click();
-    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(4) .invalid-feedback")).getText(), is("Inserisci una città (max. 50 caratteri)"));
+    assertThat(driver.findElement(By.cssSelector(".form-group:nth-child(4) .invalid-feedback")).getText(), is("Inserisci una cittï¿½ (max. 50 caratteri)"));
   }
   @Test
   public void checkout7() {

@@ -16,7 +16,6 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import main.bean.Prodotto;
-import main.model.AccountDAO;
 import main.model.ProdottoDAO;
 import main.utils.Utility;
 

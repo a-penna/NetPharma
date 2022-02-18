@@ -26,12 +26,17 @@ import main.utils.Utility;
 				maxFileSize = 1024 * 1024 * 10) // 10MB maximum size allowed for uploaded files
 public class ModificaProdottoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private ProdottoDAO modelTest;
+
+	public void setProdottoDAO(ProdottoDAO model) {
+		this.modelTest = model;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		boolean loggedIn = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null;
 		if(!loggedIn) {
@@ -39,8 +44,14 @@ public class ModificaProdottoControl extends HttpServlet {
 			return;
 		}
 		
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		ProdottoDAO model = new ProdottoDAO(ds);
+		DataSource ds = null;
+		ProdottoDAO model = null;
+		if(modelTest == null) {
+			ds = (DataSource) getServletContext().getAttribute("DataSource");
+			model = new ProdottoDAO(ds);
+		} else {
+		 	model = modelTest;	
+		}
 
 		try {
             Collection<Prodotto> prodotti = model.doRetrieveAll("nome");
@@ -50,7 +61,6 @@ public class ModificaProdottoControl extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/updateError.jsp"));
 			return;
 		}
-		
 		
 		request.setCharacterEncoding("UTF-8");
 		String nome = request.getParameter("nome");
@@ -68,7 +78,6 @@ public class ModificaProdottoControl extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
-	
 		
 		boolean error = false;
 		int id = 0;
@@ -107,7 +116,6 @@ public class ModificaProdottoControl extends HttpServlet {
 		descrizione = Utility.filter(descrizione);
 		produttore = Utility.filter(produttore);
 		formato = Utility.filter(formato);
-
 		
 		if(nome.trim().equals("") || nome.length() > 100) {
 			request.setAttribute("erroreNome", "true");
@@ -146,6 +154,10 @@ public class ModificaProdottoControl extends HttpServlet {
 		}
 		
 		try {
+			if(!model.checkProdotto(id)) {
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
+				return;
+			}
 			Prodotto prodotto = new Prodotto();
 			prodotto.setId(id);
 			prodotto.setNome(nome);
@@ -155,8 +167,9 @@ public class ModificaProdottoControl extends HttpServlet {
 			prodotto.setDescrizione(descrizione);
 			prodotto.setDisponibilita(disponibilita);
 			prodotto.setPrezzo(prezzo);
-			prodotto.setFoto(streamFoto.readAllBytes());
-			
+			if(modelTest == null) {
+				prodotto.setFoto(streamFoto.readAllBytes());
+			}
 
 			model.doUpdate(prodotto);
 			
@@ -165,7 +178,7 @@ public class ModificaProdottoControl extends HttpServlet {
 
 		} catch(SQLException e) {
 			Utility.printSQLException(e);
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/updateError.jsp"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 			return;
 		}
 	}

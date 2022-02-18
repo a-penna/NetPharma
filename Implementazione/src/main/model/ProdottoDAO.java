@@ -194,7 +194,6 @@ public class ProdottoDAO {
 			preparedStatement.executeUpdate();
 
 			connection.commit();
-		}catch(SQLException e){ System.out.println(e);
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -224,8 +223,6 @@ public class ProdottoDAO {
 			preparedStatement.executeUpdate();
 
 			connection.commit();
-		}catch(SQLException e){ 
-			System.out.println(e);
 		} finally {
 			try {
 				if (preparedStatement != null)
