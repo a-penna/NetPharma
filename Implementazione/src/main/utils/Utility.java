@@ -85,7 +85,7 @@ public class Utility {
 	
 	
 	public static boolean checkNomeCognome(String s) {
-		if(s.length() == 0 || s.length() > 20)
+		if(s.length() == 0)
 			return false;
 		
 		int i = 0;
@@ -109,7 +109,7 @@ public class Utility {
 	}
 	
 	public static boolean checkCAP(String s) {
-		if(s.length() == 0 || s.length() > 5)
+		if(s.length() == 0)
 			return false;
 		
 		int i = 0;
@@ -121,7 +121,7 @@ public class Utility {
 	}
 	
 	public static boolean checkCellulare(String s) {
-		if(s.length() == 0 || s.length() > 15)
+		if(s.length() == 0)
 			return false;
 		
 		int i = 0;
