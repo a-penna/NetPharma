@@ -3,13 +3,16 @@ package test.control.prodotto;
 import org.junit.jupiter.api.AfterEach; 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
+
 
 import main.bean.Prodotto;
 
 import main.control.prodotto.AggiungiProdottoControl;
 
 import main.model.ProdottoDAO;
+
 
 import static org.mockito.Mockito.mock;
 
@@ -318,5 +321,379 @@ public class AggiungiProdottoControlTest {
 		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
 		
     }
+    
+    
+    @Test
+    public void testPriceValueError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema aloe vera";
+		String marchio = "Erba Vita";
+		String produttore = "Erba Vita SPA";
+		String formato = "tubo";
+		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "-4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(64);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		
+		Mockito.verify(request).setAttribute("errorePrezzo", "true");
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("prezzo", prezzoStr);
+		Mockito.verify(request).setAttribute("marchio", marchio);
+		Mockito.verify(request).setAttribute("descrizione", descrizione);
+		Mockito.verify(request).setAttribute("produttore", produttore);
+		Mockito.verify(request).setAttribute("formato", formato);
+		Mockito.verify(request).setAttribute("codice", idStr);
+		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
+		
+    }
+    
+    
+    
+    
+    @Test
+    public void testNameValueError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "";
+		String marchio = "Erba Vita";
+		String produttore = "Erba Vita SPA";
+		String formato = "tubo";
+		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "-4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(64);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		
+		Mockito.verify(request).setAttribute("erroreNome", "true");
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("prezzo", prezzoStr);
+		Mockito.verify(request).setAttribute("marchio", marchio);
+		Mockito.verify(request).setAttribute("descrizione", descrizione);
+		Mockito.verify(request).setAttribute("produttore", produttore);
+		Mockito.verify(request).setAttribute("formato", formato);
+		Mockito.verify(request).setAttribute("codice", idStr);
+		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
+		
+    }
+    
+    
+    @Test
+    public void testMarchioValueError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema";
+		String marchio = "";
+		String produttore = "Erba Vita SPA";
+		String formato = "tubo";
+		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "-4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(64);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		
+		Mockito.verify(request).setAttribute("erroreMarchio", "true");
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("prezzo", prezzoStr);
+		Mockito.verify(request).setAttribute("marchio", marchio);
+		Mockito.verify(request).setAttribute("descrizione", descrizione);
+		Mockito.verify(request).setAttribute("produttore", produttore);
+		Mockito.verify(request).setAttribute("formato", formato);
+		Mockito.verify(request).setAttribute("codice", idStr);
+		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
+		
+    }
+    
+    @Test
+    public void testDescrizioneValueError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema";
+		String marchio = "Erba vita";
+		String produttore = "Erba Vita SPA";
+		String formato = "tubo";
+		String descrizione = "";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "-4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione(descrizione);
+		prodotto.setDisponibilita(64);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		
+		Mockito.verify(request).setAttribute("erroreDescrizione", "true");
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("prezzo", prezzoStr);
+		Mockito.verify(request).setAttribute("marchio", marchio);
+		Mockito.verify(request).setAttribute("descrizione", descrizione);
+		Mockito.verify(request).setAttribute("produttore", produttore);
+		Mockito.verify(request).setAttribute("formato", formato);
+		Mockito.verify(request).setAttribute("codice", idStr);
+		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
+		
+    }
+    
+    
+    @Test
+    public void testDisponibilitaValueError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema";
+		String marchio = "Erba vita";
+		String produttore = "Erba Vita SPA";
+		String formato = "tubo";
+		String descrizione = "";
+		String disponibilitaStr = "-64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "-4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(disponibilita);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		
+		Mockito.when(model.checkProdotto(id)).thenReturn(false);
+		Mockito.doNothing().when(model).doSave(prodotto);
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		
+		Mockito.verify(request).setAttribute("erroreDisponibilita", "true");
+		Mockito.verify(request).setAttribute("nome", nome);
+		Mockito.verify(request).setAttribute("prezzo", prezzoStr);
+		Mockito.verify(request).setAttribute("marchio", marchio);
+		Mockito.verify(request).setAttribute("descrizione", descrizione);
+		Mockito.verify(request).setAttribute("produttore", produttore);
+		Mockito.verify(request).setAttribute("formato", formato);
+		Mockito.verify(request).setAttribute("codice", idStr);
+		Mockito.verify(request).setAttribute("disponibilita", disponibilitaStr);
+		
+    }
+    
+    
+    
 	
 }
