@@ -82,12 +82,12 @@
 						      <form class="form-inline" method="get" action="<%=response.encodeURL("/NetPharma/GestisciOrdini")%>">
 						      	<input type="number" placeholder="0" min="2" max="10" class="form-control" name="giorni"> 
 						      	<input type="hidden" id="scelta" name="scelta" value=<%=ordine.getId()%>>
-						    </form>
+						    
 						  </td>
 						  <td>
 					     		<button type="submit" class="btn btn-dark btn-sm">Invia Conferma Spedizione</button>
+					      	</form>
 					      </td>
-
 					    </tr>
 				<%
 				}

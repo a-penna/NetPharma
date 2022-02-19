@@ -264,5 +264,7 @@ if(request.getSession(false) != null && request.getSession(false).getAttribute("
 		    </form> 
 	</div>
 </div>
+
+<%@ include file="footer.jsp"%>
 </body>
 </html>
