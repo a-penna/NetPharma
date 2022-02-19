@@ -60,6 +60,16 @@
     <url-pattern>/gestoreCatalogo/*</url-pattern>
  </filter-mapping> 
   
+  <error-page>
+	<error-code>404</error-code>
+	<location>/error/404.jsp</location>
+  </error-page>
+	
+  <error-page>
+  	<error-code>403</error-code>
+	<location>/error/unauthorized.jsp</location>
+  </error-page>
+  
    <error-page>
 	<location>/error/genericError.jsp</location>
   </error-page>

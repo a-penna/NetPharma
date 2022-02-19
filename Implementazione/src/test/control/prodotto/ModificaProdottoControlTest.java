@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 import main.bean.Prodotto;
 import main.control.prodotto.ModificaProdottoControl;
 import main.model.ProdottoDAO;
@@ -194,11 +196,11 @@ public class ModificaProdottoControlTest {
 		prodotto.setPrezzo(new BigDecimal(prezzo));
     	
 		Mockito.when(prodottoModel.checkProdotto(Integer.parseInt(codice))).thenReturn(true);
-    	Mockito.doThrow(new SQLException()).when(prodottoModel).doUpdate(prodotto);
+    	Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(prodottoModel).doUpdate(prodotto);
     	
     	spy.doPost(request,response);
    		
-		Mockito.verify(response).sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
+    	Mockito.verify(response).encodeURL("/error/genericError.jsp");
     }
     
     @Test
@@ -225,11 +227,11 @@ public class ModificaProdottoControlTest {
 		prodotto.setPrezzo(new BigDecimal(prezzo));
     	
 		Mockito.when(prodottoModel.checkProdotto(Integer.parseInt(codice))).thenReturn(true);
-    	Mockito.doThrow(new SQLException()).when(prodottoModel).doUpdate(prodotto);
+    	Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(prodottoModel).doUpdate(prodotto);
     	
     	spy.doPost(request,response);
    		
-		Mockito.verify(response).sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
+    	Mockito.verify(response).encodeURL("/error/genericError.jsp");
     }
     
     @Test

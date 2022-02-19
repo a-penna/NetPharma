@@ -176,7 +176,13 @@ public class ModificaProdottoControl extends HttpServlet {
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
 
-		} catch(SQLException e) {
+		} catch(com.mysql.cj.jdbc.exceptions.MysqlDataTruncation e) {
+			Utility.printSQLException(e);
+			request.setAttribute("message", "Probabilmente alcuni dati sono troppo lunghi per essere inseriti");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/error/genericError.jsp"));
+			dispatcher.forward(request, response);
+			return;
+		}catch(SQLException e) {
 			Utility.printSQLException(e);
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 			return;

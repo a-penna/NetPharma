@@ -80,7 +80,7 @@ public class AggiungiProdottoControl extends HttpServlet {
 			error = true;
 		} catch (SQLException e) {
 			Utility.printSQLException(e);
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 			return;
 		}
 		
@@ -169,9 +169,15 @@ public class AggiungiProdottoControl extends HttpServlet {
 		    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/successo.jsp"));
 		    return;
 
+		} catch(com.mysql.cj.jdbc.exceptions.MysqlDataTruncation e) {
+			Utility.printSQLException(e);
+			request.setAttribute("message", "Probabilmente alcuni dati sono troppo lunghi per essere inseriti");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/error/genericError.jsp"));
+			dispatcher.forward(request, response);
+			return;
 		} catch(SQLException e) {
 			Utility.printSQLException(e);
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 			return;
 		}
 	}

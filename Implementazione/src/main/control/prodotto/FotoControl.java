@@ -45,7 +45,7 @@ public class FotoControl extends HttpServlet {
 				
 			} catch (SQLException e) {
 				Utility.printSQLException(e);
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/insertError.jsp"));
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 				return;
 		}
 		

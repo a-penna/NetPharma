@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="author" content="Bene Sabato, Cozzolino Lidia, Napoli Riccardo, Penna Alessandro">
-	<title>NetPharma &dash; Unauthorized</title>
+	<title>NetPharma &dash; 404</title>
 	<%@ include file="/commonSources.jsp"%>
 	<script src="<%=request.getContextPath()%>/scripts/categoria-navbar.js"></script> 
 </head>
@@ -16,13 +16,14 @@
 	<%} else {%>
 		<%@ include file="/header.jsp"%>
 	<%} %>
-<body class="bg-warning">
+<body>
 	<div class="container py-5">
 		<div class="alert alert-warning" role="alert">
-			<h4 class="alert-heading">ERRORE&colon;</h4>
-			<p>Non sei autorizzato ad accedere a questa risorsa&excl;</p>
+			<h4 class="alert-heading">ERRORE 404&excl;</h4>
+			<p>Risorsa non trovata&excl;</p>
 			<hr>
 		</div>
 	</div>
+	<br>
 </body>
 </html>
