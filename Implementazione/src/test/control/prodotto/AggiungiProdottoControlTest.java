@@ -122,7 +122,7 @@ public class AggiungiProdottoControlTest {
     	 
     	
     	String idStr = "927116438";
-		String nome = null;
+		String nome = "";
 		String marchio = "Erba Vita";
 		String produttore = "Erba Vita SPA";
 		String formato = "tubo";
@@ -205,7 +205,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -254,7 +254,7 @@ public class AggiungiProdottoControlTest {
     	
     	 
     	
-    	String idStr = "100";
+    	String idStr = "AAA";
 		String nome = "Erba vita crema aloe vera";
 		String marchio = "Erba Vita";
 		String produttore = "Erba Vita SPA";
@@ -277,7 +277,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -351,7 +351,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -412,7 +412,7 @@ public class AggiungiProdottoControlTest {
 		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
 		String disponibilitaStr = "64";
 		String categoria = "Viso & corpo";
-		String prezzoStr = "-4.49";
+		String prezzoStr = "4.49";
 		int id = 0, disponibilita = 0;
 		id = Integer.parseInt(idStr);
 		disponibilita = Integer.parseInt(disponibilitaStr);
@@ -427,7 +427,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -486,7 +486,7 @@ public class AggiungiProdottoControlTest {
 		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
 		String disponibilitaStr = "64";
 		String categoria = "Viso & corpo";
-		String prezzoStr = "-4.49";
+		String prezzoStr = "4.49";
 		int id = 0, disponibilita = 0;
 		id = Integer.parseInt(idStr);
 		disponibilita = Integer.parseInt(disponibilitaStr);
@@ -501,7 +501,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -559,7 +559,7 @@ public class AggiungiProdottoControlTest {
 		String descrizione = "";
 		String disponibilitaStr = "64";
 		String categoria = "Viso & corpo";
-		String prezzoStr = "-4.49";
+		String prezzoStr = "4.49";
 		int id = 0, disponibilita = 0;
 		id = Integer.parseInt(idStr);
 		disponibilita = Integer.parseInt(disponibilitaStr);
@@ -574,7 +574,7 @@ public class AggiungiProdottoControlTest {
 		prodotto.setProduttore("Erba Vita SPA");
 		prodotto.setFormato("tubo");
 		prodotto.setDescrizione(descrizione);
-		prodotto.setDisponibilita(64);
+		prodotto.setDisponibilita(disponibilita);
 		prodotto.setCategoria("Viso & corpo");
 		prodotto.setPrezzo(new BigDecimal(prezzoStr));
 		
@@ -633,7 +633,7 @@ public class AggiungiProdottoControlTest {
 		String descrizione = "";
 		String disponibilitaStr = "-64";
 		String categoria = "Viso & corpo";
-		String prezzoStr = "-4.49";
+		String prezzoStr = "";
 		int id = 0, disponibilita = 0;
 		id = Integer.parseInt(idStr);
 		disponibilita = Integer.parseInt(disponibilitaStr);
