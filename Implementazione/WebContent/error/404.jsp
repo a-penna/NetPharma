@@ -25,5 +25,6 @@
 		</div>
 	</div>
 	<br>
+<%@ include file="footer.jsp"%> 
 </body>
 </html>
