@@ -214,7 +214,105 @@ public class RegistrazioneControlTest {
 		Mockito.verify(response).encodeURL("/error/genericError.jsp");
 	}
 
-
+    @Test
+	public void testNomeTooLong() throws ServletException, IOException, SQLException {
+		String sesso = "M";
+		String nome = "GianniAntonioMariaFilippo";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
+		
+		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("cognome")).thenReturn(cognome);
+		Mockito.when(request.getParameter("username")).thenReturn(username);
+		Mockito.when(request.getParameter("email")).thenReturn(email);
+		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
+		Mockito.when(request.getParameter("password")).thenReturn(password);
+		
+		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
+		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		Account acc = new Account(0, username, password, 0);
+		UtenteRegistrato utente = new UtenteRegistrato(sesso, nome, cognome, email, Utility.toSqlDate(Utility.formatStringToDate(nascita)), 0);
+		Ruoli r = new Ruoli();
+		r.addRuolo(Ruoli.Ruolo.CL);
+		Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(accountModel).register(acc, utente, r);
+		
+		spy.doPost(request,response);
+		
+		Mockito.verify(response).encodeURL("/error/genericError.jsp");
+	}
+    
+    @Test
+	public void testCognomeTooLong() throws ServletException, IOException, SQLException {
+		String sesso = "M";
+		String nome = "Gianni";
+		String cognome = "Quondammagentamarianico";
+		String username = "gmagenta";
+		String email = "gmagenta@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
+		
+		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("cognome")).thenReturn(cognome);
+		Mockito.when(request.getParameter("username")).thenReturn(username);
+		Mockito.when(request.getParameter("email")).thenReturn(email);
+		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
+		Mockito.when(request.getParameter("password")).thenReturn(password);
+		
+		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
+		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		Account acc = new Account(0, username, password, 0);
+		UtenteRegistrato utente = new UtenteRegistrato(sesso, nome, cognome, email, Utility.toSqlDate(Utility.formatStringToDate(nascita)), 0);
+		Ruoli r = new Ruoli();
+		r.addRuolo(Ruoli.Ruolo.CL);
+		Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(accountModel).register(acc, utente, r);
+		
+		spy.doPost(request,response);
+		
+		Mockito.verify(response).encodeURL("/error/genericError.jsp");
+	}
+    
+    @Test
+	public void testEmailTooLong() throws ServletException, IOException, SQLException {
+		String sesso = "M";
+		String nome = "Gianni";
+		String cognome = "Magenta";
+		String username = "gmagenta";
+		String email = "giannimagentacommercialistadiudinevianapoli27@gmail.com";
+		String nascita = "1980-12-12";
+		String password = "P4ssw0rd!";
+		
+		Mockito.when(request.getParameter("sesso")).thenReturn(sesso);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("cognome")).thenReturn(cognome);
+		Mockito.when(request.getParameter("username")).thenReturn(username);
+		Mockito.when(request.getParameter("email")).thenReturn(email);
+		Mockito.when(request.getParameter("nascita")).thenReturn(nascita);
+		Mockito.when(request.getParameter("password")).thenReturn(password);
+		
+		AccountDAO accountModel = Mockito.mock(AccountDAO.class);
+		UtenteRegistratoDAO utenteModel = Mockito.mock(UtenteRegistratoDAO.class);
+		spy.setAccountDAO(accountModel);
+		spy.setUtenteRegistratoDAO(utenteModel);
+		Account acc = new Account(0, username, password, 0);
+		UtenteRegistrato utente = new UtenteRegistrato(sesso, nome, cognome, email, Utility.toSqlDate(Utility.formatStringToDate(nascita)), 0);
+		Ruoli r = new Ruoli();
+		r.addRuolo(Ruoli.Ruolo.CL);
+		Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(accountModel).register(acc, utente, r);
+		
+		spy.doPost(request,response);
+		
+		Mockito.verify(response).encodeURL("/error/genericError.jsp");
+	}
+    
     @Test
 	public void testEmailInvalid() throws ServletException, IOException, SQLException {
 		String sesso = "M";
