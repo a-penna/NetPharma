@@ -254,7 +254,7 @@ public class AggiungiProdottoControlTest {
     	
     	 
     	
-    	String idStr = "AAA";
+    	String idStr = "100";
 		String nome = "Erba vita crema aloe vera";
 		String marchio = "Erba Vita";
 		String produttore = "Erba Vita SPA";
@@ -630,7 +630,7 @@ public class AggiungiProdottoControlTest {
 		String marchio = "Erba vita";
 		String produttore = "Erba Vita SPA";
 		String formato = "tubo";
-		String descrizione = "";
+		String descrizione = "Descrizione";
 		String disponibilitaStr = "-64";
 		String categoria = "Viso & corpo";
 		String prezzoStr = "";
@@ -694,6 +694,137 @@ public class AggiungiProdottoControlTest {
     }
     
     
+    @Test
+    public void testProductLenghtError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema aloe vera";
+		String marchio = "Erba Vita";
+		String produttore = "Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBAErba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA Erba Vita SPA ERBA ";
+		String formato = "tubo";
+		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(disponibilita);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		com.mysql.cj.jdbc.exceptions.MysqlDataTruncation exception = new com.mysql.cj.jdbc.exceptions.MysqlDataTruncation("", 0, false, false, 0, 0, 0);
+		Mockito.when(model.checkProdotto(id)).thenThrow(NumberFormatException.class);
+		Mockito.doThrow(exception).when(model).doSave(prodotto);
+		
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		Mockito.verify(request).setAttribute("message", "Probabilmente alcuni dati sono troppo lunghi per essere inseriti");
+		
+		
+    }
+    
+    @Test
+    public void testFormatoLenghtError() throws IOException , ServletException , SQLException {
+    	
+    	 
+    	
+    	String idStr = "100";
+		String nome = "Erba vita crema aloe vera";
+		String marchio = "Erba Vita";
+		String produttore = "ERBA Erba Vita SPA ERBA ";
+		String formato = "BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA BUSTINE PAPAYA FERMENTATA";
+		String descrizione = "Crema protettiva per viso e corpo a base di aloe vera";
+		String disponibilitaStr = "64";
+		String categoria = "Viso & corpo";
+		String prezzoStr = "4.49";
+		int id = 0, disponibilita = 0;
+		id = Integer.parseInt(idStr);
+		disponibilita = Integer.parseInt(disponibilitaStr);
+		
+		Prodotto prodotto = new Prodotto();
+		
+		
+		
+		prodotto.setId(id);
+		prodotto.setNome(nome);
+		prodotto.setMarchio("Erba Vita");
+		prodotto.setProduttore("Erba Vita SPA");
+		prodotto.setFormato("tubo");
+		prodotto.setDescrizione("Crema protettiva per viso e corpo a base di aloe vera");
+		prodotto.setDisponibilita(disponibilita);
+		prodotto.setCategoria("Viso & corpo");
+		prodotto.setPrezzo(new BigDecimal(prezzoStr));
+		
+		
+		HttpSession session = mock(HttpSession.class);
+		ProdottoDAO model = Mockito.mock(ProdottoDAO.class);
+		
+		Mockito.when(request.getSession(false)).thenReturn(session);
+		Mockito.when(session.getAttribute("gestoreCatalogoRoles")).thenReturn("true");
+		
+		Mockito.when(request.getParameter("id")).thenReturn(idStr);
+		Mockito.when(request.getParameter("nome")).thenReturn(nome);
+		Mockito.when(request.getParameter("marchio")).thenReturn(marchio);
+		Mockito.when(request.getParameter("produttore")).thenReturn(produttore);
+		Mockito.when(request.getParameter("formato")).thenReturn(formato);
+		Mockito.when(request.getParameter("descrizione")).thenReturn(descrizione);
+		Mockito.when(request.getParameter("disponibilita")).thenReturn(disponibilitaStr);
+		Mockito.when(request.getParameter("categoria")).thenReturn(categoria);
+		Mockito.when(request.getParameter("prezzo")).thenReturn(prezzoStr);
+		Mockito.when(request.getPart("foto")).thenReturn(null);
+		
+		
+		
+		
+		com.mysql.cj.jdbc.exceptions.MysqlDataTruncation exception = new com.mysql.cj.jdbc.exceptions.MysqlDataTruncation("", 0, false, false, 0, 0, 0);
+		Mockito.when(model.checkProdotto(id)).thenThrow(NumberFormatException.class);
+		Mockito.doThrow(exception).when(model).doSave(prodotto);
+		
+		
+		spy.setProdottoDAO(model);
+		spy.doPost(request,response);
+		
+		Mockito.verify(request).setAttribute("message", "Probabilmente alcuni dati sono troppo lunghi per essere inseriti");
+		
+		
+    }
     
 	
 }
