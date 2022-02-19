@@ -57,18 +57,15 @@ public class AggiungiProdottoControl extends HttpServlet {
 		
 		boolean error = false;
 		
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		ProdottoDAO model = new ProdottoDAO(ds);
-		
-		
-		if(modelTest != null) {
-			model = modelTest;
-		}else {
+		DataSource ds = null;
+		ProdottoDAO model = null;
+		if (modelTest == null) {
 			ds = (DataSource) getServletContext().getAttribute("DataSource");
 			model = new ProdottoDAO(ds);
+		} else {
+			model = modelTest;
 		}
 		
-
 		try {
 			id = Integer.parseInt(idStr);
 			if (model.checkProdotto(id)) {
@@ -188,7 +185,6 @@ public class AggiungiProdottoControl extends HttpServlet {
 	}
 	
 	private ProdottoDAO modelTest;
-	
 }
 
 

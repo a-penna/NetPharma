@@ -37,7 +37,6 @@ public class ModificaProdottoControl extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		boolean loggedIn = request.getSession(false) != null && request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null;
 		if(!loggedIn) {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/login.jsp"));
