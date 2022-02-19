@@ -48,7 +48,7 @@ public class Ruoli {
 
 	@Override
 	public String toString() {
-		return "Ruoli [Account=" + account + ", ruoli=" + ruoli + "]";
+		return  getClass().getName() +" [Account=" + account + ", ruoli=" + ruoli + "]";
 	}
 	
 	public static Ruoli.Ruolo stringToRole(String role) {

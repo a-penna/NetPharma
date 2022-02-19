@@ -53,7 +53,17 @@ public class RigaOrdine {
 
 	@Override
 	public String toString() {
-		return "RigaOrdine [prodotto=" + prodotto + ", ordine=" + ordine + ", quantity=" + quantity + ", prezzoAlPezzo="
+		return  getClass().getName() +" [prodotto=" + prodotto + ", ordine=" + ordine + ", quantity=" + quantity + ", prezzoAlPezzo="
 				+ prezzoAlPezzo + "]";
+	}
+	
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		RigaOrdine other = (RigaOrdine)otherObject; 
+		return prodotto == (other.prodotto)
+				&& ordine.equals(other.ordine)
+				&& (prezzoAlPezzo.compareTo(other.prezzoAlPezzo) == 0)
+				&& quantity == other.quantity; 
 	}
 }

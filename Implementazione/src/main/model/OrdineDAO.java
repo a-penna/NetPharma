@@ -14,7 +14,7 @@ import main.bean.Ordine;
 import main.utils.Utility;
 
 
-public class OrdineDAO implements Model<Ordine>{
+public class OrdineDAO {
 
 	private DataSource ds = null;
 	
@@ -70,7 +70,6 @@ public class OrdineDAO implements Model<Ordine>{
 		return null;
 	}
 
-	@Override
 	public Collection<Ordine> doRetrieveAll(String order) throws SQLException {
 		Collection<Ordine> lista = new LinkedList<Ordine>();
 		Connection connection = null;
@@ -118,26 +117,6 @@ public class OrdineDAO implements Model<Ordine>{
 		return lista;
 	}
 
-	@Override
-	public void doSave(Ordine bean) throws SQLException {
-		
-	}
-
-	
-	
-
-	@Override
-	public void doUpdate(Ordine bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void doDelete(Ordine bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public Boolean doSaveCheck(Ordine bean) {
 
 		Connection connection = null;

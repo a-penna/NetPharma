@@ -49,7 +49,7 @@ public class Account {
 	
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", orderCount=" + orderCount + "]";
+		return  getClass().getName() +" [id=" + id + ", username=" + username + ", password=" + password + ", orderCount=" + orderCount + "]";
 	}
 
 	public boolean equals(Object otherObject){

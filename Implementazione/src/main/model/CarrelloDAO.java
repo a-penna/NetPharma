@@ -40,7 +40,7 @@ public class CarrelloDAO {
 				bean.setId(rs.getInt("id"));
 				bean.setNome(rs.getString("nome"));
 				bean.setMarchio(rs.getString("marchio"));
-				bean.setProduttore(rs.getString("marchio"));
+				bean.setProduttore(rs.getString("produttore"));
 				bean.setFormato(rs.getString("formato"));
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setDisponibilita(rs.getInt("disponibilita"));

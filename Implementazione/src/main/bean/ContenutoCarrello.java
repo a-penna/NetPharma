@@ -29,7 +29,15 @@ public class ContenutoCarrello {
 
 	@Override
 	public String toString() {
-		return "ContenutoCarrello [prodotto=" + prodotto + ", quantity=" + quantity + "]";
+		return  getClass().getName() +" [prodotto=" + prodotto + ", quantity=" + quantity + "]";
 	}
 	
+	@Override
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		ContenutoCarrello other = (ContenutoCarrello)otherObject; 
+		return this.prodotto.equals(other.prodotto)
+				&& (this.quantity == other.quantity);
+	}
 }

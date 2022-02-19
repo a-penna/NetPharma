@@ -105,10 +105,6 @@ public class CategoriaDAOTest {
 
     @Test
     public void doSaveTrue()  throws Exception {
-    	 refreshDataSet("test/resources/doSaveInit.xml");
-    	 DataSource ds = Mockito.mock(DataSource.class);
-         Mockito.when(ds.getConnection()).thenReturn(tester.getConnection().getConnection());
-         CategoriaDAO categoriaDAO = new CategoriaDAO(ds);
     	 // Prepara stato atteso sottoforma di ITable
     	 ITable expected = new FlatXmlDataSetBuilder()
     	 .build(CategoriaDAOTest.class.getClassLoader()
@@ -120,13 +116,12 @@ public class CategoriaDAOTest {
     	 categoria.setNome("raffreddore");
     	 categoriaDAO.doSave(categoria); 
     	 
-     	String[] ignoreCol = new String[1];
-     	ignoreCol[0] = "id";
+     	 String[] ignoreCol = new String[1];
+     	 ignoreCol[0] = "id";
      	
     	 // Ottieni lo stato post-inserimento
     	 ITable actual = tester.getConnection()
     	 .createDataSet().getTable("CATEGORIA");
-    	 System.out.println("TEST" + actual.getValue(0, "nome"));
     	 // Assert di DBUnit (debole all'ordinamento)
     	 Assertion.assertEqualsIgnoreCols(
     	 new SortedTable(expected),
@@ -135,6 +130,7 @@ public class CategoriaDAOTest {
     	 );
     	 
     }
+    
     @Test
     public void doDeleteExisting()  throws Exception {
     	 // Prepara stato atteso sottoforma di ITable

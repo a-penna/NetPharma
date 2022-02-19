@@ -167,7 +167,7 @@ public class Ordine {
 
 	@Override
 	public String toString() {
-		return "Ordine [nomeRicevente=" + nomeRicevente + ", cognomeRicevente=" + cognomeRicevente + ", email=" + email
+		return  getClass().getName() +" [nomeRicevente=" + nomeRicevente + ", cognomeRicevente=" + cognomeRicevente + ", email=" + email
 				+ ", cellulare=" + cellulare + ", ncivico=" + ncivico + ", citta=" + citta + ", via=" + via + ", paese="
 				+ paese + ", provincia=" + provincia + ", CAP=" + CAP + ", data_ordine=" + data_ordine
 				+ ", data_arrivo=" + data_arrivo + ", id=" + id + ", prezzo=" + prezzo + ", stato=" + stato

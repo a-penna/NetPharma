@@ -113,7 +113,7 @@ public class Prodotto {
 
 	@Override
 	public String toString() {
-		return "Prodotto [id=" + id + ", nome=" + nome + ", marchio=" + marchio + ", produttore=" + produttore
+		return  getClass().getName() +" [id=" + id + ", nome=" + nome + ", marchio=" + marchio + ", produttore=" + produttore
 				+ ", formato=" + formato + ", descrizione=" + descrizione + ", disponibilita=" + disponibilita
 				+ ", prezzo=" + prezzo + ", categoria=" + categoria + ", foto=" + Arrays.toString(foto) + "]";
 	}

@@ -147,6 +147,6 @@ pageEncoding="UTF-8" import="java.util.*, main.model.*"%>
 		</div>
 	</div>
 	</div> 
-<%@ include file="footer.jsp"%> 
+<%@ include file="/footer.jsp"%> 
 </body>
 </html> 

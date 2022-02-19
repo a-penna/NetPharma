@@ -6,12 +6,12 @@
     <ACCOUNT id='1' username='us2' password='pw' order_count='2'/>
     <RUOLI account='1' ruolo='CL'/>
     <UTENTE_REGISTRATO genere='F' nome='Gaia' cognome='Nappi' email='g@nappi.com' nascita='2001-03-11' account='1'/>
+	<CATEGORIA id='0' nome='mammaebambino'/>
+	<CATEGORIA id='1' nome='protezione antivirale'/>
+	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35' categoria='0'/>
+	<PRODOTTO id='884' nome='prodotto2' marchio='marchio2' produttore='produttore2' formato='formato2' descrizione='descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2' disponibilita='50' prezzo='4' categoria='1'/>
+	<PRODOTTO id='891' nome='prodotto10' marchio='marchio10' produttore='produttore10' formato='formato10' descrizione='descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10' disponibilita='40' prezzo='7' />
 	<ORDINE data_ordine='2022-02-10' data_arrivo='2022-02-13' id='5' prezzo='50' stato='Si' cliente='g@nappi.com' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' /> 
   	<ORDINE data_ordine='2022-02-10' id='3' prezzo='50' stato='No' cliente='g@nappi.com' nome_ricevente='Gaia' cognome_ricevente='Nappi' email='g@nappi.com' cellulare='33353' ncivico='31' via='vvv' city='a' paese='a' provincia='b' cap='80000' />
-	<CATEGORIA id='0' nome='mammaebambino'/>
-	<PRODOTTO id='883' nome='prodotto1' marchio='marchio1' produttore='produttore1' formato='formato1' descrizione='descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1 descrizione1' disponibilita='100' prezzo='4.35' categoria='0'/>
-	<CATEGORIA id='1' nome='protezione antivirale'/>
-	<PRODOTTO id='884' nome='prodotto2' marchio='marchio2' produttore='produttore2' formato='formato2' descrizione='descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2 descrizione2' disponibilita='50' prezzo='4' categoria='1'/>
-	<PRODOTTO id='891' nome='prodotto10' marchio='marchio10' produttore='produttore10' formato='formato10' descrizione='descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10 descrizione10' disponibilita='40' prezzo='7'/>
 </dataset>
 

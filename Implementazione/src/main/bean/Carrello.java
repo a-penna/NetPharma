@@ -64,4 +64,17 @@ public class Carrello {
 	public void clearCart() {
 		prodotti.clear();
 	}
+
+	@Override
+	public boolean equals(Object otherObject){
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		Carrello other = (Carrello)otherObject; 
+		return this.prodotti.equals(other.prodotti);
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + " [prodotti=" + prodotti + "]";
+	}
 }

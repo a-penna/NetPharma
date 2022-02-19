@@ -72,7 +72,7 @@ public class UtenteRegistrato {
 
 	@Override
 	public String toString() {
-		return "UtenteRegistrato [genere=" + genere + ", nome=" + nome + ", cognome=" + cognome + 
+		return  getClass().getName() +" [genere=" + genere + ", nome=" + nome + ", cognome=" + cognome + 
 				", email=" + email + ", nascita=" + nascita + ", account=" + account
 				+ "]";
 	} 

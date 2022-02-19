@@ -27,14 +27,17 @@
 	<div class="row">
 	<div class="col-md-8 my-4 mx-4">
   			<div class="container-product my-4">  
-					<img src="FotoControl?id=<%=prodotto.getId()%>" class ="rounded float-left" height="225" width="225" onerror="this.src='./imgs/noPhoto.png'" onerror="this.src='./imgs/noPhoto.png' alt="foto">
-				   	<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getNome()%></p>
-					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getMarchio()%></p>
+					<img src="FotoControl?id=<%=prodotto.getId()%>" class ="rounded float-left pr-4 pb-4" height="225" width="225" onerror="this.src='./imgs/noPhoto.png'" onerror="this.src='./imgs/noPhoto.png' alt="foto">
+				   	<p class="h3 text-justify font-weight-normal py-4"><%=prodotto.getNome()%></p>
+				   	<%if (prodotto.getProduttore() != null) { %>
+						<p class="h5 text-justify font-weight-normal py-1"><b>Produttore&colon; </b><%=prodotto.getProduttore()%></p>
+					<%} %>
+					<p class="h5 text-justify font-weight-normal py-1"><b>Marchio&colon; </b><%=prodotto.getMarchio()%></p>
 					<%if (prodotto.getCategoria() != null) { %>
-						<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getCategoria()%></p>
+						<p class="h5 text-justify font-weight-normal py-1"><b>Categoria&colon; </b><%=prodotto.getCategoria()%></p>
 					<%} %>
 					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getDescrizione()%> prodotto</p>
-					<p class="h5 text-justify font-weight-normal py-4"><%=prodotto.getFormato()%></p>
+					<p class="h5 text-justify font-weight-normal py-4"><b>Formato&colon; </b><%=prodotto.getFormato()%></p>
 		    </div>
 	</div>
 					<div class="col-md-3 my-5 mx-4">
