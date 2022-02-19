@@ -20,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 import main.bean.Account;
 import main.bean.Ruoli;
 import main.bean.UtenteRegistrato;
@@ -205,10 +207,11 @@ public class RegistrazioneControlTest {
 		UtenteRegistrato utente = new UtenteRegistrato(sesso, nome, cognome, email, Utility.toSqlDate(Utility.formatStringToDate(nascita)), 0);
 		Ruoli r = new Ruoli();
 		r.addRuolo(Ruoli.Ruolo.CL);
-		Mockito.doThrow(new SQLException()).when(accountModel).register(acc, utente, r);
+		Mockito.doThrow(new MysqlDataTruncation("", 0, false, false, 0, 0, 0)).when(accountModel).register(acc, utente, r);
 		
 		spy.doPost(request,response);
-		Mockito.verify(response).sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
+		
+		Mockito.verify(response).encodeURL("/error/genericError.jsp");
 	}
 
 

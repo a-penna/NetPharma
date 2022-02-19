@@ -23,11 +23,6 @@ import main.utils.Utility;
 @WebServlet("/Login")
 public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AccountDAO modelTest;
-	
-	public void setAccountDAO(AccountDAO model) {
-		this.modelTest = model;
-	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,13 +48,8 @@ public class LoginControl extends HttpServlet {
 		
 			AccountDAO model; 
 			
-			if(modelTest != null) {
-		    	model = modelTest;
-		    } else {
-		    	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		    	model = new AccountDAO(ds);
-		    }
-		    
+			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+			model = new AccountDAO(ds);		    
 			
 			String username = request.getParameter("username");
 			String password = request.getParameter("password"); 
@@ -83,7 +73,6 @@ public class LoginControl extends HttpServlet {
 					dispatcher.forward(request, response);
 					return;
 				}  
-				DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		    	
 				Account bean = model.authenticate(username, password); 
 				

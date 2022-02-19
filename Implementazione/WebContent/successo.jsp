@@ -16,7 +16,12 @@
 </head>             
 
 <body>
-	<%@ include file="header.jsp"%>
+	<%if(request.getSession(false) != null && (request.getSession(false).getAttribute("gestoreOrdiniRoles")!= null 
+										|| request.getSession(false).getAttribute("gestoreCatalogoRoles")!= null)) { %>
+		<%@ include file="headerGestori.jsp"%>
+	<%} else {%>
+		<%@ include file="header.jsp"%>
+	<%} %>
 	<div class="container py-5">
 		<div class="alert alert-success" role="alert">
 		  <h4 class="alert-heading">SUCCESSO&excl;</h4>

@@ -103,7 +103,7 @@ public class RegistrazioneControl extends HttpServlet {
 				}
 			} catch(SQLException e) {
 				Utility.printSQLException(e);
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 				return;
 			}
 			
@@ -127,7 +127,7 @@ public class RegistrazioneControl extends HttpServlet {
 				}
 			} catch(SQLException e) {
 				Utility.printSQLException(e);
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 				return;
 			}
 			
@@ -169,12 +169,17 @@ public class RegistrazioneControl extends HttpServlet {
 			try {
 				boolean saved = accountModel.register(acc, user, r);
 				if (!saved) {
-					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 					return;
 				}
-			} catch(SQLException e) {
+			} catch(com.mysql.cj.jdbc.exceptions.MysqlDataTruncation e) {
 				Utility.printSQLException(e);
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/generic.jsp"));
+				request.setAttribute("message", "Probabilmente alcuni dati sono troppo lunghi per essere inseriti");
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeURL("/error/genericError.jsp"));
+				dispatcher.forward(request, response);
+				return;
+			} catch(SQLException e) {
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/error/genericError.jsp"));
 				return;
 			}
 			
