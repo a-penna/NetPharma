@@ -22,5 +22,6 @@ if (!isAuthorized) {
 <body>
 <%@ include file="/headerGestori.jsp"%>
 
+<%@ include file="footer.jsp"%>
 </body>
 </html>
