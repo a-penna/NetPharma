@@ -38,14 +38,14 @@
 			<%@ include file="gestoreOrdiniMenu.jsp"%>
 			<div class="col-md-10">
 				<table class="table shadow-lg p-3 mb-5 bg-dark">
-				  <thead class="thead">
-				    <tr class="table-dark text-dark">
+				  <thead class="thead-dark">
+				    <tr class="table">
 				      <th scope="col">N&ordm; Ordine</th>
 				      <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
 				      <th scope="col">Dati Spedizione</th>
 				      <th scope="col">Data ordine</th>
 				      <th scope="col">Giorni previsti per l&apos;arrivo</th>
-				      <th scope="col"></th>
+				      <th scope="col">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
 				    </tr>
 				  </thead>
 				  <tbody class="table-light text-dark">
@@ -82,9 +82,12 @@
 						      <form class="form-inline" method="get" action="<%=response.encodeURL("/NetPharma/GestisciOrdini")%>">
 						      	<input type="number" placeholder="0" min="2" max="10" class="form-control" name="giorni"> 
 						      	<input type="hidden" id="scelta" name="scelta" value=<%=ordine.getId()%>>
-						      	<button type="submit" class="btn btn-outline-light">Invia Conferma Spedizione</button>
 						    </form>
-					     </td>
+						  </td>
+						  <td>
+					     		<button type="submit" class="btn btn-dark btn-sm">Invia Conferma Spedizione</button>
+					      </td>
+
 					    </tr>
 				<%
 				}

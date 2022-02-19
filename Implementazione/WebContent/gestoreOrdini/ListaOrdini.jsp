@@ -36,8 +36,8 @@
 			<%@ include file="gestoreOrdiniMenu.jsp"%>
 			<div class="col-md-10">
 				<table class="table shadow-lg p-3 mb-5 bg-dark">
-				  <thead class="thead">
-				    <tr class="table-dark text-dark">
+				  <thead class="thead-dark">
+				    <tr class="table">
 				      <th scope="col">N&ordm; Ordine</th>
 				      <th scope="col">Lista prodotti &amp; Quantit&agrave;</th>
 				      <th scope="col">Dati Spedizione</th>
