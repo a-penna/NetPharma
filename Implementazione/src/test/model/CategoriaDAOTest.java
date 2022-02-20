@@ -26,8 +26,9 @@ import org.mockito.Mockito;
 import main.bean.Categoria;
 import main.model.CategoriaDAO;
 
+
 public class CategoriaDAOTest {
-    private CategoriaDAO categoriaDAO;
+	private CategoriaDAO categoriaDAO;
     private static IDatabaseTester tester;
     
     @BeforeAll
@@ -103,34 +104,7 @@ public class CategoriaDAOTest {
     }
     
 
-    @Test
-    public void doSaveTrue()  throws Exception {
-    	 // Prepara stato atteso sottoforma di ITable
-    	 ITable expected = new FlatXmlDataSetBuilder()
-    	 .build(CategoriaDAOTest.class.getClassLoader()
-    	 .getResourceAsStream("test/resources/doSaveTestTrue.xml"))
-    	 .getTable("Categoria");
-
-    	 // (omesso) Prepara e lancia metodo sotto test
-    	 Categoria categoria = new Categoria();
-    	 categoria.setNome("raffreddore");
-    	 categoriaDAO.doSave(categoria); 
-    	 
-     	 String[] ignoreCol = new String[1];
-     	 ignoreCol[0] = "id";
-     	
-    	 // Ottieni lo stato post-inserimento
-    	 ITable actual = tester.getConnection()
-    	 .createDataSet().getTable("CATEGORIA");
-    	 // Assert di DBUnit (debole all'ordinamento)
-    	 Assertion.assertEqualsIgnoreCols(
-    	 new SortedTable(expected),
-    	 new SortedTable(actual),
-    	 ignoreCol
-    	 );
-    	 
-    }
-    
+   
     @Test
     public void doDeleteExisting()  throws Exception {
     	 // Prepara stato atteso sottoforma di ITable
@@ -139,7 +113,6 @@ public class CategoriaDAOTest {
     	 .getResourceAsStream("test/resources/doDeleteTestTrue.xml"))
     	 .getTable("Categoria");
 
-    	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria2 = new Categoria();
     	 categoria2.setId(1);
     	 categoriaDAO.doDelete(categoria2); 
@@ -163,7 +136,6 @@ public class CategoriaDAOTest {
     	 .getResourceAsStream("test/resources/doDeleteTestFalse.xml"))
     	 .getTable("Categoria");
 
-    	 // (omesso) Prepara e lancia metodo sotto test
     	 Categoria categoria2 = new Categoria();
     	 categoria2.setId(100);
     	 categoriaDAO.doDelete(categoria2); 
@@ -191,5 +163,5 @@ public class CategoriaDAOTest {
     	boolean actual = categoriaDAO.checkCategoria(nome);
     	assertEquals(false, actual);
     }
-    
+    	
 }
