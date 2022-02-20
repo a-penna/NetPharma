@@ -41,7 +41,17 @@
 					  %>		
 						  <tr>
 								<td><img src="FotoControl?id=<%=prodotto.getId()%>" class ="rounded float-left" height="50" width="50" onerror="this.src='./imgs/noPhoto.png'" onerror="this.src='./imgs/noPhoto.png' alt="foto"></td>
-								<td><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></td>
+									<td><div class="row"><a href="<%=response.encodeURL(request.getContextPath() + "/Prodotto?id=" + prodotto.getId())%>"><%=prodotto.getNome()%></a></div>
+									<%String des = prodotto.getDescrizione();
+									if (des.length() >= 80) {
+										char[] smallDes = new char[80];
+						         		des.getChars(0, 79, smallDes, 0);%>
+										<div class="row"><%=smallDes%>...</div>
+										<%
+									} else {%>
+										<div class="row"><%=des%></div>
+								<%}%>
+								</td>
 								<td><p class="h6 text-right font-weight-normal"><%=prodotto.getPrezzo()%> &euro;</p></td>
 								<td><a class="btn btn-dark"href="<%=response.encodeURL(request.getContextPath() + "/AggiungiProdottoCarrello?prodotto=" + prodotto.getId())%>&quantity=1">Aggiungi al carrello</a></td>
 							  
