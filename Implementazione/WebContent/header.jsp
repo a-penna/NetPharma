@@ -9,8 +9,9 @@ boolean isGestore = request.getSession(false) != null && (request.getSession(fal
 
 <div class="container-fluid pt-5">   
 <nav class="navbar navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"></a>
+  <a class="navbar-brand" href="<%=response.encodeURL(request.getContextPath() + "/homepage.jsp")%>">
   <img src="<%=request.getContextPath()%>/imgs/logo5.jpeg" alt="NetPharma" width="50" height="50" class="rounded-circle" alt="NetPharma">
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

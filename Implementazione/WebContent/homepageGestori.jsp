@@ -19,9 +19,9 @@ if (!isAuthorized) {
 	<title>HomePage</title>
 </head>
 
-<body>
+<body class="bg-home-gestori">
 <%@ include file="/headerGestori.jsp"%>
-
-<%@ include file="footer.jsp"%>
+<div class="fixed-bottom">
+</div>
 </body>
 </html>

@@ -14,6 +14,14 @@
 	 background-attachment: fixed;
 }
 
+.bg-home-gestori {
+	 background-image: url('../imgs/InterfacciaGestori.jpeg');
+	 background-position:bottom; 
+	 background-size: cover;
+	 background-repeat:no-repeat;
+	 background-attachment: fixed;
+}
+
 .mydark-dropdown-menu .mydark-dropdown-item {
 	color: #ffffff;
 	text-decoration: none;
