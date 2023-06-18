@@ -11,11 +11,6 @@ All the documents produced during the development can be found in the [Deliverab
 In the [Implementazione](./Implementazione) folder, you will find the code for some of the designed features. 
 In the [Database](./Database) folder, you can explore the structure of the database on which we have based our work.
 
-Il lavoro mira a progettare NetPharma, un e-commerce per la vendita di farmaci OTC, seguendo tutti i buoni principi dell'Ingegneria del software. 
-Tutti i documenti prodotti durante lo sviluppo sono consultabili nella cartella [Deliverables](./Deliverables). 
-Nella cartella [Implementazione](./Implementazione) si trova il codice di alcune funzionalità progettate. 
-Nella cartella [Database](./Database), invece, è possibile visionare la struttura del database sul quale ci siamo basati. 
-
 ## Authors
 
 * **Sabato Bene**       - [Harley-ux](https://github.com/Harley-ux)
