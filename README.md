@@ -6,7 +6,7 @@
 
 # Project Description 
 
-The work aims to design NetPharma, an e-commerce platform for the sale of over-the-counter (OTC) medications, following all the good principles of Software Engineering.
+The work aims to design **NetPharma**, an e-commerce platform for the sale of over-the-counter (OTC) medications, following all the good principles of Software Engineering.
 All the documents produced during the development can be found in the [Deliverables](./Deliverables) folder. 
 In the [Implementazione](./Implementazione) folder, you will find the code for some of the designed features. 
 In the [Database](./Database) folder, you can explore the structure of the database on which we have based our work.
